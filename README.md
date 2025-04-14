@@ -35,17 +35,17 @@ _To find the preferences of a user base and average ratios efficiently, providin
 _We cannot ensure Sulfur will run if it is not the correct version._
 
 -Python Libraries:
- _Although Sulfur attempts to install all libraries, this list is incase any fail:_
-  NLTK,
-  TensorFlow (Although not used.),
-  TQDM,
-  PyTorch (Although not used.),
-  Pygame,
-  Sklearn,
-  LanguageToolPython,
-  Langdetect,
-  Numpy,
-  Transformers.
+ _Although Sulfur attempts to install all libraries, the following list is incase any fail:_
+  ### Python NLTK
+  ### Python TensorFlow (Although not used.),
+  ### Python TQDM,
+  ### Python PyTorch (Although not used.)
+  ### Python Pygame
+  ### Python Sklearn
+  ### Python LanguageToolPython
+  ### Python Langdetect
+  ### Python Numpy
+  ### Python Transformers
 
 ## _CUDA_
 _While not necessary as of this version, Nvidia CUDA support will be needed for later releases._
