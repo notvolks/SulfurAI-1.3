@@ -1,5 +1,5 @@
-# SulfurAI-DRL-001-03-54c
-# Developer Release 1-03-54 ver-(C)
+# SulfurAI-DRL-001-03-55
+# Developer Release 1-03-55
  
 ## WARNING:
 ### _This model is WORK IN PROGRESS, please report any issues to the said issues tab._
