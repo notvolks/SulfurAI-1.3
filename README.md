@@ -1,5 +1,6 @@
 # SulfurAI-DRL-001-03-55
 # Developer Release 1-03-55
+## _Updates are in the SDK folder or UpdateLog_
  
 ## WARNING:
 ### _This model is WORK IN PROGRESS, please report any issues to the said issues tab._
