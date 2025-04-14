@@ -31,7 +31,7 @@ _To find the preferences of a user base and average ratios efficiently, providin
 
 
 ## Dependancies:
-## _Python with version 3.13_
+## _-Python with version 3.13_
 _We cannot ensure Sulfur will run if it is not the correct version._
 
 -Python Libraries:
@@ -47,7 +47,7 @@ _We cannot ensure Sulfur will run if it is not the correct version._
   ### Python Numpy
   ### Python Transformers
 
-## _CUDA_
+## _-CUDA_
 _While not necessary as of this version, Nvidia CUDA support will be needed for later releases._
 
 ## Thats all. Enjoy!
