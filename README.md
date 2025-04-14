@@ -2,7 +2,7 @@
 # Developer Release 1-03-54 ver-(C)
  
 ## WARNING
-### This project is a WORK IN PROGRESS, Please report any issues to the said issues tab.
+### This model is WORK IN PROGRESS, please report any issues to the said issues tab.
 
 ## What is SulfurAI?
 
@@ -14,8 +14,17 @@ First you add your input to data/input.txt
 Then you run 
 _Run SulfurAI.bat_
 
-_Note: there is a 50 character limit and special characters will be removed_
+_Note: there is a 50 character limit and special characters will be removed._
+
+## How is Sulfur trained?
+
+_The current model uses the sulfax architecture, splitting data across 2 sets and further dividing the data with an 80/20 ratio._
+
+_Data is labelled with 3 parameters:
+ <input,accuracy,predicted device>_
+
+ _This provides the model with a minimum 50% accuracy, which is planned to be scaled to 70% by 2026._
 
 ## SulfurAI's purpose.
 
-_To find the preferences of a user base and average ratios efficiently_
+_To find the preferences of a user base and average ratios efficiently, providing companies or regular users with insights on how to improve reach._
