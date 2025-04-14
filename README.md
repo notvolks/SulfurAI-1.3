@@ -11,7 +11,7 @@ _SulfurAI is a Local Analytical Model that anylyses text input to find user pref
 ## How do i use SulfurAI?
 
 First, add your input to data/input.txt
-Then you run 
+Then run 
 _Run SulfurAI.bat_
 
 _Note: there is a 50 character limit and special characters will be removed._
