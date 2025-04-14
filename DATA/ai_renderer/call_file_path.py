@@ -229,6 +229,15 @@ class Call():
                                                                  folder_path_text_data_verify)
         return file_path_text_data_verify
 
+    def input_limit(self):
+        global folder_path_training_data_sk, folder_path_training_data_name_sk, file_path_training_data_sk
+        current_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), ))
+        folder_path_input_limit = os.path.join(current_dir, "DATA", "input_limit")
+        folder_path_name_input_limit = ("limit.txt")
+        file_path_input_limit = os.path.join(folder_path_input_limit,
+                                                      folder_path_name_input_limit)
+        return file_path_input_limit
+
 call = Call()
 file_path_OutputData_name_Device  = call.device()
 folder_path_OuputData, folder_path_OuputData_name_Device_accuracy, file_path_OutputData_name_Device_accuracy = call.device_accuracy()
