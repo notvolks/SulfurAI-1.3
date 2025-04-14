@@ -28,3 +28,29 @@ _Data is labelled with 3 parameters:
 ## SulfurAI's purpose.
 
 _To find the preferences of a user base and average ratios efficiently, providing companies or regular users with insights on how to improve reach._
+
+
+## Dependancies:
+## _Python with version 3.13_
+_We cannot ensure Sulfur will run if it is not the correct version._
+
+-Python Libraries:
+ _Although Sulfur attempts to install all libraries, this list is incase any fail._
+  -NLTK
+  -TensorFlow (Although not used.)
+  -TQDM
+  -PyTorch (Although not used.)
+  -Pygame
+  -Sklearn
+  -LanguageToolPython
+  -Langdetect
+  -Numpy
+  -Transformers
+
+## _CUDA_
+_While not necessary as of this version, Nvidia CUDA support will be needed for later releases._
+
+## Thats all. Enjoy!
+  
+  
+
