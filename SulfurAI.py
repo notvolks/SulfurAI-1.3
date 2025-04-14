@@ -278,7 +278,7 @@ def rest_of_the_script():
         OutputDevice = instance.summarise_device()
         main_devices = Mean_device_s.get_main_device()
         average_accuracy = Mean_device_s.get_main_accuracy()
-        input_data, too_long = txt_data.verify_input("list")
+        input_data, too_long,re_was_subbed = txt_data.verify_input("list")
 
 
         with open(file_path_output, "w", encoding="utf-8", errors="ignore") as file:
@@ -288,8 +288,8 @@ def rest_of_the_script():
             file.write(f"                                   \n")
             file.write(f"Input (text) : {input_data}\n")
             if too_long: file.write(f"Input Error : Input is too long. Stripped to below cap.\n")
-            file.write(f"-Certain unaccepted parts of the input may be removed. \n")  ###make it show what is removed
-            file.write(f"-This should not affect output. \n")
+            if re_was_subbed: file.write(f"-Certain unaccepted parts of the input may be removed. \n")
+            if re_was_subbed: file.write(f"-This should not affect output. \n")
             file.write(f"                                   \n")
             file.write(f"---------------DEVICES---------------\n")
             file.write(f"Predicted Device : {OutputDevice}\n")
