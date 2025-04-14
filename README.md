@@ -37,25 +37,25 @@ _We cannot ensure Sulfur will run if it is not the correct version._
 -Python Libraries:
  _Although Sulfur attempts to install all libraries, the following list is incase any fail:_
   ### Python NLTK
-  _Provides word & sentiment analysis_
-  ### Python TensorFlow (Although not used.),
-  _Will provide CUDA support_
+  _Provides word & sentiment analysis._
+  ### Python TensorFlow (Although not used.)
+  _Will provide CUDA support._
   ### Python TQDM,
-  _Provides Loading GUI_
+  _Provides Loading GUI._
   ### Python PyTorch (Although not used.)
-  _Will provide ML and CUDA integration_
+  _Will provide ML and CUDA integration._
   ### Python Pygame
-  _Provides easy GUI_
+  _Provides easy GUI._
   ### Python Sklearn
-  _Provides machine learning processes_
+  _Provides machine learning processes._
   ### Python LanguageToolPython
-  _Analyses Language for NLTK_
+  _Analyses Language for NLTK._
   ### Python Langdetect
-  _Assists LanguageTool_
+  _Assists LanguageTool._
   ### Python Numpy
-  _Handles datasets efficiently_
+  _Handles datasets efficiently._
   ### Python Transformers
-  _Provides GenAI and ML solutions_
+  _Provides GenAI and ML solutions._
 
 ## _-CUDA_
 _While not necessary as of this version, Nvidia CUDA support will be needed for later releases._
