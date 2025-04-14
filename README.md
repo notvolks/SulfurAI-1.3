@@ -1,8 +1,8 @@
 # SulfurAI-DRL-001-03-54c
 # Developer Release 1-03-54 ver-(C)
  
-## WARNING
-### This model is WORK IN PROGRESS, please report any issues to the said issues tab.
+## WARNING:
+### _This model is WORK IN PROGRESS, please report any issues to the said issues tab._
 
 ## What is SulfurAI?
 
@@ -10,7 +10,7 @@ _SulfurAI is a Local Analytical Model that anylyses text input to find user pref
 
 ## How do i use SulfurAI?
 
-First you add your input to data/input.txt
+First, add your input to data/input.txt
 Then you run 
 _Run SulfurAI.bat_
 
