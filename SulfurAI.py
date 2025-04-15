@@ -289,7 +289,7 @@ def rest_of_the_script():
             file.write(f"Input (text) : {input_data}\n")
             if too_long: file.write(f"Input Error : Input is too long. Stripped to below cap.\n")
             if re_was_subbed: file.write(f"-Certain unaccepted parts of the input may be removed. \n")
-            if re_was_subbed: file.write(f"-This should not affect output. \n")
+            if re_was_subbed: file.write(f"-This could affect output. \n")
             file.write(f"                                   \n")
             file.write(f"---------------DEVICES---------------\n")
             file.write(f"Predicted Device : {OutputDevice}\n")
