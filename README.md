@@ -3,7 +3,7 @@
 ## _Updates are in the SDK folder or UpdateLog_
  
 ## WARNING:
-## _This model is WORK IN PROGRESS, please report any NON-SECURITY issues to the said issues tab._
+### _This model is WORK IN PROGRESS, please report any NON-SECURITY issues to the said issues tab._
 
 ## What is SulfurAI?
 
