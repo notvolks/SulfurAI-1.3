@@ -1,5 +1,5 @@
-# SulfurAI-DRL-001-03-56
-# Developer Release 1-03-56 (Not Tested)
+# SulfurAI-DRL-001-03-57
+# Developer Release 1-03-57 (Not Tested for Github)
 ## _Updates are in the SDK folder or UpdateLog_
  
 ## WARNING:
@@ -45,8 +45,10 @@ _We cannot ensure Sulfur will run if it is not the correct version._
   _Provides Loading GUI._
   ### Python PyTorch (Although not used.)
   _Will provide ML and CUDA integration._
-  ### Python Pygame
+  ### Python Pygame-CE (Community Edition)
   _Provides easy GUI._
+  _Please note Sulfur ONLY supports Pygame-CE and not Pygame
+  from version 1-03-57._
   ### Python Sklearn
   _Provides machine learning processes._
   ### Python LanguageToolPython
