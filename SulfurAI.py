@@ -47,19 +47,23 @@ error_print = error.error
 print_verti_list(TOS)
 
 def install(packages):
+    package_string = ""
 
     if isinstance(packages, str):
         packages = [packages]
 
-    try:
-
-        subprocess.check_call([sys.executable, "-m", "pip", "install"] + packages)
-        package_string = ' '.join(packages)
-        print(f"{package_string} installed successfully!")
-    except (ModuleNotFoundError, PermissionError, TimeoutError, MemoryError) as error:
-        print(f"An error occurred while installing {package_string}: {error}")
-    except subprocess.CalledProcessError as error:
-        print(f"Failed to install {package_string}. Error: {error}")
+    for pkg in packages:
+        try:
+            if pkg == "pygame-ce":
+                subprocess.check_call([sys.executable, "-m", "pip", "install", "pygame-ce", "--upgrade"])
+                print("pygame-ce installed successfully!")
+            else:
+                subprocess.check_call([sys.executable, "-m", "pip", "install", pkg])
+                print(f"{pkg} installed successfully!")
+        except (ModuleNotFoundError, PermissionError, TimeoutError, MemoryError) as error:
+            print(f"An error occurred while installing {pkg}: {error}")
+        except subprocess.CalledProcessError as error:
+            print(f"Failed to install {pkg}. Error: {error}")
 
 
 print("-------Preparing PIP libraries.")
@@ -67,55 +71,72 @@ try:  import sklearn
 except ImportError:
     install("scikit-learn")
     print("-------scikit-learn has been installed successfully.")
+    import sklearn
 
 try: import pygame
 except ImportError:
     print("-------pygame not found. Installing...")
-    install("pygame")
+    install("pygame-ce")
     print("-------pygame has been installed successfully.")
+    import pygame
+
+try: import pygame_gui
+except ImportError:
+    print("-------pygame not found. Installing...")
+    install("pygame_gui")
+    print("-------pygame has been installed successfully.")
+    import pygame_gui
 
 try:  import language_tool_python
 except ImportError:
     print("-------language_tool_python not found. Installing...")
     install("language_tool_python")
     print("-------language_tool_python has been installed successfully.")
+    import language_tool_python
 
 try:    import langdetect
 except ImportError:
     print("-------langdetect not found. Installing...")
     install("langdetect")
     print("-------langdetect has been installed successfully.")
+    import langdetect
 
 try:  from tqdm import tqdm
 except ImportError:
     print("-------tqdm not found. Installing...")
     install("tqdm")
     print("-------tqdm has been installed successfully.")
+    from tqdm import tqdm
 
 try:  import numpy
 except ImportError:
     install("numpy")
     print("-------numpy has been installed successfully.")
+    import numpy
 
 try:  import nltk
 except ImportError:
     install("nltk")
     print("-------nltk has been installed successfully.")
+    import nltk
 
 try:  import pandas
 except ImportError:
     install("pandas")
     print("-------pandas has been installed successfully.")
+    import pandas
 
 try: import transformers
 except ImportError:
     install("transformers")
     print("-------transformers has been installed successfully.")
+    import transformers
 
 try: import torch
 except ImportError:
     install(["torch", "torchvision", "torchaudio"])
     print("-------pytorch has been installed successfully.")
+    import torch
 
 
 
