@@ -3,7 +3,8 @@
 ## _Later releases may be in other repositories or in branches._
  
 ## WARNING:
-### _This model is WORK IN PROGRESS, please report any issues to the said issues tab._
+### _This model is WORK IN PROGRESS, please report any NON-SECURITY issues to the said issues tab._
+
 
 ## What is SulfurAI?
 
