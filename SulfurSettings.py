@@ -18,11 +18,24 @@ with open(file_path_settings_name_backup, "r", encoding="utf-8", errors="ignore"
             file.write("yes")
 
 
-def install(package):
-    try:
-        subprocess.check_call([sys.executable, "-m", "pip", "install", package])
-    except (ModuleNotFoundError, PermissionError, PackageNotFoundError, TimeoutError, MemoryError) as error:
-        print(f"An error occurred while installing {package}: {error}")
+def install(packages):
+    package_string = ""
+
+    if isinstance(packages, str):
+        packages = [packages]
+
+    for pkg in packages:
+        try:
+            if pkg == "pygame-ce":
+                subprocess.check_call([sys.executable, "-m", "pip", "install", "pygame-ce", "--upgrade"])
+                print("pygame-ce installed successfully!")
+            else:
+                subprocess.check_call([sys.executable, "-m", "pip", "install", pkg])
+                print(f"{pkg} installed successfully!")
+        except (ModuleNotFoundError, PermissionError, TimeoutError, MemoryError) as error:
+            print(f"An error occurred while installing {pkg}: {error}")
+        except subprocess.CalledProcessError as error:
+            print(f"Failed to install {pkg}. Error: {error}")
 
 def print_verti_list(list):
     for item in list: print(item)
@@ -33,22 +46,49 @@ TOS = [
 ] #terms of service
 print_verti_list(TOS)
 
-print("-------SulfurAI Settings requires the extension PYGAME.-------")
+print("-------SulfurAI Settings requires the extension PYGAME COMMUNITY EDITION.-------")
 import os  ##Global and Importing functions and variables
-import time
+import time,sys
 try:
     import pygame
 except ImportError:
-    install("pygame")
-import sys
+    install("pygame-ce")
+    import pygame
+
+
+try:
+    import pygame_gui
+except ImportError:
+    install("pygame_gui")
+    import pygame_gui
+
 
 supporting_text_ver = False
+
 
 def attempt_quit_pygame():
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
-            pygame.quit()  # close the game
+            pygame.quit()
             sys.exit()
+        manager.process_events(event)
+
+
+        if event.type == pygame_gui.UI_TEXT_ENTRY_CHANGED:
+            if event.ui_object_id == '#main_text_entry':
+                try:
+                    current_text = int(text_input_input_settings.get_text())
+                except ValueError:
+                    current_text = 50
+                    print("Your input is not an integer. Auto set to 50.")
+                print(f"Input changed to {current_text}")
+                if isinstance(current_text, int): pass
+                else: print("Your input is not an integer.")
+                with open(file_path_input_limit, "w", encoding="utf-8", errors="ignore") as file:
+                    file.write(str(current_text))
+
+
+
 
 def open_text_ver():
     pass # add text ver
@@ -58,13 +98,26 @@ def open_text_ver():
 verify = ["-------Checking for pygame.","-------Verifying..."]
 print_verti_list(verify)
 try:
+
     temp_init_pygame = 0
     pygame.init()
     SCREEN_WIDTH = 1080
     SCREEN_HEIGHT = 720
+    manager = pygame_gui.UIManager((1080, 720))
+    text_input_input_settings = pygame_gui.elements.UITextEntryLine(relative_rect=pygame.Rect((500, 350), (100, 50)), manager=manager,object_id='#main_text_entry')
+    file_path_input_limit = call.input_limit()
+    global limit_default
+    with open(file_path_input_limit, "r", encoding="utf-8", errors="ignore") as file:
+        try:
+            limit_default = ",".join(file.readlines())
+        except ValueError:
+            limit_default = 50
+
+
     app_open = True
 
     screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
+    text_input_input_settings.set_text(str(limit_default))
     dt = 0
     clock = pygame.time.Clock()
 
@@ -263,6 +316,7 @@ try:
 
             extra_input_settings_screen.draw(screen)
             extra_input_settings_x.draw(screen)
+            manager.draw_ui(screen)
             if "no" in limit_process_input:
                 extra_input_settings_processLimit_off.draw(screen)
                 if extra_input_settings_processLimit_off.is_touched():
@@ -289,6 +343,8 @@ try:
                 extra_input_settings_x.set_alpha(255)
             if extra_input_settings_x.is_pressed():
                 show_input_screen = False
+            manager.update(0)
+
 
         ##########
 
@@ -298,8 +354,11 @@ try:
             show_input_screen = False
 
 
+
+
         attempt_quit_pygame()
         pygame.display.update()
+
         dt = clock.tick(120) / 1000
 
 except (ModuleNotFoundError) as error:
@@ -308,6 +367,5 @@ except (ModuleNotFoundError) as error:
         print("Attempting to open the settings tweaker in python...")
         if supporting_text_ver: open_text_ver()
         else: print("This version does not support text tweaker.")
-
 
 
