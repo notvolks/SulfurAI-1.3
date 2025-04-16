@@ -16,6 +16,12 @@
 
 ### _If you believe you have found a security vulnerability please DO NOT send them to public pull requests, discussions or issues._
 ## Send security issues to: [Security Advisory Form](https://github.com/notvolks/SulfurAI-DRL-001-03-54c/security/advisories/new)
+
+## Include:
+### _What version/branch(-es/-s) the issue is in._
+### _How you recreated/found the issue._
+### _Any other important information._
+
 ## We will attempt to release a fix as fast as we can, but please do not publicly disclose of the issue until we have told you it is fixed or after 90 days.
 
 ## Security Notes:
