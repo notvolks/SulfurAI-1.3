@@ -18,7 +18,7 @@
 ## Send security issues to: [Security Advisory Form](https://github.com/notvolks/SulfurAI-DRL-001-03-54c/security/advisories/new)
 
 ## Include:
-### _What version/branch(-es/-s) the issue is in._
+### _What version/branch(-s/-es) the issue is in._
 ### _How you recreated/found the issue._
 ### _Any other important information._
 
