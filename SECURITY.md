@@ -29,4 +29,4 @@
  - Check for known issues.
  - Keep your dependancies up to date/ at the version they are listed to be at.
  - Read the CompatibleVersions folder to see how backwards compatible it is.
- - Do NOT use un-authorised forks if a version does not support backwards-compatibility with yours. They are not supported for a REASON.
+ - Do NOT use un-authorised forks if/just because a version does not support backwards-compatibility with yours. They are not supported for a REASON.
