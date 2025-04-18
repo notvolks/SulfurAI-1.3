@@ -1,5 +1,5 @@
 # SulfurAI-DRL-001-03-58c
-# Developer Release 1-03-58 ver-(C)
+# Developer Release 1-03-58 
 ## _Later releases may be in other repositories or in branches._
  
 ## WARNING:
