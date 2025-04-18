@@ -1,50 +1,4 @@
-import os
-import sys
-import subprocess
-import random
-import datetime
-import time,math
-from decimal import Decimal
-from importlib.metadata import PackageNotFoundError
-from DATA.ai_renderer import error
-from DATA.ai_renderer import Mean_device_s
-from DATA.ai_renderer import module_restore_trainingData
-from DATA.ai_renderer import preferences_basic_compare_s
-from DATA.verification.input_text import txt_data
-
-module_restore_trainingData.restore_data()
-
-current_dir_i = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..'))
-folder_path_input = os.path.join(current_dir_i, 'DATA')
-file_name_input = 'Input.txt'  # Debugger variables
-file_name_attributes = "Attributes.txt"
-file_name_output = "Output.txt"
-file_path_input = os.path.join(folder_path_input, file_name_input)
-file_path_attributes = os.path.join(folder_path_input, file_name_attributes)
-file_path_output = os.path.join(folder_path_input, file_name_output)
-
-os.makedirs(folder_path_input, exist_ok=True)
-
-folder_path_verify = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'DATA/dependancy_data/QVOL')
-file_name_verify = "vrs.txt"
-file_path_verify = os.path.join(folder_path_verify, file_name_verify)
-
-# Global variables
-global machine_model_checkDevice_result, machine_model_checkDevice_result_accuracy, accuracy
-machine_model_checkDevice_result = 0
-machine_model_checkDevice_result_accuracy = 0
-accuracy = 0
-
-
-
-# Terms of Service
-TOS = [
-    "By using this application you agree to the Terms of Service listed in the project files.",
-    "If you cannot find it, install a new version."
-]
-print_verti_list = error.print_verti_list
-error_print = error.error
-print_verti_list(TOS)
+import os,subprocess,sys
 
 def install(packages):
     package_string = ""
@@ -140,8 +94,59 @@ except ImportError:
 
 
 
+print("-------All custom libraries are installed. ")
 
-print("-------All libraries are installed. ")
+###########initiates the settings after install
+
+
+import os
+import sys
+import subprocess
+import random
+import datetime
+import time,math
+from decimal import Decimal
+from importlib.metadata import PackageNotFoundError
+from DATA.ai_renderer import error
+from DATA.ai_renderer import Mean_device_s
+from DATA.ai_renderer import module_restore_trainingData
+from DATA.ai_renderer import preferences_basic_compare_s
+from VersionDATA.ai_renderer_2 import sentence_detectAndInfer_s
+from DATA.verification.input_text import txt_data
+
+module_restore_trainingData.restore_data()
+
+current_dir_i = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..'))
+folder_path_input = os.path.join(current_dir_i, 'DATA')
+file_name_input = 'Input.txt'  # Debugger variables
+file_name_attributes = "Attributes.txt"
+file_name_output = "Output.txt"
+file_path_input = os.path.join(folder_path_input, file_name_input)
+file_path_attributes = os.path.join(folder_path_input, file_name_attributes)
+file_path_output = os.path.join(folder_path_input, file_name_output)
+
+os.makedirs(folder_path_input, exist_ok=True)
+
+folder_path_verify = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'DATA/dependancy_data/QVOL')
+file_name_verify = "vrs.txt"
+file_path_verify = os.path.join(folder_path_verify, file_name_verify)
+
+# Global variables
+global machine_model_checkDevice_result, machine_model_checkDevice_result_accuracy, accuracy
+machine_model_checkDevice_result = 0
+machine_model_checkDevice_result_accuracy = 0
+accuracy = 0
+
+
+
+# Terms of Service
+TOS = [
+    "By using this application you agree to the Terms of Service listed in the project files.",
+    "If you cannot find it, install a new version."
+]
+print_verti_list = error.print_verti_list
+error_print = error.error
+print_verti_list(TOS)
 
 
 
@@ -290,7 +295,7 @@ def rest_of_the_script():
         instance_preferences = preferences_basic_compare_s.prefer_compare()
         #only using one script to be efficient
         wanted_noun_most_important_user, wanted_noun_most_important_global, preferences_user, preferences_text_global, wanted_verb_most_important_user, wanted_verb_most_important_global, input_data, adjective_describe_user, adjective_describe_global, mood_user, mood_global, mood_accuracy_user, mood_accuracy_global,average_mood_accuracy = instance_preferences.get_process(3) # set to 3 for basic model!
-
+        stype_user, sintent_user = sentence_detectAndInfer_s.sentence_intent_and_infer()
 
 
 
@@ -313,35 +318,43 @@ def rest_of_the_script():
             if re_was_subbed: file.write(f"-This could affect output. \n")
             file.write(f"                                   \n")
             file.write(f"---------------DEVICES---------------\n")
-            file.write(f"Predicted Device : {OutputDevice}\n")
-            file.write(f"Predicted Device Accuracy : {Device_Accuracy}%\n")
-            file.write(f"Main/Mean Devices : {main_devices}\n")
-            file.write(f"Average/Mean Accuracy: {average_accuracy}%\n")
+            file.write(f"                                   \n")
+            file.write(f"*Predicted using Machine Learning.*\n")
+            file.write(f" Predicted Device : {OutputDevice}\n")
+            file.write(f" Predicted Device Accuracy : {Device_Accuracy}%\n")
+            file.write(f" Main/Mean Devices : {main_devices}\n")
+            file.write(f" Average/Mean Accuracy: {average_accuracy}%\n")
             file.write(f"                                   \n")
             file.write(f"---------------PREFERENCES---------------\n")
             file.write("###########The basic version has a limit of 3 preferred words. To upgrade look for a newer version or switch to a possible business version.###########\n")
-            file.write(f"User(s) most important words (preferred) : {",".join(preferences_user)} [Not Summarised]\n")
-            file.write(f"Average/Mean important words (preferred) : {preferences_text_global} [Not Summarised]\n")
+            preferred_words = ",".join(preferences_user)
+            file.write(f"*Predicted using Hard Values.*\n")
+            file.write(f" User(s) most important words (preferred) : {preferred_words} [Not Summarised]\n")
+            file.write(f" Average/Mean important words (preferred) : {preferences_text_global} [Not Summarised]\n")
             file.write(f"                                   \n")
-            file.write( "###########Nouns###########:\n")
-            file.write(f" User(s) want (preferred) : {wanted_noun_most_important_user} [Can be plural (To an extent of noun)]\n")
-            file.write(f" Average/Mean want (preferred) : {wanted_noun_most_important_global} [Can be plural (To an extent of noun)]\n")
+            file.write( " ###########Nouns###########:\n")
+            file.write(f"  User(s) want (preferred) : {wanted_noun_most_important_user} [Can be plural (To an extent of noun)]\n")
+            file.write(f"  Average/Mean want (preferred) : {wanted_noun_most_important_global} [Can be plural (To an extent of noun)]\n")
             file.write(f"                                   \n")
-            file.write("###########Verbs###########:\n")
-            file.write(f" User(s) are doing (preferred) : {wanted_verb_most_important_user} [Can be  plural/singular (To an extent of verb)]\n")
-            file.write(f" Average/Mean are doing (preferred) : {wanted_verb_most_important_global} [Can be plural/singular (To an extent of verb)]\n")
+            file.write(" ###########Verbs###########:\n")
+            file.write(f"  User(s) are doing (preferred) : {wanted_verb_most_important_user} [Can be  plural/singular (To an extent of verb)]\n")
+            file.write(f"  Average/Mean are doing (preferred) : {wanted_verb_most_important_global} [Can be plural/singular (To an extent of verb)]\n")
             file.write(f"                                   \n")
-            file.write("###########Adjectives###########:\n")
-            file.write(f" User(s) are describing (preferred) : {adjective_describe_user} [Can be  plural/singular (To an extent of adjective)]\n")
-            file.write(f" Average/Mean are describing (preferred) : {adjective_describe_global} [Can be plural/singular (To an extent of adjective)]\n")
+            file.write(" ###########Adjectives###########:\n")
+            file.write(f"  User(s) are describing (preferred) : {adjective_describe_user} [Can be  plural/singular (To an extent of adjective)]\n")
+            file.write(f"  Average/Mean are describing (preferred) : {adjective_describe_global} [Can be plural/singular (To an extent of adjective)]\n")
             file.write(f"                                   \n")
-            file.write("###########Mood###########:\n")
-            file.write(f" User(s) are (emotion) : {mood_user} [(To an extent of emotion)]\n")
-            file.write(f" Average/Mean are (emotion) : {mood_global} [(To an extent of emotion)]\n")
+            file.write(" ###########Mood###########:\n")
+            file.write(f"  User(s) are (emotion) : {mood_user} [(To an extent of emotion)]\n")
+            file.write(f"  Average/Mean are (emotion) : {mood_global} [(To an extent of emotion)]\n")
             file.write(f"                                   \n")
-            file.write(f" Predicted User Mood Accuracy : {mood_accuracy_user}%\n")
-            file.write(f" Average/Mean Mood Accuracy : {mood_accuracy_global}%\n")
-            file.write(f" Average <User : Mean> Accuracy : {average_mood_accuracy}%\n")
+            file.write(f"  Predicted User Mood Accuracy : {mood_accuracy_user}%\n")
+            file.write(f"  Average/Mean Mood Accuracy : {mood_accuracy_global}%\n")
+            file.write(f"  Average <User : Mean> Accuracy : {average_mood_accuracy}%\n")
+            file.write(" ###########Sentence Analysis###########:\n")
+            file.write(f"*Predicted using a Neural Network.*\n")
+            file.write(f"  Predicted user sentence type : {stype_user}\n")
+            file.write(f"  Predicted user sentence intent : {sintent_user}\n")
             file.write(f"                                   \n")
             file.write(f"---------------RESPONSE---------------\n")
             file.write(f"Response Time : {str(f'{hours} hours, {minutes} minutes, {seconds} seconds, {total_time_ms} milliseconds.')}\n")
