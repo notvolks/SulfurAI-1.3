@@ -1,4 +1,12 @@
 import os,subprocess,sys
+from VersionDATA.ai_renderer import error
+TOS = [
+    "By using this application you agree to the Terms of Service listed in the project files.",
+    "If you cannot find it, install a new version."
+]
+print_verti_list = error.print_verti_list
+error_print = error.error
+print_verti_list(TOS)
 
 def install(packages):
     package_string = ""
@@ -21,76 +29,34 @@ def install(packages):
 
 
 print("-------Preparing PIP libraries.")
-try:  import sklearn
-except ImportError:
-    install("scikit-learn")
-    print("-------scikit-learn has been installed successfully.")
-    import sklearn
+def safe_import(module_name, package_name=None, extra_packages=None):
+    try:
+        __import__(module_name)
+    except ImportError:
+        pkg = package_name or module_name
+        print(f"-------{pkg} not found. Installing...")
+        install([pkg] + (extra_packages or []))
+        try:
+            __import__(module_name)
+        except ImportError:
+            print(f"Error while importing {module_name} after installation. Restart Sulfur to fix the bug.")
 
-try: import pygame
-except ImportError:
-    print("-------pygame not found. Installing...")
-    install("pygame-ce")
-    print("-------pygame has been installed successfully.")
-    import pygame
+modules = [
+    ("sklearn", "scikit-learn"),
+    ("pygame", "pygame-ce"),
+    ("pygame_gui",),
+    ("language_tool_python",),
+    ("langdetect",),
+    ("tqdm",),
+    ("numpy",),
+    ("nltk",),
+    ("pandas",),
+    ("transformers",),
+    ("torch", None, ["torchvision", "torchaudio"])
+]
 
-try: import pygame_gui
-except ImportError:
-    print("-------pygame not found. Installing...")
-    install("pygame_gui")
-    print("-------pygame has been installed successfully.")
-    import pygame_gui
-
-try:  import language_tool_python
-except ImportError:
-    print("-------language_tool_python not found. Installing...")
-    install("language_tool_python")
-    print("-------language_tool_python has been installed successfully.")
-    import language_tool_python
-
-try:    import langdetect
-except ImportError:
-    print("-------langdetect not found. Installing...")
-    install("langdetect")
-    print("-------langdetect has been installed successfully.")
-    import langdetect
-
-try:  from tqdm import tqdm
-except ImportError:
-    print("-------tqdm not found. Installing...")
-    install("tqdm")
-    print("-------tqdm has been installed successfully.")
-    from tqdm import tqdm
-
-try:  import numpy
-except ImportError:
-    install("numpy")
-    print("-------numpy has been installed successfully.")
-    import numpy
-
-try:  import nltk
-except ImportError:
-    install("nltk")
-    print("-------nltk has been installed successfully.")
-    import nltk
-
-try:  import pandas
-except ImportError:
-    install("pandas")
-    print("-------pandas has been installed successfully.")
-    import pandas
-
-try: import transformers
-except ImportError:
-    install("transformers")
-    print("-------transformers has been installed successfully.")
-    import transformers
-
-try: import torch
-except ImportError:
-    install(["torch", "torchvision", "torchaudio"])
-    print("-------pytorch has been installed successfully.")
-    import torch
+for mod in modules:
+    safe_import(*mod)
 
 
 
@@ -107,12 +73,11 @@ import datetime
 import time,math
 from decimal import Decimal
 from importlib.metadata import PackageNotFoundError
-from DATA.ai_renderer import error
-from DATA.ai_renderer import Mean_device_s
-from DATA.ai_renderer import module_restore_trainingData
-from DATA.ai_renderer import preferences_basic_compare_s
+from VersionDATA.ai_renderer import Mean_device_s
+from VersionDATA.ai_renderer import module_restore_trainingData
+from VersionDATA.ai_renderer import preferences_basic_compare_s
 from VersionDATA.ai_renderer_2 import sentence_detectAndInfer_s
-from DATA.verification.input_text import txt_data
+from VersionDATA.verification.input_text import txt_data
 
 module_restore_trainingData.restore_data()
 
@@ -138,18 +103,6 @@ machine_model_checkDevice_result_accuracy = 0
 accuracy = 0
 
 
-
-# Terms of Service
-TOS = [
-    "By using this application you agree to the Terms of Service listed in the project files.",
-    "If you cannot find it, install a new version."
-]
-print_verti_list = error.print_verti_list
-error_print = error.error
-print_verti_list(TOS)
-
-
-
 # Global variables for device output
 global Sulfur_Output_Device_Desktop_Percent, Sulfur_Output_DeviceMobileORother_Percent, OutputDevice, Device_Result
 Device_Result = "NOT_SET"
@@ -157,7 +110,7 @@ Device_Result = "NOT_SET"
 
 
 def get_call_file_path():
-    from DATA.ai_renderer import call_file_path
+    from VersionDATA.ai_renderer import call_file_path
     return call_file_path.Call()
 
 # Call file paths
@@ -239,7 +192,7 @@ version, file_link, file_link_a, file_link_o, Sulfur_Output_Device_Desktop_Perce
 
 def call_ai_class(class_name):
     if class_name == "CD":
-        from DATA.ai_renderer import Check_device_s  # Delayed import
+        from VersionDATA.ai_renderer import Check_device_s  # Delayed import
         return Check_device_s
 
 brick_out = error.brick_out
