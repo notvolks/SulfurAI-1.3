@@ -248,7 +248,7 @@ def rest_of_the_script():
         instance_preferences = preferences_basic_compare_s.prefer_compare()
         #only using one script to be efficient
         wanted_noun_most_important_user, wanted_noun_most_important_global, preferences_user, preferences_text_global, wanted_verb_most_important_user, wanted_verb_most_important_global, input_data, adjective_describe_user, adjective_describe_global, mood_user, mood_global, mood_accuracy_user, mood_accuracy_global,average_mood_accuracy = instance_preferences.get_process(3) # set to 3 for basic model!
-        stype_user, sintent_user = sentence_detectAndInfer_s.sentence_intent_and_infer()
+        stype_user, sintent_user,acc_sent_user,acc_intent_user,avg_sent_types,avg_intent_types,acc_sent_global,acc_intent_global,avg_accuracy_global = sentence_detectAndInfer_s.sentence_intent_and_infer()
 
 
 
@@ -306,8 +306,21 @@ def rest_of_the_script():
             file.write(f"  Average <User : Mean> Accuracy : {average_mood_accuracy}%\n")
             file.write(" ###########Sentence Analysis###########:\n")
             file.write(f"*Predicted using a Neural Network.*\n")
+            file.write(" ###########User###########:\n")
             file.write(f"  Predicted user sentence type : {stype_user}\n")
+            file.write(f"  Predicted user sentence type accuracy : {acc_sent_user * 100}%\n")
+            file.write(f"                                   \n")
             file.write(f"  Predicted user sentence intent : {sintent_user}\n")
+            file.write(f"  Predicted user sentence intent accuracy : {acc_intent_user * 100}%\n")
+            file.write(f"                                   \n")
+            file.write(" ###########Global###########:\n")
+            file.write(f"  Predicted global sentence type : {avg_sent_types}\n")
+            file.write(f"  Predicted global sentence type accuracy : {acc_sent_global * 100}%\n")
+            file.write(f"                                   \n")
+            file.write(f"  Predicted global sentence intent : {avg_intent_types}\n")
+            file.write(f"  Predicted global sentence intent accuracy : {acc_intent_global * 100}%\n")
+            file.write(f"                                   \n")
+            file.write(f"  Predicted global intent + sentence accuracy : {avg_accuracy_global * 100}%\n")
             file.write(f"                                   \n")
             file.write(f"---------------RESPONSE---------------\n")
             file.write(f"Response Time : {str(f'{hours} hours, {minutes} minutes, {seconds} seconds, {total_time_ms} milliseconds.')}\n")
