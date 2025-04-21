@@ -1,0 +1,43 @@
+sentence,sentence_type,intent
+What is the weather like?,question,asking
+Please turn off the light.,command,commanding
+That's a great idea!,statement,informing
+"Wow, that's amazing!",exclamation,expressing
+Can you help me with this?,question,asking
+I'm just telling you a fact.,statement,informing
+Could you please be quiet?,command,commanding
+Unbelievable!,exclamation,expressing
+Why is the sky blue?,question,asking
+Can you explain this to me?,question,asking
+The weather is nice today.,statement,informing
+Please stop!,command,commanding
+I love this show!,exclamation,expressing
+ohheyitsworkingcool,question,commanding
+ohheyitsworkingcool,question,expressing
+ohheyitsworkingcool,exclamation,commanding
+ohheyitsworkingcool,command,informing
+ohheyitsworkingcool,question,commanding
+ohheyitsworkingcool,exclamation,asking
+HEYMANYOUGOTTAWORK:(,statement,informing
+THSIISATESTMESSAFGERAHHHHH,exclamation,commanding
+THSIISATESTMESSAFGERAHHHHH,question,commanding
+THSIISATESTMESSAFGERAHHHHH,question,commanding
+THSIISATESTMESSAFGERAHHHHH,exclamation,commanding
+THSIISATESTMESSAFGERAHHHHH,question,commanding
+THSIISATESTMESSAFGERAHHHHH,exclamation,commanding
+THSIISATESTMESSAFGERAHHHHH,exclamation,commanding
+THSIISATESTMESSAFGERAHHHHH,question,commanding
+THSIISATESTMESSAFGERAHHHHH,exclamation,commanding
+THSIISATESTMESSAFGERAHHHHH,exclamation,commanding
+THSIISATESTMESSAFGERAHHHHH,exclamation,commanding
+THSIISATESTMESSAFGERAHHHHH,question,commanding
+THSIISATESTMESSAFGERAHHHHH,exclamation,commanding
+THSIISATESTMESSAFGERAHHHHH,question,commanding
+THSIISATESTMESSAFGERAHHHHH,question,commanding
+THSIISATESTMESSAFGERAHHHHH,exclamation,commanding
+THSIISATESTMESSAFGERAHHHHH,question,commanding
+THSIISATESTMESSAFGERAHHHHH,command,commanding
+THSIISATESTMESSAFGERAHHHHH,question,commanding
+THSIISATESTMESSAFGERAHHHHH,exclamation,commanding
+THSIISATESTMESSAFGERAHHHHH,exclamation,commanding
+THSIISATESTMESSAFGERAHHHHH,exclamation,commanding
