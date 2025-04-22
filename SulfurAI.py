@@ -77,6 +77,7 @@ from VersionDATA.ai_renderer import Mean_device_s
 from VersionDATA.ai_renderer import module_restore_trainingData
 from VersionDATA.ai_renderer import preferences_basic_compare_s
 from VersionDATA.ai_renderer_2 import sentence_detectAndInfer_s
+from VersionDATA.ai_renderer_2 import sentence_detectAndCompare_s
 from VersionDATA.verification.input_text import txt_data
 
 module_restore_trainingData.restore_data()
@@ -249,7 +250,8 @@ def rest_of_the_script():
         #only using one script to be efficient
         wanted_noun_most_important_user, wanted_noun_most_important_global, preferences_user, preferences_text_global, wanted_verb_most_important_user, wanted_verb_most_important_global, input_data, adjective_describe_user, adjective_describe_global, mood_user, mood_global, mood_accuracy_user, mood_accuracy_global,average_mood_accuracy = instance_preferences.get_process(3) # set to 3 for basic model!
         stype_user, sintent_user,acc_sent_user,acc_intent_user,avg_sent_types,avg_intent_types,acc_sent_global,acc_intent_global,avg_accuracy_global = sentence_detectAndInfer_s.sentence_intent_and_infer()
-
+        days_difference_changes_insight,days_difference_fromtoday__changes_insight = 5,5 #change in settings
+        changes_summary = sentence_detectAndCompare_s.run_model(days_difference_changes_insight,days_difference_fromtoday__changes_insight)
 
 
 
@@ -304,7 +306,6 @@ def rest_of_the_script():
             file.write(f"  Predicted User Mood Accuracy : {mood_accuracy_user}%\n")
             file.write(f"  Average/Mean Mood Accuracy : {mood_accuracy_global}%\n")
             file.write(f"  Average <User : Mean> Accuracy : {average_mood_accuracy}%\n")
-            file.write(" ###########Sentence Analysis###########:\n")
             file.write(f"*Predicted using a Neural Network.*\n")
             file.write(f"  Predicted user sentence type : {stype_user}\n")
             file.write(f"  Predicted user sentence type accuracy : {acc_sent_user * 100}%\n")
@@ -320,6 +321,11 @@ def rest_of_the_script():
             file.write(f"                                   \n")
             file.write(f"  Predicted global intent + sentence accuracy : {avg_accuracy_global * 100}%\n")
             file.write(f"                                   \n")
+            file.write(f"---------------USER INSIGHT---------------\n")
+            file.write(" ###########Day Changes###########:\n")
+            file.write(f" Changes to your userbase over the past {days_difference_fromtoday__changes_insight} days:\n")
+            file.write("  " + f"{changes_summary}\n" if changes_summary else "  " + f"None_Found\n")
+            file.write(f" *Only includes userbase changes at least {days_difference_changes_insight} days apart.\n")
             file.write(f"---------------RESPONSE---------------\n")
             file.write(f"Response Time : {str(f'{hours} hours, {minutes} minutes, {seconds} seconds, {total_time_ms} milliseconds.')}\n")
             file.write(
