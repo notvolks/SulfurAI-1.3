@@ -1,0 +1,88 @@
+###########Sulfur Output:###########*
+---------------INPUT---------------
+                                   
+Input (text) : ['test message chat']
+                                   
+---------------DEVICES---------------
+                                   
+*Predicted using Machine Learning.*
+ Predicted Device : Desktop
+ Predicted Device Accuracy : 99.9%
+ Main/Mean Devices : MOBILE(OTHER)
+ Average/Mean Accuracy: 70.58375634517766%
+                                   
+---------------PREFERENCES---------------
+###########The basic version has a limit of 3 preferred words. To upgrade look for a newer version or switch to a possible business version.###########
+*Predicted using Hard Values.*
+ User(s) most important words (preferred) : chat,message,test [Not Summarised]
+ Average/Mean important words (preferred) : hows test basic [Not Summarised]
+                                   
+ ###########Nouns###########:
+  User(s) want (preferred) : message [Can be plural (To an extent of noun)]
+  Average/Mean want (preferred) : hows [Can be plural (To an extent of noun)]
+                                   
+ ###########Verbs###########:
+  User(s) are doing (preferred) : None_Found [Can be  plural/singular (To an extent of verb)]
+  Average/Mean are doing (preferred) : test [Can be plural/singular (To an extent of verb)]
+                                   
+ ###########Adjectives###########:
+  User(s) are describing (preferred) : test [Can be  plural/singular (To an extent of adjective)]
+  Average/Mean are describing (preferred) : basic [Can be plural/singular (To an extent of adjective)]
+                                   
+ ###########Mood###########:
+  User(s) are (emotion) : Neutral [(To an extent of emotion)]
+  Average/Mean are (emotion) : Negative [(To an extent of emotion)]
+                                   
+  Predicted User Mood Accuracy : 99.9%
+  Average/Mean Mood Accuracy : 62.1%
+  Average <User : Mean> Accuracy : 81.0%
+*Predicted using a Neural Network.*
+  Predicted user sentence type : question
+  Predicted user sentence type accuracy : 80.32786846160889%
+                                   
+  Predicted user sentence intent : commanding
+  Predicted user sentence intent accuracy : 39.34426307678223%
+                                   
+  Predicted global sentence type : question
+  Predicted global sentence type accuracy : 40.32258064516129%
+                                   
+  Predicted global sentence intent : commanding
+  Predicted global sentence intent accuracy : 80.64516129032258%
+                                   
+  Predicted global intent + sentence accuracy : 60.48387096774193%
+                                   
+---------------USER INSIGHT---------------
+ ###########Day Changes###########:
+ Changes to your userbase over the past 5 days:
+  None_Found
+ Average Changes to your userbase over the past 5 days:
+  None_Found
+ *Only includes userbase changes at least 5 days apart.
+                                   
+ ###########Week Changes###########:
+ Changes to your userbase over the past 5 weeks:
+  None_Found
+ Average Changes to your userbase over the past 5 weeks:
+  None_Found
+ *Only includes userbase changes at least 5 weeks apart.
+                                   
+ ###########Month Changes###########:
+ Changes to your userbase over the past 5 months:
+  None_Found
+ Average Changes to your userbase over the past 5 months:
+  None_Found
+ *Only includes userbase changes at least 5 months apart.
+                                   
+ ###########Year Changes###########:
+ Changes to your userbase over the past 5 years:
+  None_Found
+ Average Changes to your userbase over the past 5 months:
+  None_Found
+ *Only includes userbase changes at least 1 years apart.
+                                   
+---------------RESPONSE---------------
+Response Time : 0 hours, 0 minutes, 24 seconds, 139.35000000000036 milliseconds.
+###########This file is only used for general debugging, to access the individual output variables, use the API or the output_data folder.###########
+                                   
+*Remember you can change item limits and other items via settings.
+*SulfurAI can make mistakes. Check important info.
