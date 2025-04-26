@@ -250,10 +250,31 @@ def rest_of_the_script():
         #only using one script to be efficient
         wanted_noun_most_important_user, wanted_noun_most_important_global, preferences_user, preferences_text_global, wanted_verb_most_important_user, wanted_verb_most_important_global, input_data, adjective_describe_user, adjective_describe_global, mood_user, mood_global, mood_accuracy_user, mood_accuracy_global,average_mood_accuracy = instance_preferences.get_process(3) # set to 3 for basic model!
         stype_user, sintent_user,acc_sent_user,acc_intent_user,avg_sent_types,avg_intent_types,acc_sent_global,acc_intent_global,avg_accuracy_global = sentence_detectAndInfer_s.sentence_intent_and_infer()
-        past_d_changes,changes_d_apart_at_leastDays = 5,5 #change the integers via settings to be added later
-        past_w_changes, changes_w_apart_at_leastWeek = 5, 5
-        past_m_changes, changes_m_apart_at_leastMonth = 5, 5
-        past_y_changes, changes_y_apart_at_leastYear = 5, 1
+        ##
+        file_path_settings_name_ui_days_ago = call.settings_ui_days_ago()
+        file_path_settings_name_ui_days_apart = call.settings_ui_days_apart()
+
+        file_path_settings_name_ui_weeks_ago = call.settings_ui_weeks_ago()
+        file_path_settings_name_ui_weeks_apart = call.settings_ui_weeks_apart()
+
+        file_path_settings_name_ui_months_ago = call.settings_ui_months_ago()
+        file_path_settings_name_ui_months_apart = call.settings_ui_months_apart()
+
+        file_path_settings_name_ui_years_ago = call.settings_ui_years_ago()
+        file_path_settings_name_ui_years_apart = call.settings_ui_years_apart()
+        ##
+        with open(file_path_settings_name_ui_days_ago, "r", encoding="utf-8", errors="ignore") as file: past_d_changes = int(str(file.readline()))
+        with open(file_path_settings_name_ui_days_apart, "r", encoding="utf-8", errors="ignore") as file: changes_d_apart_at_leastDays = int(str(file.readline()))
+
+        with open(file_path_settings_name_ui_weeks_ago, "r", encoding="utf-8", errors="ignore") as file: past_w_changes = int(str(file.readline()))
+        with open(file_path_settings_name_ui_weeks_apart, "r", encoding="utf-8", errors="ignore") as file: changes_w_apart_at_leastWeek = int(str(file.readline()))
+
+        with open(file_path_settings_name_ui_months_ago, "r", encoding="utf-8", errors="ignore") as file: past_m_changes = int(str(file.readline()))
+        with open(file_path_settings_name_ui_months_apart, "r", encoding="utf-8", errors="ignore") as file: changes_m_apart_at_leastMonth = int(str(file.readline()))
+
+        with open(file_path_settings_name_ui_years_ago, "r", encoding="utf-8", errors="ignore") as file: past_y_changes = int(str(file.readline()))
+        with open(file_path_settings_name_ui_years_apart, "r", encoding="utf-8", errors="ignore") as file: changes_y_apart_at_leastYear = int(str(file.readline()))
+
         changes_summary_day,average_change_d = sentence_detectAndCompare_s.run_model(past_d_changes,changes_d_apart_at_leastDays, granularity="day")
         changes_summary_week,average_change_w = sentence_detectAndCompare_s.run_model(past_w_changes, changes_w_apart_at_leastWeek, granularity="week")
         changes_summary_month,average_change_m = sentence_detectAndCompare_s.run_model(past_m_changes, changes_m_apart_at_leastMonth, granularity="month")
