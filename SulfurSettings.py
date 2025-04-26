@@ -1,6 +1,6 @@
 import subprocess
 from importlib.metadata import PackageNotFoundError
-from DATA.ai_renderer import call_file_path
+from VersionDATA.ai_renderer import call_file_path
 call = call_file_path.Call()
 file_path_settings_name_extra_device = call.settings_extra_debug()
 file_path_settings_name_backup = call.settings_backup()
@@ -65,26 +65,79 @@ except ImportError:
 
 supporting_text_ver = False
 
+file_path_settings_name_ui_days_ago = call.settings_ui_days_ago()
+file_path_settings_name_ui_days_apart = call.settings_ui_days_apart()
 
+file_path_settings_name_ui_weeks_ago = call.settings_ui_weeks_ago()
+file_path_settings_name_ui_weeks_apart = call.settings_ui_weeks_apart()
+
+file_path_settings_name_ui_months_ago = call.settings_ui_months_ago()
+file_path_settings_name_ui_months_apart = call.settings_ui_months_apart()
+
+file_path_settings_name_ui_years_ago = call.settings_ui_years_ago()
+file_path_settings_name_ui_years_apart = call.settings_ui_years_apart()
 def attempt_quit_pygame():
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             pygame.quit()
             sys.exit()
-        manager.process_events(event)
 
-
-        if event.type == pygame_gui.UI_TEXT_ENTRY_CHANGED:
+        managers = [
+            manager,
+            manager_dago,
+            manager_dapart,
+            manager_wago,
+            manager_wapart,
+            manager_mago,
+            manager_mapart,
+            manager_yago,
+            manager_yapart,
+        ]
+        for m in managers:
+            m.process_events(event)
+        if event.type == pygame.USEREVENT and event.user_type == pygame_gui.UI_TEXT_ENTRY_CHANGED:
             if event.ui_object_id == '#main_text_entry':
+                file_path = ""
+                source_manager = event.ui_element.ui_manager
+
+
+                if source_manager is manager:
+                    file_path = file_path_input_limit
+                elif source_manager is manager_dago:
+                    file_path = file_path_settings_name_ui_days_ago
+                elif source_manager is manager_dapart:
+                    file_path = file_path_settings_name_ui_days_apart
+                elif source_manager is manager_wago:
+                    file_path = file_path_settings_name_ui_weeks_ago
+                elif source_manager is manager_wapart:
+                    file_path = file_path_settings_name_ui_weeks_apart
+                elif source_manager is manager_mago:
+                    file_path = file_path_settings_name_ui_months_ago
+                elif source_manager is manager_mapart:
+                    file_path = file_path_settings_name_ui_months_apart
+                elif source_manager is manager_yago:
+                    file_path = file_path_settings_name_ui_years_ago
+                elif source_manager is manager_yapart:
+                    file_path = file_path_settings_name_ui_years_apart
+
+
                 try:
-                    current_text = int(text_input_input_settings.get_text())
+                    current_text = int(event.ui_element.get_text())
                 except ValueError:
-                    current_text = 50
-                    print("Your input is not an integer. Auto set to 50.")
+                    if source_manager is manager:
+                        current_text = 50
+                        print("Your input is not an integer. Auto set to 50.")
+                    elif source_manager is not manager_yapart:
+                        current_text = 5
+                        print("Your input is not an integer. Auto set to 5.")
+                    else:
+                        current_text = 1
+                        print("Your input is not an integer. Auto set to 1.")
+
                 print(f"Input changed to {current_text}")
-                if isinstance(current_text, int): pass
-                else: print("Your input is not an integer.")
-                with open(file_path_input_limit, "w", encoding="utf-8", errors="ignore") as file:
+
+                # Save to the corresponding file
+                with open(file_path, "w", encoding="utf-8", errors="ignore") as file:
                     file.write(str(current_text))
 
 
@@ -104,20 +157,69 @@ try:
     SCREEN_WIDTH = 1080
     SCREEN_HEIGHT = 720
     manager = pygame_gui.UIManager((1080, 720))
+    manager_dago = pygame_gui.UIManager((1080, 720))
+    manager_dapart = pygame_gui.UIManager((1080, 720))
+    manager_wago = pygame_gui.UIManager((1080, 720))
+    manager_wapart = pygame_gui.UIManager((1080, 720))
+    manager_mago = pygame_gui.UIManager((1080, 720))
+    manager_mapart = pygame_gui.UIManager((1080, 720))
+    manager_yago = pygame_gui.UIManager((1080, 720))
+    manager_yapart = pygame_gui.UIManager((1080, 720))
     text_input_input_settings = pygame_gui.elements.UITextEntryLine(relative_rect=pygame.Rect((500, 350), (100, 50)), manager=manager,object_id='#main_text_entry')
+    ui_dago = pygame_gui.elements.UITextEntryLine(relative_rect=pygame.Rect((400, 175), (100, 50)), manager=manager_dago, object_id='#main_text_entry')
+    ui_dapart = pygame_gui.elements.UITextEntryLine(relative_rect=pygame.Rect((825, 175), (100, 50)), manager=manager_dapart,object_id='#main_text_entry')
+
+    ui_wago = pygame_gui.elements.UITextEntryLine(relative_rect=pygame.Rect((400, 260), (100, 50)), manager=manager_wago, object_id='#main_text_entry')
+    ui_wapart = pygame_gui.elements.UITextEntryLine(relative_rect=pygame.Rect((825, 260), (100, 50)), manager=manager_wapart,object_id='#main_text_entry')
+
+    ui_mago = pygame_gui.elements.UITextEntryLine(relative_rect=pygame.Rect((400, 350), (100, 50)), manager=manager_mago,object_id='#main_text_entry')
+    ui_mapart = pygame_gui.elements.UITextEntryLine(relative_rect=pygame.Rect((850, 350), (100, 50)),manager=manager_mapart, object_id='#main_text_entry')
+
+    ui_yago = pygame_gui.elements.UITextEntryLine(relative_rect=pygame.Rect((400, 425), (100, 50)), manager=manager_yago,object_id='#main_text_entry')
+    ui_yapart = pygame_gui.elements.UITextEntryLine(relative_rect=pygame.Rect((825, 425), (100, 50)),manager=manager_yapart, object_id='#main_text_entry')
     file_path_input_limit = call.input_limit()
     global limit_default
-    with open(file_path_input_limit, "r", encoding="utf-8", errors="ignore") as file:
+
+
+    def read_file_with_default(file_path, default_value):
         try:
-            limit_default = ",".join(file.readlines())
-        except ValueError:
-            limit_default = 50
+            with open(file_path, "r", encoding="utf-8", errors="ignore") as file:
+                return ",".join(file.readlines())
+        except (ValueError, FileNotFoundError):
+            return default_value
+
+
+    # Set default values
+    default_limit = 50
+    default_uda = default_wda = default_wdg = default_udg = default_mda = default_mdg = default_ydg = 5
+    default_yda = 1
+
+    # Read files
+    limit_default = read_file_with_default(file_path_input_limit, default_limit)
+    udg = read_file_with_default(file_path_settings_name_ui_days_ago, default_udg)
+    uda = read_file_with_default(file_path_settings_name_ui_days_apart, default_uda)
+    wdg = read_file_with_default(file_path_settings_name_ui_weeks_ago, default_wdg)
+    wda = read_file_with_default(file_path_settings_name_ui_weeks_apart, default_wda)
+    mdg = read_file_with_default(file_path_settings_name_ui_months_ago, default_mdg)
+    mda = read_file_with_default(file_path_settings_name_ui_months_apart, default_mda)
+    ydg = read_file_with_default(file_path_settings_name_ui_years_ago, default_ydg)
+    yda = read_file_with_default(file_path_settings_name_ui_years_apart, default_yda)
+
 
 
     app_open = True
 
     screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
     text_input_input_settings.set_text(str(limit_default))
+    ui_dago.set_text(str(udg))
+    ui_dapart.set_text(str(uda))
+    ui_wago.set_text(str(wdg))
+    ui_wapart.set_text(str(wda))
+
+    ui_mago.set_text(str(mdg))
+    ui_mapart.set_text(str(mda))
+    ui_yago.set_text(str(ydg))
+    ui_yapart.set_text(str(yda))
     dt = 0
     clock = pygame.time.Clock()
 
@@ -189,6 +291,12 @@ try:
     extra_input_settings_processLimit_off = Button("DATA/settings/images/ex_dbg_off.jpeg", (620, 190), .15)
     extra_input_settings_processLimit_on = Button("DATA/settings/images/ex_dbg_on.jpeg", (620, 190), .15)
 
+    extra_user_insight_screen = Button("DATA/settings/images/ex_user_insight_screen.jpeg", (55, 50), .6)
+    extra_user_insight_button = Button("DATA/settings/images/ex_user_insight.jpeg", (250, 350), .15)
+    extra_user_insight_x = Button("DATA/settings/images/ex_dbg_x.jpeg", (900, 0), .25)
+    extra_user_insight_off = Button("DATA/settings/images/ex_dbg_off.jpeg", (620, 190), .15)
+    extra_user_insight_on = Button("DATA/settings/images/ex_dbg_on.jpeg", (620, 190), .15)
+
 
 
     ####################SPRITES
@@ -200,6 +308,7 @@ try:
     show_settings_screen = False
     show_backup_screen = False
     show_input_screen = False
+    show_ui_screen = False
 
     while app_open:
         if temp_init_pygame == 0:
@@ -217,6 +326,7 @@ try:
         extra_debug_settings_button.draw(screen)
         extra_backup_settings_button.draw(screen)
         extra_input_settings_button.draw(screen)
+        extra_user_insight_button.draw(screen)
         ##########exdg button
         if extra_debug_settings_button.is_touched():
             extra_debug_settings_button.set_alpha(200)
@@ -239,6 +349,14 @@ try:
             extra_input_settings_button.set_alpha(255)
         if extra_input_settings_button.is_pressed():
             show_input_screen = True
+
+        ######ui button
+        if extra_user_insight_button.is_touched():
+            extra_user_insight_button.set_alpha(200)
+        else:
+            extra_user_insight_button.set_alpha(255)
+        if extra_user_insight_button.is_pressed():
+            show_ui_screen = True
 
         ##########exdg screen
         if show_settings_screen:
@@ -345,13 +463,47 @@ try:
                 show_input_screen = False
             manager.update(0)
 
+        ##########ui screen
+        if show_ui_screen:
 
-        ##########
 
-        if sum([show_backup_screen, show_settings_screen, show_input_screen]) > 1:
+
+
+            extra_user_insight_screen.draw(screen)
+            extra_user_insight_x.draw(screen)
+
+            manager_dago.draw_ui(screen)
+            manager_dapart.draw_ui(screen)
+            manager_wago.draw_ui(screen)
+            manager_wapart.draw_ui(screen)
+            manager_mago.draw_ui(screen)
+            manager_mapart.draw_ui(screen)
+            manager_yago.draw_ui(screen)
+            manager_yapart.draw_ui(screen)
+
+            if extra_user_insight_x.is_touched():
+                extra_user_insight_x.set_alpha(200)
+            else:
+                extra_user_insight_x.set_alpha(255)
+            if extra_user_insight_x.is_pressed():
+                show_ui_screen = False
+            manager_dago.update(0)
+            manager_dapart.update(0)
+            manager_wago.update(0)
+            manager_wapart.update(0)
+            manager_mago.update(0)
+            manager_mapart.update(0)
+            manager_yago.update(0)
+            manager_yapart.update(0)
+
+
+            ##########
+
+        if sum([show_backup_screen, show_settings_screen, show_input_screen,show_ui_screen]) > 1:
             show_backup_screen = False
             show_settings_screen = False
             show_input_screen = False
+            show_ui_screen = False
 
 
 
@@ -367,5 +519,8 @@ except (ModuleNotFoundError) as error:
         print("Attempting to open the settings tweaker in python...")
         if supporting_text_ver: open_text_ver()
         else: print("This version does not support text tweaker.")
+
+
+
 
 
