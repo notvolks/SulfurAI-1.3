@@ -1,0 +1,119 @@
+###########Sulfur Output:###########*
+---------------INPUT---------------
+                                   
+Input (text) : ['Choice six so investment employee make.']
+                                   
+---------------DEVICES---------------
+                                   
+*Predicted using Machine Learning.*
+ Predicted Device : Desktop
+ Predicted Device Accuracy : 85.76642335766424%
+ Main/Mean Devices : MOBILE(OTHER)
+ Average/Mean Accuracy: 70.84176182707994%
+                                   
+---------------PREFERENCES---------------
+###########The basic version has a limit of 3 preferred words. To upgrade look for a newer version or switch to a possible business version.###########
+*Predicted using Hard Values.*
+ User(s) most important words (preferred) : six,employee,investment [Not Summarised]
+ Average/Mean important words (preferred) : hows test basic [Not Summarised]
+                                   
+ ###########Nouns###########:
+  User(s) want (preferred) : six [Can be plural (To an extent of noun)]
+  Average/Mean want (preferred) : hows [Can be plural (To an extent of noun)]
+                                   
+ ###########Verbs###########:
+  User(s) are doing (preferred) : None_Found [Can be  plural/singular (To an extent of verb)]
+  Average/Mean are doing (preferred) : test [Can be plural/singular (To an extent of verb)]
+                                   
+ ###########Adjectives###########:
+  User(s) are describing (preferred) : None_Found [Can be  plural/singular (To an extent of adjective)]
+  Average/Mean are describing (preferred) : basic [Can be plural/singular (To an extent of adjective)]
+                                   
+ ###########Mood###########:
+  User(s) are (emotion) : Neutral [(To an extent of emotion)]
+  Average/Mean are (emotion) : Negative [(To an extent of emotion)]
+                                   
+  Predicted User Mood Accuracy : 99.9%
+  Average/Mean Mood Accuracy : 62.4%
+  Average <User : Mean> Accuracy : 81.15%
+*Predicted using a Neural Network.*
+  Predicted user sentence type : exclamation
+  Predicted user sentence type accuracy : 82.92682766914368%
+                                   
+  Predicted user sentence intent : commanding
+  Predicted user sentence intent accuracy : 50.0%
+                                   
+  Predicted global sentence type : exclamation
+  Predicted global sentence type accuracy : 50.602409638554214%
+                                   
+  Predicted global sentence intent : commanding
+  Predicted global sentence intent accuracy : 83.13253012048193%
+                                   
+  Predicted global intent + sentence accuracy : 66.86746987951807%
+                                   
+---------------USER INSIGHT---------------
+ ###########Day Changes###########:
+ Changes to your userbase over the past 5 days:
+  Changes from 2025-04-26 to 2025-05-01:
+  Type Changes: exclamation: -38.46%
+  Intent Changes: commanding: 0.00%
+ Average Changes to your userbase over the past 5 days:
+  
+
+
+ Average Type Change:
+  exclamation: -38.46%
+
+ Average Intent Change:
+  commanding: 0.00%
+ *Only includes userbase changes at least 5 days apart.
+                                   
+ ###########Week Changes###########:
+ Changes to your userbase over the past 5 weeks:
+  Changes from 2025-04-21 to 2025-04-28:
+  Type Changes: question: -2.86%, exclamation: +2.62%, command: +0.24%
+  Intent Changes: commanding: 0.00%
+ Average Changes to your userbase over the past 5 weeks:
+  
+
+
+ Average Type Change:
+  question: -2.86%
+  exclamation: +2.62%
+  command: +0.24%
+
+ Average Intent Change:
+  commanding: 0.00%
+ *Only includes userbase changes at least 5 weeks apart.
+                                   
+ ###########Month Changes###########:
+ Changes to your userbase over the past 5 months:
+  Changes from 2025-04-01 to 2025-05-01:
+  Type Changes: question: -2.86%, exclamation: +2.62%, command: +0.24%
+  Intent Changes: commanding: 0.00%
+ Average Changes to your userbase over the past 5 months:
+  
+
+
+ Average Type Change:
+  question: -2.86%
+  exclamation: +2.62%
+  command: +0.24%
+
+ Average Intent Change:
+  commanding: 0.00%
+ *Only includes userbase changes at least 5 months apart.
+                                   
+ ###########Year Changes###########:
+ Changes to your userbase over the past 5 years:
+  None_Found
+ Average Changes to your userbase over the past 5 months:
+  None_Found
+ *Only includes userbase changes at least 1 years apart.
+                                   
+---------------RESPONSE---------------
+Response Time : 0 hours, 0 minutes, 16 seconds, 838.8829999999998 milliseconds.
+###########This file is only used for general debugging, to access the individual output variables, use the API or the output_data folder.###########
+                                   
+*Remember you can change item limits and other items via settings.
+*SulfurAI can make mistakes. Check important info.
