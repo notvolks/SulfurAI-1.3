@@ -2,7 +2,7 @@ import os
 import sys
 import subprocess
 from importlib.metadata import PackageNotFoundError
-from VersionDATA.ai_renderer import call_file_path
+from VersionFiles.Sulfur.TrainingScript.Build import call_file_path
 import pygame
 
 # ── install helper ──
