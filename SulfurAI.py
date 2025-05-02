@@ -111,7 +111,7 @@ Device_Result = "NOT_SET"
 
 
 def get_call_file_path():
-    from VersionDATA.ai_renderer import call_file_path
+    from VersionFiles.Sulfur.TrainingScript.Build import call_file_path
     return call_file_path.Call()
 
 # Call file paths
@@ -400,7 +400,8 @@ start_time_printed = start_time.strftime(
     "%Y-%m-%d %H:%M:%S")  # Calculating what it starts at for rest_of_the_script(attributes)
 start_time_ms = f".{start_time.microsecond // 1000:03d}"
 print_verti_list(list_menu)
-rest_of_the_script()
+if __name__ == "__main__":
+    rest_of_the_script()
 
 
 def call_file_input():
