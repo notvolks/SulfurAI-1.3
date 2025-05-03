@@ -58,6 +58,8 @@ _We cannot ensure Sulfur will run if it is not the correct version._
   _Handles datasets efficiently._
   ### Python Transformers
   _Provides GenAI and ML solutions._
+  ### Python Fakers
+  _Provides sentence generation._
 
 ## _-CUDA_
 _While not necessary as of this version, Nvidia CUDA support will be needed for later releases._
