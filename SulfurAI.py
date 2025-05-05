@@ -219,6 +219,14 @@ def finish_script():
     with open(file_path_OutputData_name_Response_Time_MS, "w") as file:
         file.write(f"{hours} hours, {minutes} minutes, {seconds} seconds, {total_time_ms} milliseconds.")
 
+def ui_add_output_data(file_path,changes,changes_summary,average_summary,changes_apart,item,item_least):
+    with open(file_path, "w", encoding="utf-8", errors="ignore") as file:
+        file.write(f" ###########{item} Changes###########:\n")
+        file.write(f" Changes to your userbase over the past {changes} {item_least}:\n")
+        file.write("  " + f"{changes_summary}\n" if changes_summary else "  " + f"None_Found\n")
+        file.write(f" Average Changes to your userbase over the past {changes} {item_least}:\n")
+        file.write("  " + f"{average_summary}\n" if average_summary else "  " + f"None_Found\n")
+        file.write(f" *Only includes userbase changes at least {changes_apart} {item_least} apart.\n")
 
 
 def rest_of_the_script():
@@ -237,6 +245,8 @@ def rest_of_the_script():
 
     finish_script()
     try:
+
+        ########################################################AI SCRIPT RUNNER
         preferences_input = []
         current_dir_i = os.path.abspath(os.path.join(os.path.dirname(__file__),))
         folder_path_input = os.path.join(current_dir_i, 'DATA')
@@ -280,6 +290,14 @@ def rest_of_the_script():
         changes_summary_month,average_change_m = sentence_detectAndCompare_s.run_model(past_m_changes, changes_m_apart_at_leastMonth, granularity="month")
         changes_summary_year,average_change_y = sentence_detectAndCompare_s.run_model(past_y_changes, changes_y_apart_at_leastYear,granularity="year")
 
+        file_path_ui_day_changes = call.ui_day_changes()
+        ui_add_output_data(file_path_ui_day_changes, past_d_changes, changes_summary_day, average_change_d,changes_d_apart_at_leastDays, "Day", "days")
+        file_path_ui_week_changes = call.ui_week_changes()
+        ui_add_output_data(file_path_ui_week_changes, past_w_changes, changes_summary_week, average_change_w,changes_w_apart_at_leastWeek, "Week", "weeks")
+        file_path_ui_month_changes = call.ui_month_changes()
+        ui_add_output_data(file_path_ui_month_changes, past_m_changes, changes_summary_month, average_change_m,changes_m_apart_at_leastMonth, "Month", "months")
+        file_path_ui_year_changes = call.ui_year_changes()
+        ui_add_output_data(file_path_ui_year_changes, past_y_changes, changes_summary_year, average_change_y,changes_y_apart_at_leastYear, "Year", "years")
 
 
         #ai functions
@@ -287,6 +305,8 @@ def rest_of_the_script():
         main_devices = Mean_device_s.get_main_device()
         average_accuracy = Mean_device_s.get_main_accuracy()
         input_data, too_long,re_was_subbed = txt_data.verify_input("list")
+
+        ########################################################OUTPUT RUNNER
 
 
         with open(file_path_output, "w", encoding="utf-8", errors="ignore") as file:
