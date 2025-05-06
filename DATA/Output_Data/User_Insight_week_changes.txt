@@ -1,0 +1,19 @@
+ ###########Week Changes###########:
+ Changes to your userbase over the past 5 weeks:
+  Changes from 2025-04-28 to 2025-05-05:
+  Type Changes: exclamation: +32.63%, question: -29.47%, command: -2.11%, statement: -1.05%
+  Intent Changes: commanding: +1.05%, expressing: -1.05%
+ Average Changes to your userbase over the past 5 weeks:
+  
+
+
+ Average Type Change:
+  question: -21.43%
+  exclamation: +23.81%
+  command: -2.38%
+  statement: -0.53%
+
+ Average Intent Change:
+  commanding: 0.00%
+  expressing: -0.53%
+ *Only includes userbase changes at least 5 weeks apart.
