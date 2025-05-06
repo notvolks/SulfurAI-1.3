@@ -121,61 +121,46 @@ file_path_OutputData_name_Device = call.device()  # Assume this returns a single
 (folder_path_OuputData, folder_path_OuputData_name_Response_Time_MS, file_path_OutputData_name_Response_Time_MS) = call.response_time()
 (folder_path_trainingData_grammar, folder_path_trainingData_grammar_name, file_path_trainingData_grammar) = call.grammar()
 (folder_path_output, folder_path_output_name, file_path_output) = call.output()
-(folder_path_archFullTimeRendererSulfax, folder_path_archFullTimeRendererSulfax_name, file_path_archFullTimeRendererSulfax) = call.arch()
 (folder_path_training_data_sk, folder_path_training_data_name_sk, file_path_training_data_sk) = call.training_data_sk()
 
-class Arch:
-    instant_shutdown = error.instant_shutdown
+####################Architechture:
+ARCH_IS_VALID = 0
+file_path_arch = call.arch_runner()
+folder_path_arch = call.arch_runner_folder()
+if os.path.exists(file_path_arch): ARCH_IS_VALID += 1
+if os.path.exists(folder_path_arch): ARCH_IS_VALID += 1
+##########define ARCHITECTURE
+def start_arch():
+    arch = arch_runner.Arch()
+    arch.check_lines()
+    arch.verify_input()
 
-    def arch_items_append(self, item):
-        global arch_items
-        arch_items.append(item)
+##########run ARCHITECTURE
+if ARCH_IS_VALID == 2:
+    try:
+        from VersionFiles.Sulfur.ArchitectureBuild import arch_runner
+        start_arch()
+    except (ImportError,AttributeError,TypeError,FileNotFoundError,ValueError) as e:
+        print(f"ARCHITECTURE COULD NOT BE RUN! Error as {e}")
+        print("Shutting down sulfur...")
+        time.sleep(2)
+        error.brick_out(2)
 
-    @staticmethod
-    def arch_items_extend(item):
-        global arch_items
-        arch_items.extend(item)
+else:
+    try:
+        print("ARCHITECTURE COULD NOT BE VERIFIED!")
+        print("Shutting down sulfur...")
+        time.sleep(2)
+        error.brick_out(2)
+    except (ImportError,TypeError,AttributeError,KeyboardInterrupt) as e:
+        print(f"ARCHITECTURE COULD NOT BE CLOSED ('ARCHITECTURE COULD NOT BE VERIFIED' RAN INTO AN ERROR)! Error as {e}")
+        print("Shutting down sulfur...")
+        time.sleep(2)
+        error.brick_out(2)
 
-    def check_run(self):
-        global lines_list, arch_items
-        if "run = True" in lines_list and "run = True" in arch_items:
-            pass
-        if "run = False" in lines_list and "run = False" in arch_items:
-            self.instant_shutdown("ARCH ERROR.NOT RAN. INSTALL NEW VER.")
-        if "start_arch = True" in lines_list and "start_arch = True" in arch_items:
-            pass
-        if "start_arch = False" in lines_list and "start_arch = False" in arch_items:
-            self.instant_shutdown("ARCH ERROR. NOT STARTED. INSTALL NEW VER.")
+############################################
 
-    def check_lines(self):
-        call = get_call_file_path()
-        global lines_list, arch_items
-        arch_items = ["run = True", "run = False", "start_arch = True", "start_arch = False"]
-        folder_path_colon_symbol, folder_path_colon_symbol_name, file_path_colon_symbol = call.arch_colon()
-        with open(file_path_colon_symbol, "r") as file:
-            lines = file.readlines()
-            colon_data = ', '.join(lines)
-            if "{" in colon_data:
-                self.arch_items_append("{")
-            if "}" in colon_data:
-                self.arch_items_append("}")
 
-        global folder_path_archFullTimeRendererSulfax, folder_path_archFullTimeRendererSulfax_name, file_path_archFullTimeRendererSulfax
-        with open(file_path_archFullTimeRendererSulfax, "r") as file:
-            lines_list = [line.strip() for line in file.readlines()]
-            self.check_run()
-
-    def verify_input(self):
-        file_path_text_data_verify = call.text_data_verify()
-        if os.path.exists(file_path_text_data_verify):
-            pass
-        else:
-            error_print("er2", "Verification_input", "INSTALL NEW VER", 12)
-            self.instant_shutdown("VERIFY ERROR. NOT STARTED. INSTALL NEW VER. [input-data_vrfy]")
-
-arch = Arch()
-arch.check_lines()
-arch.verify_input()
 
 def variable_call():
     version = "[DRL]"
