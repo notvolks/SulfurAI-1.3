@@ -1,3 +1,10 @@
+###################TO ADD NEW SETTINGS:
+#-FIRST, CREATE A NEW IMAGE FOR THE BUTTON AND THE SCREEN.
+#-THEN, ADD IT TO THE PATHS , UI_SPECS (if needed to be input) AND SCREEN_CFG WITH AN INPUT BUTTON IF NEEDED (OFF/ON)
+#-THEN, CREATE A FILE PATH IN DATA/SETTINGS, ADD IT TO CALL_FILE_PATH.PY AND ADD IT TO THE PATHS AFOREMENTIONED.
+
+
+
 import os
 import sys
 import subprocess
@@ -46,6 +53,7 @@ paths = {
     "months_apart": (call.settings_ui_months_apart(), "5"),
     "years_ago":   (call.settings_ui_years_ago(),   "5"),
     "years_apart": (call.settings_ui_years_apart(), "1"),
+    "autotrainer": (call.settings_auto_trainer_extra_debug(),     "yes"),
 }
 
 def ensure(fp, default):
@@ -147,6 +155,8 @@ btn_specs = {
     "backup": ("DATA/settings/images/ex_backup_button.jpeg", (500, 200), 0.15),
     "input":  ("DATA/settings/images/ex_input_button.jpeg",  (750, 200), 0.15),
     "user":   ("DATA/settings/images/ex_user_insight.jpeg",  (250, 350), 0.15),
+    "autotrainer":   ("DATA/settings/images/ex_AutoTrainer.jpeg",  (500, 350), 0.15),
+    "save_changes":   ("DATA/settings/images/ex_save_changes.jpeg",  (850, 590), 0.15),
 }
 buttons = {k: Button(*v) for k, v in btn_specs.items()}
 
@@ -187,6 +197,18 @@ screen_cfg = {
         "x_btn":       "DATA/settings/images/ex_dbg_x.jpeg",
         "pos_off":     (620, 190),
     },
+
+    "autotrainer": {
+        "path_key":     "autotrainer",
+        "screen_btn":   "DATA/settings/images/ex_AutoTrainer_screen.jpeg",
+        "off_btn":      "DATA/settings/images/ex_dbg_off.jpeg",
+        "on_btn":       "DATA/settings/images/ex_dbg_on.jpeg",
+        "x_btn":        "DATA/settings/images/ex_dbg_x.jpeg",
+        "pos_off":      (600, 170),
+        "scale_main":   0.6,
+        "scale_toggle": 0.15,
+        "pos_x":        (900, 0),
+    },
 }
 
 for name, cfg in screen_cfg.items():
@@ -219,6 +241,7 @@ while True:
         btn.set_alpha(200 if btn.touched() else 255)
         if btn.is_pressed():
             show[nm] = True
+            if nm == "save_changes": print("Saved changes.") #changes saver
 
     # events
     for event in pygame.event.get():
