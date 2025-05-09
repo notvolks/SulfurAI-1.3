@@ -1,0 +1,123 @@
+###########Sulfur Output:###########*
+---------------INPUT---------------
+                                   
+Input (text) : ['On saturday ginni absorb the gambrel.']
+-Certain unaccepted parts of the input may be removed. 
+-This could affect output. 
+                                   
+---------------DEVICES---------------
+                                   
+*Predicted using Machine Learning.*
+ Predicted Device : Desktop
+ Predicted Device Accuracy : 85.50540368722187%
+ Main/Mean Devices : MOBILE(OTHER)
+ Average/Mean Accuracy: 72.1199421965318%
+                                   
+---------------PREFERENCES---------------
+###########The basic version has a limit of 3 preferred words. To upgrade look for a newer version or switch to a possible business version.###########
+*Predicted using Hard Values.*
+ User(s) most important words (preferred) : ginni,absorb,saturday [Not Summarised]
+ Average/Mean important words (preferred) : hows test basic [Not Summarised]
+                                   
+ ###########Nouns###########:
+  User(s) want (preferred) : ginni [Can be plural (To an extent of noun)]
+  Average/Mean want (preferred) : hows [Can be plural (To an extent of noun)]
+                                   
+ ###########Verbs###########:
+  User(s) are doing (preferred) : None_Found [Can be  plural/singular (To an extent of verb)]
+  Average/Mean are doing (preferred) : test [Can be plural/singular (To an extent of verb)]
+                                   
+ ###########Adjectives###########:
+  User(s) are describing (preferred) : None_Found [Can be  plural/singular (To an extent of adjective)]
+  Average/Mean are describing (preferred) : basic [Can be plural/singular (To an extent of adjective)]
+                                   
+ ###########Mood###########:
+  User(s) are (emotion) : Neutral [(To an extent of emotion)]
+  Average/Mean are (emotion) : Negative [(To an extent of emotion)]
+                                   
+  Predicted User Mood Accuracy : 99.9%
+  Average/Mean Mood Accuracy : 63.2%
+  Average <User : Mean> Accuracy : 81.55%
+*Predicted using a Neural Network.*
+  Predicted user sentence type : exclamation
+  Predicted user sentence type accuracy : 90.68322777748108%
+                                   
+  Predicted user sentence intent : commanding
+  Predicted user sentence intent accuracy : 59.0062141418457%
+                                   
+  Predicted global sentence type : exclamation
+  Predicted global sentence type accuracy : 59.25925925925925%
+                                   
+  Predicted global sentence intent : commanding
+  Predicted global sentence intent accuracy : 90.74074074074075%
+                                   
+  Predicted global intent + sentence accuracy : 75.0%
+                                   
+---------------USER INSIGHT---------------
+ ###########Day Changes###########:
+ Changes to your userbase over the past 5 days:
+  Changes from 2025-04-26 to 2025-05-01:
+  Type Changes: exclamation: -38.46%
+  Intent Changes: commanding: 0.00%
+ Average Changes to your userbase over the past 5 days:
+  
+
+
+ Average Type Change:
+  exclamation: -38.46%
+
+ Average Intent Change:
+  commanding: 0.00%
+ *Only includes userbase changes at least 5 days apart.
+                                   
+ ###########Week Changes###########:
+ Changes to your userbase over the past 5 weeks:
+  Changes from 2025-04-28 to 2025-05-05:
+  Type Changes: exclamation: +32.63%, question: -29.47%, command: -2.11%, statement: -1.05%
+  Intent Changes: commanding: +1.05%, expressing: -1.05%
+ Average Changes to your userbase over the past 5 weeks:
+  
+
+
+ Average Type Change:
+  question: -21.43%
+  exclamation: +23.81%
+  command: -2.38%
+  statement: -0.53%
+
+ Average Intent Change:
+  commanding: 0.00%
+  expressing: -0.53%
+ *Only includes userbase changes at least 5 weeks apart.
+                                   
+ ###########Month Changes###########:
+ Changes to your userbase over the past 5 months:
+  Changes from 2025-04-01 to 2025-05-01:
+  Type Changes: question: -14.57%, exclamation: +16.31%, command: -2.74%
+  Intent Changes: commanding: -1.01%
+ Average Changes to your userbase over the past 5 months:
+  
+
+
+ Average Type Change:
+  question: -14.57%
+  exclamation: +16.31%
+  command: -2.74%
+
+ Average Intent Change:
+  commanding: -1.01%
+ *Only includes userbase changes at least 5 months apart.
+                                   
+ ###########Year Changes###########:
+ Changes to your userbase over the past 5 years:
+  None_Found
+ Average Changes to your userbase over the past 5 months:
+  None_Found
+ *Only includes userbase changes at least 1 years apart.
+                                   
+---------------RESPONSE---------------
+Response Time : 0 hours, 0 minutes, 16 seconds, 105.1210000000001 milliseconds.
+###########This file is only used for general debugging, to access the individual output variables, use the API or the output_data folder.###########
+                                   
+*Remember you can change item limits and other items via settings.
+*SulfurAI can make mistakes. Check important info.
