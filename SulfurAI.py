@@ -1,4 +1,4 @@
-import os,subprocess,sys
+import os,subprocess,sys,importlib
 from VersionDATA.ai_renderer import error
 TOS = [
     "By using this application you agree to the Terms of Service listed in the project files.",
@@ -9,8 +9,9 @@ error_print = error.error
 print_verti_list(TOS)
 
 def install(packages):
-    package_string = ""
-
+    """
+    Custom install function for handling package installation with special cases like pygame-ce.
+    """
     if isinstance(packages, str):
         packages = [packages]
 
@@ -28,18 +29,60 @@ def install(packages):
             print(f"Failed to install {pkg}. Error: {error}")
 
 
+def get_installed_packages():
+    """
+    Retrieve all installed packages and their top-level modules.
+    Dynamically creates a module-to-package mapping.
+    """
+    package_map = {}
+    for dist in importlib.metadata.distributions():
+        try:
+            # Get the package name
+            package_name = dist.metadata["Name"]
+            # Get the top-level modules provided by the package
+            top_level = dist.read_text("top_level.txt")
+            if top_level:
+                for module in top_level.splitlines():
+                    package_map[module] = package_name
+        except KeyError:
+            # Skip packages without proper metadata
+            pass
+    return package_map
+
+
 print("-------Preparing PIP libraries.")
 def safe_import(module_name, package_name=None, extra_packages=None):
-    try:
-        __import__(module_name)
-    except ImportError:
-        pkg = package_name or module_name
-        print(f"-------{pkg} not found. Installing...")
-        install([pkg] + (extra_packages or []))
+    MODULE_TO_PACKAGE_MAP = {
+        "sklearn": "scikit-learn",
+        "pygame": "pygame-ce",
+        "torchvision": "torchvision",
+        "torchaudio": "torchaudio",
+        "beautifulsoup4": "bs4",
+    }
+    automatic_restart_failsafe = 0
+    pkg = package_name or module_name
+
+    while automatic_restart_failsafe < 3:  # retry limit,add in settings, list of scripts with this in it: sulfur, trainer,
         try:
-            __import__(module_name)
+
+            return importlib.import_module(module_name)
         except ImportError:
-            print(f"Error while importing {module_name} after installation. Restart Sulfur to fix the bug.")
+            print(f"------- {pkg} not found. Installing...")
+
+            install([pkg] + (extra_packages or []))
+
+            try:
+                module_name_printed = module_name
+                if module_name in MODULE_TO_PACKAGE_MAP: module_name_printed = MODULE_TO_PACKAGE_MAP[module_name]
+                return importlib.import_module(module_name_printed)
+            except ImportError:
+                automatic_restart_failsafe += 1
+                print(f"Error while importing {module_name} after installation. "
+                      f"Attempt {automatic_restart_failsafe}/3. "
+                      f"Restart Sulfur if this persists.")
+                if automatic_restart_failsafe >= 3:
+                    print(f"Failed to import {module_name} after multiple attempts. This could be a fake error - check previous print statements to ensure.")
+                    return None
 
 modules = [
     ("sklearn", "scikit-learn"),
@@ -52,7 +95,7 @@ modules = [
     ("nltk",),
     ("pandas",),
     ("transformers",),
-    ("torch", None, ["torchvision", "torchaudio"])
+    ("torch", None, ["torchvision", "torchaudio"]),
 ]
 
 for mod in modules:
@@ -136,6 +179,7 @@ def start_arch():
     arch.verify_input()
 
 ##########run ARCHITECTURE
+
 if ARCH_IS_VALID == 2:
     try:
         from VersionFiles.Sulfur.ArchitectureBuild import arch_runner
@@ -157,8 +201,6 @@ else:
         print("Shutting down sulfur...")
         time.sleep(2)
         error.brick_out(2)
-
-############################################
 
 
 
