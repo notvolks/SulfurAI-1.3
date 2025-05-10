@@ -8,6 +8,13 @@ print_verti_list = error.print_verti_list
 error_print = error.error
 print_verti_list(TOS)
 
+def get_call_file_path():
+    from VersionFiles.Sulfur.TrainingScript.Build import call_file_path
+    return call_file_path.Call()
+
+# Call file paths
+call = get_call_file_path()
+
 def install(packages):
     """
     Custom install function for handling package installation with special cases like pygame-ce.
@@ -60,9 +67,11 @@ def safe_import(module_name, package_name=None, extra_packages=None):
         "beautifulsoup4": "bs4",
     }
     automatic_restart_failsafe = 0
+    file_path_pip_py_restart_limit = call.settings_pip_fallback_amount()
+    with open(file_path_pip_py_restart_limit, "r", encoding="utf-8", errors="ignore") as file: automatic_restart_limit = str(file.readline())
     pkg = package_name or module_name
 
-    while automatic_restart_failsafe < 3:  # retry limit,add in settings, list of scripts with this in it: sulfur, trainer,
+    while automatic_restart_failsafe < int(automatic_restart_limit):
         try:
 
             return importlib.import_module(module_name)
@@ -78,9 +87,9 @@ def safe_import(module_name, package_name=None, extra_packages=None):
             except ImportError:
                 automatic_restart_failsafe += 1
                 print(f"Error while importing {module_name} after installation. "
-                      f"Attempt {automatic_restart_failsafe}/3. "
+                      f"Attempt {automatic_restart_failsafe}/{automatic_restart_limit}. "
                       f"Restart Sulfur if this persists.")
-                if automatic_restart_failsafe >= 3:
+                if automatic_restart_failsafe >= int(automatic_restart_limit):
                     print(f"Failed to import {module_name} after multiple attempts. This could be a fake error - check previous print statements to ensure.")
                     return None
 
@@ -153,12 +162,6 @@ Device_Result = "NOT_SET"
 
 
 
-def get_call_file_path():
-    from VersionFiles.Sulfur.TrainingScript.Build import call_file_path
-    return call_file_path.Call()
-
-# Call file paths
-call = get_call_file_path()
 file_path_OutputData_name_Device = call.device()  # Assume this returns a single path
 (folder_path_OuputData, folder_path_OuputData_name_Device_accuracy, file_path_OutputData_name_Device_accuracy) = call.device_accuracy()
 (folder_path_OuputData, folder_path_OuputData_name_Response_Time_MS, file_path_OutputData_name_Response_Time_MS) = call.response_time()
