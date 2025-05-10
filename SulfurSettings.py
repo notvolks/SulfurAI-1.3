@@ -1,6 +1,7 @@
 ###################TO ADD NEW SETTINGS:
 #-FIRST, CREATE A NEW IMAGE FOR THE BUTTON AND THE SCREEN.
-#-THEN, ADD IT TO THE PATHS , UI_SPECS (if needed to be input) AND SCREEN_CFG WITH AN INPUT BUTTON IF NEEDED (OFF/ON)
+#-THEN, ADD IT TO THE PATHS , UI_SPECS + UI_KEYS + DEFAULT_MAP + [IF NM == ___ + IF "MGRS" IN LOCALS:___  + IF KEY == ___ + ELIF MGR ==: ___] ->> highlighted in red (if needed to be input) AND SCREEN_CFG WITH AN INPUT BUTTON IF NEEDED (OFF/ON)
+#-THEN, CREATE A BUTTON SPEC IN BTN_SPECS
 #-THEN, CREATE A FILE PATH IN DATA/SETTINGS, ADD IT TO CALL_FILE_PATH.PY AND ADD IT TO THE PATHS AFOREMENTIONED.
 
 
@@ -45,6 +46,7 @@ paths = {
     "extra":      (call.settings_extra_debug(),     "no"),
     "backup":     (call.settings_backup(),          "yes"),
     "input":      (call.input_limit(),              "50"),
+    "input_bypass": (call.settings_input_process_limit(), "yes"),
     "days_ago":   (call.settings_ui_days_ago(),     "5"),
     "days_apart": (call.settings_ui_days_apart(),   "5"),
     "weeks_ago":   (call.settings_ui_weeks_ago(),   "5"),
@@ -54,6 +56,7 @@ paths = {
     "years_ago":   (call.settings_ui_years_ago(),   "5"),
     "years_apart": (call.settings_ui_years_apart(), "1"),
     "autotrainer": (call.settings_auto_trainer_extra_debug(),     "yes"),
+    "python_pip": (call.settings_pip_fallback_amount(),     "3"),
 }
 
 def ensure(fp, default):
@@ -90,12 +93,14 @@ clock = pygame.time.Clock()
 
 # Separate manager for input‐limit screen
 manager_input = pygame_gui.UIManager(SCREEN)
+manager_pip_python = pygame_gui.UIManager(SCREEN)
 # Managers for the eight UI fields (days/weeks/months/years)
 ui_keys = [
     "days_ago", "days_apart",
     "weeks_ago", "weeks_apart",
     "months_ago", "months_apart",
     "years_ago", "years_apart",
+    "python_pip",
 ]
 mgrs = {k: pygame_gui.UIManager(SCREEN) for k in ui_keys}
 
@@ -110,11 +115,17 @@ ui_specs = {
     "months_apart": ((850, 350), (100, 50)),
     "years_ago":   ((400, 425), (100, 50)),
     "years_apart": ((825, 425), (100, 50)),
+    "python_pip": ((370, 130), (100, 50)),
 }
 
 texts = {}
 for key, (pos, size) in ui_specs.items():
-    mgr = manager_input if key == "input" else mgrs[key]
+    if key == "input":
+        mgr = manager_input
+    elif key == "python_pip":
+        mgr = manager_pip_python
+    else:
+        mgr = mgrs[key]
     te = pygame_gui.elements.UITextEntryLine(
         relative_rect=pygame.Rect(pos, size),
         manager=mgr,
@@ -157,6 +168,7 @@ btn_specs = {
     "user":   ("DATA/settings/images/ex_user_insight.jpeg",  (250, 350), 0.15),
     "autotrainer":   ("DATA/settings/images/ex_AutoTrainer.jpeg",  (500, 350), 0.15),
     "save_changes":   ("DATA/settings/images/ex_save_changes.jpeg",  (850, 590), 0.15),
+    "python_pip":   ("DATA/settings/images/ex_python_pip_button.jpeg",  (750, 350), 0.15),
 }
 buttons = {k: Button(*v) for k, v in btn_specs.items()}
 
@@ -182,12 +194,13 @@ screen_cfg = {
         "pos_off":     (425, 200),
     },
     "input": {
-        "path_key":    "input",
-        "screen_btn":  "DATA/settings/images/ex_input_screen.jpeg",
-        "off_btn":     "DATA/settings/images/ex_dbg_off.jpeg",
-        "on_btn":      "DATA/settings/images/ex_dbg_on.jpeg",
-        "x_btn":       "DATA/settings/images/ex_dbg_x.jpeg",
-        "pos_off":     (620, 190),
+        "path_key": "input",
+        "path_key": "input_bypass",
+        "screen_btn": "DATA/settings/images/ex_input_screen.jpeg",
+        "off_btn": "DATA/settings/images/ex_dbg_off.jpeg",
+        "on_btn": "DATA/settings/images/ex_dbg_on.jpeg",
+        "x_btn": "DATA/settings/images/ex_dbg_x.jpeg",
+        "pos_off": (620, 190),
     },
     "user": {
         "path_key":    None,
@@ -208,6 +221,18 @@ screen_cfg = {
         "scale_main":   0.6,
         "scale_toggle": 0.15,
         "pos_x":        (900, 0),
+    },
+
+    "python_pip": {
+        "path_key": "python_pip",
+        "screen_btn": "DATA/settings/images/ex_python_pip_screen.jpeg",
+        "off_btn": "DATA/settings/images/ex_dbg_off.jpeg",
+        "on_btn": "DATA/settings/images/ex_dbg_on.jpeg",
+        "x_btn": "DATA/settings/images/ex_dbg_x.jpeg",
+        "pos_off": (9000, 9000), ##essentially hides the button because its not needed
+        "scale_main": 0.6,
+        "scale_toggle": 0.15,
+        "pos_x": (900, 0),
     },
 }
 
@@ -236,12 +261,18 @@ while True:
     mx, my = pygame.mouse.get_pos()
 
     # main buttons
+    modal_active = any(show.values())
+    active_screens = {name: False for name in screen_cfg}
     for nm, btn in buttons.items():
         btn.draw(screen)
         btn.set_alpha(200 if btn.touched() else 255)
-        if btn.is_pressed():
+        if btn.is_pressed() and not any(active_screens.values()) and not modal_active:
             show[nm] = True
-            if nm == "save_changes": print("Saved changes.") #changes saver
+            if nm == "save_changes":
+                print("Saved changes.")
+                show[nm] = False
+            if nm == "python_pip":
+                show["python_pip"] = True
 
     # events
     for event in pygame.event.get():
@@ -260,6 +291,8 @@ while True:
             key = None
             if mgr is manager_input:
                 key = "input"
+            elif mgr is manager_pip_python:
+                key = "python_pip"
             else:
                 for k, m in mgrs.items():
                     if mgr is m:
@@ -280,14 +313,21 @@ while True:
                     "months_apart": 5,
                     "years_ago":    5,
                     "years_apart":  1,
+                    "python_pip": 3,
                 }
                 val = default_map.get(key, 5)
                 print(f"Your input is not an integer. Auto set to {val}.")
             print(f"Input changed to {val}")
 
-            # save
+            # savef
             if key is not None:
                 fp, _ = paths[key]
+                if key == "python_pip" and val < 3:
+                    print("Value for python_pip cannot be less than 3. Setting to 3.")
+                    val = 3
+                if val < 1:
+                    print("Value cannot be less than 1. Setting to 1.") #change if needed for specific input
+                    val = 1
                 with open(fp, "w", encoding="utf-8", errors="ignore") as f:
                     f.write(str(val))
 
@@ -296,7 +336,9 @@ while True:
             if event.type != pygame.USEREVENT:
                 for m in mgrs.values():
                     m.process_events(event)
-            manager_input.process_events(event)
+                manager_input.process_events(event)
+                manager_pip_python.process_events(event)
+
 
     # draw active screens
     for nm, cfg in screen_cfg.items():
@@ -317,6 +359,7 @@ while True:
                     f.write("yes" if "no" in data else "no")
 
         if nm == "input":
+
             manager_input.draw_ui(screen)
             manager_input.update(0)
         elif nm == "user":
@@ -324,8 +367,14 @@ while True:
                 m.draw_ui(screen)
                 m.update(0)
 
+        elif nm == "python_pip":
+
+            manager_pip_python.draw_ui(screen)
+            manager_pip_python.update(0)
+
         if cfg['x'].is_pressed():
             show[nm] = False
+
 
     screen.blit(mouse_img, (mx, my))
     pygame.display.update()
