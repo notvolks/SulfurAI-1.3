@@ -56,6 +56,7 @@ paths = {
     "years_ago":   (call.settings_ui_years_ago(),   "5"),
     "years_apart": (call.settings_ui_years_apart(), "1"),
     "autotrainer": (call.settings_auto_trainer_extra_debug(),     "yes"),
+    "auto_trainer_delay": (call.settings_auto_trainer_delay(), "0"),
     "python_pip": (call.settings_pip_fallback_amount(),     "3"),
 }
 
@@ -94,13 +95,15 @@ clock = pygame.time.Clock()
 # Separate manager for input‐limit screen
 manager_input = pygame_gui.UIManager(SCREEN)
 manager_pip_python = pygame_gui.UIManager(SCREEN)
+manager_ui_extra_delay = pygame_gui.UIManager(SCREEN)
 # Managers for the eight UI fields (days/weeks/months/years)
 ui_keys = [
     "days_ago", "days_apart",
     "weeks_ago", "weeks_apart",
     "months_ago", "months_apart",
     "years_ago", "years_apart",
-    "python_pip",
+    "python_pip", "auto_trainer_delay",
+
 ]
 mgrs = {k: pygame_gui.UIManager(SCREEN) for k in ui_keys}
 
@@ -116,6 +119,7 @@ ui_specs = {
     "years_ago":   ((400, 425), (100, 50)),
     "years_apart": ((825, 425), (100, 50)),
     "python_pip": ((370, 130), (100, 50)),
+    "auto_trainer_delay": ((530, 270), (100, 50)),
 }
 
 texts = {}
@@ -124,6 +128,8 @@ for key, (pos, size) in ui_specs.items():
         mgr = manager_input
     elif key == "python_pip":
         mgr = manager_pip_python
+    elif key == "auto_trainer_delay":
+        mgr = manager_ui_extra_delay
     else:
         mgr = mgrs[key]
     te = pygame_gui.elements.UITextEntryLine(
@@ -169,8 +175,12 @@ btn_specs = {
     "autotrainer":   ("DATA/settings/images/ex_AutoTrainer.jpeg",  (500, 350), 0.15),
     "save_changes":   ("DATA/settings/images/ex_save_changes.jpeg",  (850, 590), 0.15),
     "python_pip":   ("DATA/settings/images/ex_python_pip_button.jpeg",  (750, 350), 0.15),
+
+
 }
+
 buttons = {k: Button(*v) for k, v in btn_specs.items()}
+
 
 # ── Screens config ──
 screen_cfg = {
@@ -234,6 +244,7 @@ screen_cfg = {
         "scale_toggle": 0.15,
         "pos_x": (900, 0),
     },
+
 }
 
 for name, cfg in screen_cfg.items():
@@ -273,6 +284,9 @@ while True:
                 show[nm] = False
             if nm == "python_pip":
                 show["python_pip"] = True
+            if nm == "auto_trainer_delay":
+                show["autotrainer"] = True
+
 
     # events
     for event in pygame.event.get():
@@ -293,6 +307,8 @@ while True:
                 key = "input"
             elif mgr is manager_pip_python:
                 key = "python_pip"
+            elif mgr is manager_ui_extra_delay:
+                key = "auto_trainer_delay"
             else:
                 for k, m in mgrs.items():
                     if mgr is m:
@@ -314,6 +330,7 @@ while True:
                     "years_ago":    5,
                     "years_apart":  1,
                     "python_pip": 3,
+                    "auto_trainer_delay": 0,
                 }
                 val = default_map.get(key, 5)
                 print(f"Your input is not an integer. Auto set to {val}.")
@@ -322,12 +339,19 @@ while True:
             # savef
             if key is not None:
                 fp, _ = paths[key]
+
+                # Validation logic
                 if key == "python_pip" and val < 3:
                     print("Value for python_pip cannot be less than 3. Setting to 3.")
                     val = 3
-                if val < 1:
-                    print("Value cannot be less than 1. Setting to 1.") #change if needed for specific input
+                elif key == "auto_trainer_delay" and val < 0:
+                    print("Value for auto_trainer_delay cannot be less than 0. Setting to 0.")
+                    val = 0
+                elif val < 1:
+                    print("Value cannot be less than 1. Setting to 1.")  # Generic fallback, customize if needed
                     val = 1
+
+                # Write to file
                 with open(fp, "w", encoding="utf-8", errors="ignore") as f:
                     f.write(str(val))
 
@@ -338,6 +362,7 @@ while True:
                     m.process_events(event)
                 manager_input.process_events(event)
                 manager_pip_python.process_events(event)
+                manager_ui_extra_delay.process_events(event)
 
 
     # draw active screens
@@ -371,6 +396,13 @@ while True:
 
             manager_pip_python.draw_ui(screen)
             manager_pip_python.update(0)
+
+
+        elif nm == "autotrainer":
+
+            fp, _ = paths["autotrainer"]
+            manager_ui_extra_delay.draw_ui(screen)
+            manager_ui_extra_delay.update(0)
 
         if cfg['x'].is_pressed():
             show[nm] = False
