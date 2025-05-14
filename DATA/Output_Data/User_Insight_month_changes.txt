@@ -1,0 +1,17 @@
+ ###########Month Changes###########:
+ Changes to your userbase over the past 5 months:
+  Changes from 2025-04-01 to 2025-05-01:
+  Type Changes: question: -17.08%, exclamation: +19.49%, command: -3.20%
+  Intent Changes: commanding: -0.78%
+ Average Changes to your userbase over the past 5 months:
+  
+
+
+ Average Type Change:
+  question: -17.08%
+  exclamation: +19.49%
+  command: -3.20%
+
+ Average Intent Change:
+  commanding: -0.78%
+ *Only includes userbase changes at least 5 months apart.
