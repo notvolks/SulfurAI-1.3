@@ -260,184 +260,177 @@ def ui_add_output_data(file_path,changes,changes_summary,average_summary,changes
 
 
 def rest_of_the_script():
-
-
     # Write output
     Check_device_s = call_ai_class("CD")
     instance = Check_device_s.Ai()
     ai_process_cd_instance = Check_device_s.ai_process_cd()
     Device_Result, Device_Accuracy = ai_process_cd_instance.process_script()
 
-
-
-
-    global hours,minutes,seconds,total_time_ms
+    global hours, minutes, seconds, total_time_ms
 
     finish_script()
     try:
-
-        ########################################################AI SCRIPT RUNNER
+        # === Load Input and Preferences ===
         preferences_input = []
-        current_dir_i = os.path.abspath(os.path.join(os.path.dirname(__file__),))
+        current_dir_i = os.path.abspath(os.path.join(os.path.dirname(__file__)))
         folder_path_input = os.path.join(current_dir_i, 'DATA')
-        file_name_input = 'Input.txt'  # Debugger variables
+        file_name_input = 'Input.txt'
         file_name_attributes = "Attributes.txt"
         file_name_output = "Output.txt"
+
         file_path_input = os.path.join(folder_path_input, file_name_input)
         file_path_attributes = os.path.join(folder_path_input, file_name_attributes)
         file_path_output = os.path.join(folder_path_input, file_name_output)
+
         instance_preferences = preferences_basic_compare_s.prefer_compare()
-        #only using one script to be efficient
-        wanted_noun_most_important_user, wanted_noun_most_important_global, preferences_user, preferences_text_global, wanted_verb_most_important_user, wanted_verb_most_important_global, input_data, adjective_describe_user, adjective_describe_global, mood_user, mood_global, mood_accuracy_user, mood_accuracy_global,average_mood_accuracy = instance_preferences.get_process(3) # set to 3 for basic model!
-        stype_user, sintent_user,acc_sent_user,acc_intent_user,avg_sent_types,avg_intent_types,acc_sent_global,acc_intent_global,avg_accuracy_global = sentence_detectAndInfer_s.sentence_intent_and_infer()
-        ##
+        (
+            wanted_noun_most_important_user, wanted_noun_most_important_global, preferences_user,
+            preferences_text_global, wanted_verb_most_important_user, wanted_verb_most_important_global,
+            input_data, adjective_describe_user, adjective_describe_global, mood_user, mood_global,
+            mood_accuracy_user, mood_accuracy_global, average_mood_accuracy
+        ) = instance_preferences.get_process(3)
+
+        (
+            stype_user, sintent_user, acc_sent_user, acc_intent_user,
+            avg_sent_types, avg_intent_types, acc_sent_global, acc_intent_global, avg_accuracy_global
+        ) = sentence_detectAndInfer_s.sentence_intent_and_infer()
+
+        # === Read Time-Based Change Settings ===
         file_path_settings_name_ui_days_ago = call.settings_ui_days_ago()
         file_path_settings_name_ui_days_apart = call.settings_ui_days_apart()
-
         file_path_settings_name_ui_weeks_ago = call.settings_ui_weeks_ago()
         file_path_settings_name_ui_weeks_apart = call.settings_ui_weeks_apart()
-
         file_path_settings_name_ui_months_ago = call.settings_ui_months_ago()
         file_path_settings_name_ui_months_apart = call.settings_ui_months_apart()
-
         file_path_settings_name_ui_years_ago = call.settings_ui_years_ago()
         file_path_settings_name_ui_years_apart = call.settings_ui_years_apart()
-        ##
-        with open(file_path_settings_name_ui_days_ago, "r", encoding="utf-8", errors="ignore") as file: past_d_changes = int(str(file.readline()))
-        with open(file_path_settings_name_ui_days_apart, "r", encoding="utf-8", errors="ignore") as file: changes_d_apart_at_leastDays = int(str(file.readline()))
 
-        with open(file_path_settings_name_ui_weeks_ago, "r", encoding="utf-8", errors="ignore") as file: past_w_changes = int(str(file.readline()))
-        with open(file_path_settings_name_ui_weeks_apart, "r", encoding="utf-8", errors="ignore") as file: changes_w_apart_at_leastWeek = int(str(file.readline()))
+        with open(file_path_settings_name_ui_days_ago, "r", encoding="utf-8", errors="ignore") as f:
+            past_d_changes = int(f.readline())
+        with open(file_path_settings_name_ui_days_apart, "r", encoding="utf-8", errors="ignore") as f:
+            changes_d_apart_at_leastDays = int(f.readline())
 
-        with open(file_path_settings_name_ui_months_ago, "r", encoding="utf-8", errors="ignore") as file: past_m_changes = int(str(file.readline()))
-        with open(file_path_settings_name_ui_months_apart, "r", encoding="utf-8", errors="ignore") as file: changes_m_apart_at_leastMonth = int(str(file.readline()))
+        with open(file_path_settings_name_ui_weeks_ago, "r", encoding="utf-8", errors="ignore") as f:
+            past_w_changes = int(f.readline())
+        with open(file_path_settings_name_ui_weeks_apart, "r", encoding="utf-8", errors="ignore") as f:
+            changes_w_apart_at_leastWeek = int(f.readline())
 
-        with open(file_path_settings_name_ui_years_ago, "r", encoding="utf-8", errors="ignore") as file: past_y_changes = int(str(file.readline()))
-        with open(file_path_settings_name_ui_years_apart, "r", encoding="utf-8", errors="ignore") as file: changes_y_apart_at_leastYear = int(str(file.readline()))
+        with open(file_path_settings_name_ui_months_ago, "r", encoding="utf-8", errors="ignore") as f:
+            past_m_changes = int(f.readline())
+        with open(file_path_settings_name_ui_months_apart, "r", encoding="utf-8", errors="ignore") as f:
+            changes_m_apart_at_leastMonth = int(f.readline())
 
-        changes_summary_day,average_change_d = sentence_detectAndCompare_s.run_model(past_d_changes,changes_d_apart_at_leastDays, granularity="day")
-        changes_summary_week,average_change_w = sentence_detectAndCompare_s.run_model(past_w_changes, changes_w_apart_at_leastWeek, granularity="week")
-        changes_summary_month,average_change_m = sentence_detectAndCompare_s.run_model(past_m_changes, changes_m_apart_at_leastMonth, granularity="month")
-        changes_summary_year,average_change_y = sentence_detectAndCompare_s.run_model(past_y_changes, changes_y_apart_at_leastYear,granularity="year")
+        with open(file_path_settings_name_ui_years_ago, "r", encoding="utf-8", errors="ignore") as f:
+            past_y_changes = int(f.readline())
+        with open(file_path_settings_name_ui_years_apart, "r", encoding="utf-8", errors="ignore") as f:
+            changes_y_apart_at_leastYear = int(f.readline())
 
-        file_path_ui_day_changes = call.ui_day_changes()
-        ui_add_output_data(file_path_ui_day_changes, past_d_changes, changes_summary_day, average_change_d,changes_d_apart_at_leastDays, "Day", "days")
-        file_path_ui_week_changes = call.ui_week_changes()
-        ui_add_output_data(file_path_ui_week_changes, past_w_changes, changes_summary_week, average_change_w,changes_w_apart_at_leastWeek, "Week", "weeks")
-        file_path_ui_month_changes = call.ui_month_changes()
-        ui_add_output_data(file_path_ui_month_changes, past_m_changes, changes_summary_month, average_change_m,changes_m_apart_at_leastMonth, "Month", "months")
-        file_path_ui_year_changes = call.ui_year_changes()
-        ui_add_output_data(file_path_ui_year_changes, past_y_changes, changes_summary_year, average_change_y,changes_y_apart_at_leastYear, "Year", "years")
+        # === Detect Changes ===
+        changes_summary_day, average_change_d = sentence_detectAndCompare_s.run_model(past_d_changes, changes_d_apart_at_leastDays, "day")
+        changes_summary_week, average_change_w = sentence_detectAndCompare_s.run_model(past_w_changes, changes_w_apart_at_leastWeek, "week")
+        changes_summary_month, average_change_m = sentence_detectAndCompare_s.run_model(past_m_changes, changes_m_apart_at_leastMonth, "month")
+        changes_summary_year, average_change_y = sentence_detectAndCompare_s.run_model(past_y_changes, changes_y_apart_at_leastYear, "year")
 
+        # === UI Output Data ===
+        ui_add_output_data(call.ui_day_changes(), past_d_changes, changes_summary_day, average_change_d, changes_d_apart_at_leastDays, "Day", "days")
+        ui_add_output_data(call.ui_week_changes(), past_w_changes, changes_summary_week, average_change_w, changes_w_apart_at_leastWeek, "Week", "weeks")
+        ui_add_output_data(call.ui_month_changes(), past_m_changes, changes_summary_month, average_change_m, changes_m_apart_at_leastMonth, "Month", "months")
+        ui_add_output_data(call.ui_year_changes(), past_y_changes, changes_summary_year, average_change_y, changes_y_apart_at_leastYear, "Year", "years")
 
-        #ai functions
+        # === AI Device and Input Verification ===
         OutputDevice = instance.summarise_device()
         main_devices = Mean_device_s.get_main_device()
         average_accuracy = Mean_device_s.get_main_accuracy()
-        input_data, too_long,re_was_subbed = txt_data.verify_input("list")
+        input_data, too_long, re_was_subbed = txt_data.verify_input("list")
 
-        ########################################################OUTPUT RUNNER
+        # === Output Writer Function ===
+        def write_userbase_changes(file, label, past_range, summary, avg, apart_unit):
+            file.write(f" ###########{label} Changes###########:\n")
+            file.write(f" Changes to your userbase over the past {past_range} {label.lower()}s:\n")
+            file.write("  " + (summary if summary else "None_Found") + "\n")
+            file.write(f" Average Changes over the past {past_range} {label.lower()}s:\n")
+            file.write("  " + (avg if avg else "None_Found") + "\n")
+            file.write(f" *Only includes changes at least {apart_unit} {label.lower()}s apart.\n\n")
+
+        # === Write Output to File ===
+        try:
+            with open(file_path_output, "w", encoding="utf-8", errors="ignore") as file:
+                file.write("###########Sulfur Output:###########*\n")
+                file.write("---------------INPUT---------------\n\n")
+                file.write(f"Input (text) : {input_data}\n")
+                if too_long:
+                    file.write("Input Error : Input is too long. Stripped to below cap.\n")
+                if re_was_subbed:
+                    file.write("-Certain unaccepted parts of the input may be removed.\n")
+                    file.write("-This could affect output.\n")
+
+                file.write("\n---------------DEVICES---------------\n\n")
+                file.write("*Predicted using Machine Learning.*\n")
+                file.write(f" Predicted Device : {OutputDevice}\n")
+                file.write(f" Predicted Device Accuracy : {Device_Accuracy}%\n")
+                file.write(f" Main/Mean Devices : {main_devices}\n")
+                file.write(f" Average/Mean Accuracy: {average_accuracy}%\n")
+
+                file.write("\n---------------PREFERENCES---------------\n")
+                file.write("###########Basic version limit: 3 preferred words###########\n")
+                file.write("*Predicted using Hard Values.*\n")
+                file.write(f" User(s) preferred words : {','.join(preferences_user)} [Not Summarised]\n")
+                file.write(f" Average preferred words : {preferences_text_global} [Not Summarised]\n\n")
+
+                def section(title, user, global_val, extra=""):
+                    file.write(f" ###########{title}###########:\n")
+                    file.write(f"  User(s): {user} {extra}\n")
+                    file.write(f"  Average: {global_val} {extra}\n\n")
+
+                section("Nouns", wanted_noun_most_important_user, wanted_noun_most_important_global, "[To an extent of noun]")
+                section("Verbs", wanted_verb_most_important_user, wanted_verb_most_important_global, "[To an extent of verb]")
+                section("Adjectives", adjective_describe_user, adjective_describe_global, "[To an extent of adjective]")
+                section("Mood", mood_user, mood_global, "[To an extent of emotion]")
+
+                file.write(f"  Predicted Mood Accuracy : {mood_accuracy_user}% (user), {mood_accuracy_global}% (global)\n")
+                file.write(f"  Average <User : Mean> Accuracy : {average_mood_accuracy}%\n")
+                file.write("*Predicted using a Neural Network.*\n")
+                file.write(f"  Sentence Type : {stype_user} ({acc_sent_user * 100}%)\n")
+                file.write(f"  Sentence Intent : {sintent_user} ({acc_intent_user * 100}%)\n")
+                file.write(f"  Global Type : {avg_sent_types} ({acc_sent_global * 100}%)\n")
+                file.write(f"  Global Intent : {avg_intent_types} ({acc_intent_global * 100}%)\n")
+                file.write(f"  Overall Accuracy : {avg_accuracy_global * 100}%\n")
+
+                file.write("---------------USER INSIGHT---------------\n")
+                write_userbase_changes(file, "Day", past_d_changes, changes_summary_day, average_change_d, changes_d_apart_at_leastDays)
+                write_userbase_changes(file, "Week", past_w_changes, changes_summary_week, average_change_w, changes_w_apart_at_leastWeek)
+                write_userbase_changes(file, "Month", past_m_changes, changes_summary_month, average_change_m, changes_m_apart_at_leastMonth)
+                write_userbase_changes(file, "Year", past_y_changes, changes_summary_year, average_change_y, changes_y_apart_at_leastYear)
+
+                file.write("---------------RESPONSE---------------\n")
+                file.write(f"Response Time : {hours}h {minutes}m {seconds}s, {total_time_ms}ms\n")
+                file.write("###########General debugging only.###########\n")
+                file.write("*Settings can be changed. SulfurAI may make mistakes.*\n")
+
+                # === Optional Extra Output ===
+                file_path_ui_extra_output_settings = call.settings_ui_write_to_seperate_output()
+                with open(file_path_ui_extra_output_settings, "r", encoding="utf-8", errors="ignore") as file_extra:
+                    ui_extra_output = file_extra.readline().strip()
 
 
-        with open(file_path_output, "w", encoding="utf-8", errors="ignore") as file:
+                file_path_extra_output = call.Output_UserInsight()
+                if ui_extra_output == "yes":
+                    with open(file_path_extra_output, "w", encoding="utf-8", errors="ignore") as file:
+                        file.write("--------------USER INSIGHT---------------\n")
+                        write_userbase_changes(file, "Day", past_d_changes, changes_summary_day, average_change_d, changes_d_apart_at_leastDays)
+                        write_userbase_changes(file, "Week", past_w_changes, changes_summary_week, average_change_w, changes_w_apart_at_leastWeek)
+                        write_userbase_changes(file, "Month", past_m_changes, changes_summary_month, average_change_m, changes_m_apart_at_leastMonth)
+                        write_userbase_changes(file, "Year", past_y_changes, changes_summary_year, average_change_y, changes_y_apart_at_leastYear)
 
-            file.write(f"###########Sulfur Output:###########*\n")
-            file.write(f"---------------INPUT---------------\n")
-            file.write(f"                                   \n")
-            file.write(f"Input (text) : {input_data}\n")
-            if too_long: file.write(f"Input Error : Input is too long. Stripped to below cap.\n")
-            if re_was_subbed: file.write(f"-Certain unaccepted parts of the input may be removed. \n")
-            if re_was_subbed: file.write(f"-This could affect output. \n")
-            file.write(f"                                   \n")
-            file.write(f"---------------DEVICES---------------\n")
-            file.write(f"                                   \n")
-            file.write(f"*Predicted using Machine Learning.*\n")
-            file.write(f" Predicted Device : {OutputDevice}\n")
-            file.write(f" Predicted Device Accuracy : {Device_Accuracy}%\n")
-            file.write(f" Main/Mean Devices : {main_devices}\n")
-            file.write(f" Average/Mean Accuracy: {average_accuracy}%\n")
-            file.write(f"                                   \n")
-            file.write(f"---------------PREFERENCES---------------\n")
-            file.write("###########The basic version has a limit of 3 preferred words. To upgrade look for a newer version or switch to a possible business version.###########\n")
-            preferred_words = ",".join(preferences_user)
-            file.write(f"*Predicted using Hard Values.*\n")
-            file.write(f" User(s) most important words (preferred) : {preferred_words} [Not Summarised]\n")
-            file.write(f" Average/Mean important words (preferred) : {preferences_text_global} [Not Summarised]\n")
-            file.write(f"                                   \n")
-            file.write( " ###########Nouns###########:\n")
-            file.write(f"  User(s) want (preferred) : {wanted_noun_most_important_user} [Can be plural (To an extent of noun)]\n")
-            file.write(f"  Average/Mean want (preferred) : {wanted_noun_most_important_global} [Can be plural (To an extent of noun)]\n")
-            file.write(f"                                   \n")
-            file.write(" ###########Verbs###########:\n")
-            file.write(f"  User(s) are doing (preferred) : {wanted_verb_most_important_user} [Can be  plural/singular (To an extent of verb)]\n")
-            file.write(f"  Average/Mean are doing (preferred) : {wanted_verb_most_important_global} [Can be plural/singular (To an extent of verb)]\n")
-            file.write(f"                                   \n")
-            file.write(" ###########Adjectives###########:\n")
-            file.write(f"  User(s) are describing (preferred) : {adjective_describe_user} [Can be  plural/singular (To an extent of adjective)]\n")
-            file.write(f"  Average/Mean are describing (preferred) : {adjective_describe_global} [Can be plural/singular (To an extent of adjective)]\n")
-            file.write(f"                                   \n")
-            file.write(" ###########Mood###########:\n")
-            file.write(f"  User(s) are (emotion) : {mood_user} [(To an extent of emotion)]\n")
-            file.write(f"  Average/Mean are (emotion) : {mood_global} [(To an extent of emotion)]\n")
-            file.write(f"                                   \n")
-            file.write(f"  Predicted User Mood Accuracy : {mood_accuracy_user}%\n")
-            file.write(f"  Average/Mean Mood Accuracy : {mood_accuracy_global}%\n")
-            file.write(f"  Average <User : Mean> Accuracy : {average_mood_accuracy}%\n")
-            file.write(f"*Predicted using a Neural Network.*\n")
-            file.write(f"  Predicted user sentence type : {stype_user}\n")
-            file.write(f"  Predicted user sentence type accuracy : {acc_sent_user * 100}%\n")
-            file.write(f"                                   \n")
-            file.write(f"  Predicted user sentence intent : {sintent_user}\n")
-            file.write(f"  Predicted user sentence intent accuracy : {acc_intent_user * 100}%\n")
-            file.write(f"                                   \n")
-            file.write(f"  Predicted global sentence type : {avg_sent_types}\n")
-            file.write(f"  Predicted global sentence type accuracy : {acc_sent_global * 100}%\n")
-            file.write(f"                                   \n")
-            file.write(f"  Predicted global sentence intent : {avg_intent_types}\n")
-            file.write(f"  Predicted global sentence intent accuracy : {acc_intent_global * 100}%\n")
-            file.write(f"                                   \n")
-            file.write(f"  Predicted global intent + sentence accuracy : {avg_accuracy_global * 100}%\n")
-            file.write(f"                                   \n")
-            file.write(f"---------------USER INSIGHT---------------\n")
-            file.write(" ###########Day Changes###########:\n")
-            file.write(f" Changes to your userbase over the past {past_d_changes} days:\n")
-            file.write("  " + f"{changes_summary_day}\n" if changes_summary_day else "  " + f"None_Found\n")
-            file.write(f" Average Changes to your userbase over the past {past_d_changes} days:\n")
-            file.write("  " + f"{average_change_d}\n" if average_change_d else "  " + f"None_Found\n")
-            file.write(f" *Only includes userbase changes at least {changes_d_apart_at_leastDays} days apart.\n")
-            file.write(f"                                   \n")
-            file.write(" ###########Week Changes###########:\n")
-            file.write(f" Changes to your userbase over the past {past_w_changes} weeks:\n")
-            file.write("  " + f"{changes_summary_week}\n" if changes_summary_week else "  " + f"None_Found\n")
-            file.write(f" Average Changes to your userbase over the past {past_w_changes} weeks:\n")
-            file.write("  " + f"{average_change_w}\n" if average_change_w else "  " + f"None_Found\n")
-            file.write(f" *Only includes userbase changes at least {changes_w_apart_at_leastWeek} weeks apart.\n")
-            file.write(f"                                   \n")
-            file.write(" ###########Month Changes###########:\n")
-            file.write(f" Changes to your userbase over the past {past_m_changes} months:\n")
-            file.write("  " + f"{changes_summary_month}\n" if changes_summary_month else "  " + f"None_Found\n")
-            file.write(f" Average Changes to your userbase over the past {past_m_changes} months:\n")
-            file.write("  " + f"{average_change_m}\n" if average_change_m else "  " + f"None_Found\n")
-            file.write(f" *Only includes userbase changes at least {changes_m_apart_at_leastMonth} months apart.\n")
-            file.write(f"                                   \n")
-            file.write(" ###########Year Changes###########:\n")
-            file.write(f" Changes to your userbase over the past {past_y_changes} years:\n")
-            file.write("  " + f"{changes_summary_year}\n" if changes_summary_year else "  " + f"None_Found\n")
-            file.write(f" Average Changes to your userbase over the past {past_y_changes} months:\n")
-            file.write("  " + f"{average_change_y}\n" if average_change_y else "  " + f"None_Found\n")
-            file.write(f" *Only includes userbase changes at least {changes_y_apart_at_leastYear} years apart.\n")
-            file.write(f"                                   \n")
-            file.write(f"---------------RESPONSE---------------\n")
-            file.write(f"Response Time : {str(f'{hours} hours, {minutes} minutes, {seconds} seconds, {total_time_ms} milliseconds.')}\n")
-            file.write(
-                "###########This file is only used for general debugging, to access the individual output variables, use the API or the output_data folder.###########\n")
-            file.write(f"                                   \n")
-            file.write(f"*Remember you can change item limits and other items via settings.\n")
-            file.write(f"*SulfurAI can make mistakes. Check important info.\n")
-    except IOError as e:
-        print(f"Error writing output: {e}")
+        except IOError as e:
+            print(f"Error writing output: {e}")
 
-    time.sleep(100)  # Only used for developer debug
+        time.sleep(100)  # Developer debug only
+
+    except Exception as e:
+        print(f"Unhandled exception during script run: {e}")
+
+
 
 # Menu & Variables
 list_menu = [
