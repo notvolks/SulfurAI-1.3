@@ -344,12 +344,31 @@ def rest_of_the_script():
         input_data, too_long, re_was_subbed = txt_data.verify_input("list")
 
         # === Output Writer Function ===
-        def write_userbase_changes(file, label, past_range, summary, avg, apart_unit):
+
+        max_lines = 12 #add settings for
+
+        def write_userbase_changes(file, label, past_range, summary, avg, apart_unit, bypass_limit):
+            def truncate_lines(text):
+                if not text:
+                    return "None_Found"
+                lines = text.splitlines()
+                if len(lines) > max_lines:
+                    return '\n'.join(lines[:max_lines]) + f"\n...and {len(lines) - max_lines} more lines. Removed due to limit cap."
+                return text
             file.write(f" ###########{label} Changes###########:\n")
             file.write(f" Changes to your userbase over the past {past_range} {label.lower()}s:\n")
-            file.write("  " + (summary if summary else "None_Found") + "\n")
+            if bypass_limit:
+                file.write("  " + (summary if summary else "None_Found") + "\n")
+            else:
+                file.write("  " + truncate_lines(summary) + "\n")
+
             file.write(f" Average Changes over the past {past_range} {label.lower()}s:\n")
-            file.write("  " + (avg if avg else "None_Found") + "\n")
+
+            if bypass_limit:
+                file.write("  " + (avg if avg else "None_Found") + "\n")
+            else:
+                file.write("  " + truncate_lines(avg) + "\n")
+
             file.write(f" *Only includes changes at least {apart_unit} {label.lower()}s apart.\n\n")
 
         # === Write Output to File ===
@@ -397,10 +416,10 @@ def rest_of_the_script():
                 file.write(f"  Overall Accuracy : {avg_accuracy_global * 100}%\n")
 
                 file.write("---------------USER INSIGHT---------------\n")
-                write_userbase_changes(file, "Day", past_d_changes, changes_summary_day, average_change_d, changes_d_apart_at_leastDays)
-                write_userbase_changes(file, "Week", past_w_changes, changes_summary_week, average_change_w, changes_w_apart_at_leastWeek)
-                write_userbase_changes(file, "Month", past_m_changes, changes_summary_month, average_change_m, changes_m_apart_at_leastMonth)
-                write_userbase_changes(file, "Year", past_y_changes, changes_summary_year, average_change_y, changes_y_apart_at_leastYear)
+                write_userbase_changes(file, "Day", past_d_changes, changes_summary_day, average_change_d, changes_d_apart_at_leastDays,False)
+                write_userbase_changes(file, "Week", past_w_changes, changes_summary_week, average_change_w, changes_w_apart_at_leastWeek,False)
+                write_userbase_changes(file, "Month", past_m_changes, changes_summary_month, average_change_m, changes_m_apart_at_leastMonth,False)
+                write_userbase_changes(file, "Year", past_y_changes, changes_summary_year, average_change_y, changes_y_apart_at_leastYear,False)
 
                 file.write("---------------RESPONSE---------------\n")
                 file.write(f"Response Time : {hours}h {minutes}m {seconds}s, {total_time_ms}ms\n")
@@ -417,10 +436,11 @@ def rest_of_the_script():
                 if ui_extra_output == "yes":
                     with open(file_path_extra_output, "w", encoding="utf-8", errors="ignore") as file:
                         file.write("--------------USER INSIGHT---------------\n")
-                        write_userbase_changes(file, "Day", past_d_changes, changes_summary_day, average_change_d, changes_d_apart_at_leastDays)
-                        write_userbase_changes(file, "Week", past_w_changes, changes_summary_week, average_change_w, changes_w_apart_at_leastWeek)
-                        write_userbase_changes(file, "Month", past_m_changes, changes_summary_month, average_change_m, changes_m_apart_at_leastMonth)
-                        write_userbase_changes(file, "Year", past_y_changes, changes_summary_year, average_change_y, changes_y_apart_at_leastYear)
+                        write_userbase_changes(file, "Day", past_d_changes, changes_summary_day, average_change_d, changes_d_apart_at_leastDays,True)
+                        write_userbase_changes(file, "Week", past_w_changes, changes_summary_week, average_change_w, changes_w_apart_at_leastWeek,True)
+                        write_userbase_changes(file, "Month", past_m_changes, changes_summary_month, average_change_m, changes_m_apart_at_leastMonth,True)
+                        write_userbase_changes(file, "Year", past_y_changes, changes_summary_year, average_change_y, changes_y_apart_at_leastYear,True)
+
 
         except IOError as e:
             print(f"Error writing output: {e}")
