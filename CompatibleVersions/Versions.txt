@@ -1,0 +1,34 @@
+Developer Release 1-3-80 is compatible with:
+-Developer Release 1-3-80 // with a compatibility score of [10/10]
+-Developer Release 1-3-80-PRLE // with a compatibility score of [8/10]
+-Developer Release 1-3-79 // with a compatibility score of [4/10]
+
+
+
+
+
+
+
+
+
+
+
+
+COMPATIBILITY SCORE:
+(/10)
+1- horrible, version is not compatible and should not be listed.
+2- distasteful, this version requires extreme knowledge of the computer system to ensure full compatibility.
+3- inaccurate, this version requires a lengthy process to ensure compatibility although may not be seen as challenging.
+4- bad, this version requires in-depth knowledge of the SulfurAI framework to ensure compatibility.
+------------------------------------------
+Versions must be tested to achieve 5+.
+------------------------------------------
+5- average, this version follows the average procedure of simply converting DATA files to ensure compatibility. 
+6- decent, this version provides an easier way of transferring DATA files to ensure compatibility. 
+7- good, this version has above average standards of compatibility and a user that has never used Sulfur could ensure compatibility. 
+------------------------------------------
+Versions must be tested with all versions listed to achieve 8+.
+------------------------------------------
+8- very good, this version was extensively tested with all listed versions to ensure no compatibility issues were found.
+9- amazing, this version exceeds expectations of transferring files and may not even need to have files transferred.
+10 - exceptional, this version requires little to no files transferred and an exceptional user experience.
