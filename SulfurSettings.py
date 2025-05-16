@@ -58,6 +58,7 @@ paths = {
     "autotrainer": (call.settings_auto_trainer_extra_debug(),     "yes"),
     "auto_trainer_delay": (call.settings_auto_trainer_delay(), "0"),
     "python_pip": (call.settings_pip_fallback_amount(),     "3"),
+    "extra_output": (call.settings_ui_write_to_seperate_output(),     "yes"),
 }
 
 def ensure(fp, default):
@@ -177,6 +178,7 @@ btn_specs = {
     "python_pip":   ("DATA/settings/images/ex_python_pip_button.jpeg",  (750, 350), 0.15),
 
 
+
 }
 
 buttons = {k: Button(*v) for k, v in btn_specs.items()}
@@ -185,12 +187,12 @@ buttons = {k: Button(*v) for k, v in btn_specs.items()}
 # ── Screens config ──
 screen_cfg = {
     "debug": {
-        "path_key":     "extra",
+        "path_key":     ["extra", "extra_output"],
         "screen_btn":   "DATA/settings/images/ex_dbg_screen.jpeg",
         "off_btn":      "DATA/settings/images/ex_dbg_off.jpeg",
         "on_btn":       "DATA/settings/images/ex_dbg_on.jpeg",
         "x_btn":        "DATA/settings/images/ex_dbg_x.jpeg",
-        "pos_off":      (425, 150),
+        "pos_off":      [(425,150), (550,180)],
         "scale_main":   0.6,
         "scale_toggle": 0.15,
         "pos_x":        (900, 0),
@@ -245,16 +247,35 @@ screen_cfg = {
         "pos_x": (900, 0),
     },
 
+
 }
 
 for name, cfg in screen_cfg.items():
     toggle_scale = cfg.get("scale_toggle", 0.15)
     pos_x        = cfg.get("pos_x", (900, 0))
+
+    # build the “screen” and “x” buttons as before
+    screen_btn = Button(cfg["screen_btn"], cfg.get("pos_main", (55,50)), cfg.get("scale_main", .6))
+    x_btn      = Button(cfg["x_btn"],       pos_x,                               0.25)
+
+    # now handle off/on toggles potentially as lists:
+    offs = cfg["pos_off"]
+    if isinstance(cfg["path_key"], list):
+        # we have N settings to toggle → build N off/on buttons
+        off_buttons = []
+        on_buttons  = []
+        for pos in offs:
+            off_buttons.append(Button(cfg["off_btn"], pos, toggle_scale))
+            on_buttons .append(Button(cfg["on_btn"],  pos, toggle_scale))
+    else:
+        off_buttons = Button(cfg["off_btn"], offs, toggle_scale)
+        on_buttons  = Button(cfg["on_btn"],  offs, toggle_scale)
+
     cfg.update({
-        "screen": Button(cfg["screen_btn"], (55, 50), cfg.get("scale_main", 0.6)),
-        "off":    Button(cfg["off_btn"],    cfg["pos_off"], toggle_scale),
-        "on":     Button(cfg["on_btn"],     cfg["pos_off"], toggle_scale),
-        "x":      Button(cfg["x_btn"],      pos_x,          0.25),
+        "screen": screen_btn,
+        "x":      x_btn,
+        "off":    off_buttons,
+        "on":     on_buttons,
     })
 
 show = {name: False for name in screen_cfg}
@@ -286,6 +307,8 @@ while True:
                 show["python_pip"] = True
             if nm == "auto_trainer_delay":
                 show["autotrainer"] = True
+
+
 
 
     # events
@@ -373,15 +396,30 @@ while True:
         cfg["screen"].draw(screen)
         cfg["x"].draw(screen)
 
-        if cfg["path_key"] is not None:
+        # if we have a list of settings to toggle:
+        if isinstance(cfg["path_key"], list):
+            for idx, key in enumerate(cfg["path_key"]):
+                fp, _ = paths[key]
+                data = open(fp, "r").read().strip()
+                # pick the correct off/on widget
+                toggle = cfg["off"][idx] if data == "no" else cfg["on"][idx]
+                toggle.set_alpha(200 if toggle.touched() else 255)
+                toggle.draw(screen)
+
+                if toggle.is_pressed():
+                    with open(fp, "w") as f:
+                        f.write("yes" if data == "no" else "no")
+
+        # otherwise your old single‐toggle logic:
+        elif cfg["path_key"] is not None:
             fp, _ = paths[cfg["path_key"]]
-            data = open(fp, "r", encoding="utf-8", errors="ignore").read()
-            toggle = cfg["off"] if "no" in data else cfg["on"]
+            data = open(fp, "r").read().strip()
+            toggle = cfg["off"] if data == "no" else cfg["on"]
             toggle.set_alpha(200 if toggle.touched() else 255)
             toggle.draw(screen)
             if toggle.is_pressed():
-                with open(fp, "w", encoding="utf-8", errors="ignore") as f:
-                    f.write("yes" if "no" in data else "no")
+                with open(fp, "w") as f:
+                    f.write("yes" if data == "no" else "no")
 
         if nm == "input":
 
