@@ -15,12 +15,32 @@ def get_call_file_path():
 # Call file paths
 call = get_call_file_path()
 
+import sys
+import subprocess
+import importlib
+import importlib.metadata
+
+def upgrade_pip_tools():
+    """
+    Upgrade pip, setuptools, and wheel to latest versions to improve build success rate.
+    """
+    try:
+        print("Upgrading pip, setuptools, and wheel...")
+        subprocess.check_call([sys.executable, "-m", "pip", "install", "--upgrade", "pip", "setuptools", "wheel"])
+        print("Upgrade complete.")
+    except subprocess.CalledProcessError as error:
+        print(f"Warning: Failed to upgrade pip tools: {error}")
+
 def install(packages):
     """
     Custom install function for handling package installation with special cases like pygame-ce.
+    Upgrades pip/setuptools/wheel first to reduce build failures.
     """
     if isinstance(packages, str):
         packages = [packages]
+
+    # Upgrade pip/tools once before installing any package
+    upgrade_pip_tools()
 
     for pkg in packages:
         try:
@@ -34,7 +54,6 @@ def install(packages):
             print(f"An error occurred while installing {pkg}: {error}")
         except subprocess.CalledProcessError as error:
             print(f"Failed to install {pkg}. Error: {error}")
-
 
 def get_installed_packages():
     """
@@ -56,9 +75,13 @@ def get_installed_packages():
             pass
     return package_map
 
-
 print("-------Preparing PIP libraries.")
+
 def safe_import(module_name, package_name=None, extra_packages=None):
+    """
+    Tries to import a module, and if it fails, attempts to install the corresponding package
+    (with optional extras), then import again, retrying up to a configured limit.
+    """
     MODULE_TO_PACKAGE_MAP = {
         "sklearn": "scikit-learn",
         "pygame": "pygame-ce",
@@ -66,32 +89,33 @@ def safe_import(module_name, package_name=None, extra_packages=None):
         "torchaudio": "torchaudio",
         "beautifulsoup4": "bs4",
     }
+
     automatic_restart_failsafe = 0
-    file_path_pip_py_restart_limit = call.settings_pip_fallback_amount()
-    with open(file_path_pip_py_restart_limit, "r", encoding="utf-8", errors="ignore") as file: automatic_restart_limit = str(file.readline())
-    pkg = package_name or module_name
+    file_path_pip_py_restart_limit = call.settings_pip_fallback_amount()  # Assumes this returns a file path with number
+    with open(file_path_pip_py_restart_limit, "r", encoding="utf-8", errors="ignore") as file:
+        automatic_restart_limit = int(file.readline().strip())
 
-    while automatic_restart_failsafe < int(automatic_restart_limit):
+    pkg = package_name or MODULE_TO_PACKAGE_MAP.get(module_name, module_name)
+
+    while automatic_restart_failsafe < automatic_restart_limit:
         try:
-
             return importlib.import_module(module_name)
         except ImportError:
             print(f"------- {pkg} not found. Installing...")
-
             install([pkg] + (extra_packages or []))
 
             try:
-                module_name_printed = module_name
-                if module_name in MODULE_TO_PACKAGE_MAP: module_name_printed = MODULE_TO_PACKAGE_MAP[module_name]
-                return importlib.import_module(module_name_printed)
+                return importlib.import_module(module_name)
             except ImportError:
                 automatic_restart_failsafe += 1
                 print(f"Error while importing {module_name} after installation. "
                       f"Attempt {automatic_restart_failsafe}/{automatic_restart_limit}. "
                       f"Restart Sulfur if this persists.")
-                if automatic_restart_failsafe >= int(automatic_restart_limit):
-                    print(f"Failed to import {module_name} after multiple attempts. This could be a fake error - check previous print statements to ensure.")
+                if automatic_restart_failsafe >= automatic_restart_limit:
+                    print(f"Failed to import {module_name} after multiple attempts. "
+                          f"This could be a fake error - check previous print statements.")
                     return None
+
 
 modules = [
     ("sklearn", "scikit-learn"),
@@ -104,6 +128,8 @@ modules = [
     ("nltk",),
     ("pandas",),
     ("transformers",),
+    ("fasttext-wheel",),
+    ("pycountry",),
     ("torch", None, ["torchvision", "torchaudio"]),
 ]
 
@@ -130,6 +156,7 @@ from VersionDATA.ai_renderer import module_restore_trainingData
 from VersionDATA.ai_renderer import preferences_basic_compare_s
 from VersionDATA.ai_renderer_2 import sentence_detectAndInfer_s
 from VersionDATA.ai_renderer_2 import sentence_detectAndCompare_s
+from VersionDATA.ai_renderer.sentence_location_build import location_detect_s
 from VersionDATA.verification.input_text import txt_data
 
 module_restore_trainingData.restore_data()
@@ -343,6 +370,8 @@ def rest_of_the_script():
         average_accuracy = Mean_device_s.get_main_accuracy()
         input_data, too_long, re_was_subbed = txt_data.verify_input("list")
 
+        # === UI predicted location ===
+        country, confidence = location_detect_s.predict_location_viaLanguage(input_data)
         # === Output Writer Function ===
 
         max_lines = 12 #add settings for
@@ -421,6 +450,13 @@ def rest_of_the_script():
                 write_userbase_changes(file, "Month", past_m_changes, changes_summary_month, average_change_m, changes_m_apart_at_leastMonth,False)
                 write_userbase_changes(file, "Year", past_y_changes, changes_summary_year, average_change_y, changes_y_apart_at_leastYear,False)
 
+                file.write("\n")
+                file.write("---------------USER INSIGHT\LOCATION---------------\n")
+                file.write("\n")
+                file.write(f" User(s) predicted location : {str(country)} \n")
+                file.write(f" User(s) predicted location accuracy : {confidence * 100}%\n")
+                file.write("\n")
+
                 file.write("---------------RESPONSE---------------\n")
                 file.write(f"Response Time : {hours}h {minutes}m {seconds}s, {total_time_ms}ms\n")
                 file.write("###########General debugging only.###########\n")
@@ -440,6 +476,7 @@ def rest_of_the_script():
                         write_userbase_changes(file, "Week", past_w_changes, changes_summary_week, average_change_w, changes_w_apart_at_leastWeek,True)
                         write_userbase_changes(file, "Month", past_m_changes, changes_summary_month, average_change_m, changes_m_apart_at_leastMonth,True)
                         write_userbase_changes(file, "Year", past_y_changes, changes_summary_year, average_change_y, changes_y_apart_at_leastYear,True)
+
 
 
         except IOError as e:
