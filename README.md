@@ -1,68 +1,82 @@
-# SulfurAI-DRL-001-03-54c
-# Developer Release 1-03-54 ver-(C)
-## _Later releases may be in other repositories or in branches._
+# SulfurAI-DRL-001-03-54
+# Developer Release 1-03-54(c)
+> ## _Later releases may be in other repositories or in branches._
  
 ## WARNING:
-### _This model is WORK IN PROGRESS, please report any NON-SECURITY issues to the said issues tab._
+> ### _This model is WORK IN PROGRESS, please report any NON-SECURITY issues to the said issues tab._
 
 
 ## What is SulfurAI?
 
-_SulfurAI is a Local Analytical Model that anylyses text input to find user preference & info from a small dataset , designed to run in the background of an application or website._
+> _SulfurAI is a Local Analytical Model that anylyses text input to find user preference & info from a small dataset , designed to run in the background of an application or website._
 
 ## How do i use SulfurAI?
 
-First, add your input to data/input.txt
-Then run 
-_Run SulfurAI.bat_
-#### _The output will be in DATA/output.txt_
+> First, add your input to data/input.txt
+> ,Then run :
+ `Run SulfurAI.bat`
 
-_Note: there is a 50 character limit and special characters will be removed._
+> _Note: there is a 50 character limit and special characters will be removed._
 
 ## How is Sulfur trained?
 
-_The current model uses the sulfax architecture, splitting data across 2 sets and further dividing the data with an 80/20 ratio._
+> _The current model uses the sulfax architecture, splitting data across 2 sets and further dividing the data with an 80/20 ratio._
+```
+Data is labelled with 3 parameters:
+ <input,accuracy,predicted device>
 
-_Data is labelled with 3 parameters:
- <input,accuracy,predicted device>_
-
- _This provides the model with a minimum 50% accuracy, which is planned to be scaled to 70% by 2026._
-
+ This provides the model with a minimum 50% accuracy, which is planned to be scaled to 70% by 2026.
+```
 ## SulfurAI's purpose.
 
-_To find the preferences of a user base and average ratios efficiently, providing companies or regular users with insights on how to improve reach._
+> _To find the preferences of a user base and average ratios efficiently, providing companies or regular users with insights on how to improve reach._
 
 
 ## Dependancies:
-## _-Python with version 3.13_
-_We cannot ensure Sulfur will run if it is not the correct version._
+```
+-Python with version 3.13 // *Warning: Later releases WILL require Python 3.11 ONLY*
+We cannot ensure Sulfur will run if it is not the correct version.
 
 -Python Libraries:
- _Although Sulfur attempts to install all libraries, the following list is incase any fail:_
-  ### Python NLTK
-  _Provides word & sentiment analysis._
-  ### Python TensorFlow (Although not used.)
-  _Will provide CUDA support._
-  ### Python TQDM,
-  _Provides Loading GUI._
-  ### Python PyTorch (Although not used.)
-  _Will provide ML and CUDA integration._
-  ### Python Pygame
-  _Provides easy GUI._
-  ### Python Sklearn
-  _Provides machine learning processes._
-  ### Python LanguageToolPython
-  _Analyses Language for NLTK._
-  ### Python Langdetect
-  _Assists LanguageTool._
-  ### Python Numpy
-  _Handles datasets efficiently._
-  ### Python Transformers
-  _Provides GenAI and ML solutions._
+ Although Sulfur attempts to install all libraries, the following list is incase any fail and must be installed manually:
 
-## _-CUDA_
-_While not necessary as of this version, Nvidia CUDA support will be needed for later releases._
+  --Python NLTK--
+  Provides word & sentiment analysis.
 
+  --Python TensorFlow--
+  Provides Neural Networking.
+
+  --Python TQDM--
+  Provides Loading GUI.
+
+  --Python PyTorch (Although not used.)--
+  Will provide ML and CUDA integration.
+
+  --Python Pygame--
+  Provides easy GUI.
+
+  --Python Sklearn--
+  Provides machine learning processes.
+
+  --Python LanguageToolPython--
+  Analyses Language for NLTK.
+
+  --Python Langdetect--
+  Assists LanguageTool.
+
+  --Python Numpy--
+  Handles datasets efficiently.
+
+  --Python Transformers--
+  Provides GenAI and ML solutions.
+
+
+
+
+
+-CUDA-
+While not necessary as of this version, Nvidia CUDA support will be needed for later releases.
+```
 ## Thats all. Enjoy!
   
   
