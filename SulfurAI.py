@@ -371,7 +371,7 @@ def rest_of_the_script():
         input_data, too_long, re_was_subbed = txt_data.verify_input("list")
 
         # === UI predicted location ===
-        country, confidence = location_detect_s.predict_location_viaLanguage(input_data)
+        country, confidence = location_detect_s.predict_location(input_data)
         # === Output Writer Function ===
 
         max_lines = 12 #add settings for
