@@ -1,5 +1,6 @@
 import os,subprocess,sys,importlib
 from VersionDATA.ai_renderer import error
+import traceback
 TOS = [
     "By using this application you agree to the Terms of Service listed in the project files.",
     "If you cannot find it, install a new version."
@@ -286,7 +287,7 @@ def ui_add_output_data(file_path,changes,changes_summary,average_summary,changes
         file.write(f" *Only includes userbase changes at least {changes_apart} {item_least} apart.\n")
 
 
-def rest_of_the_script():
+def rest_of_the_script(tag_trainer):
     # Write output
     Check_device_s = call_ai_class("CD")
     instance = Check_device_s.Ai()
@@ -371,7 +372,7 @@ def rest_of_the_script():
         input_data, too_long, re_was_subbed = txt_data.verify_input("list")
 
         # === UI predicted location ===
-        country, confidence = location_detect_s.predict_location(input_data)
+        country, confidence = location_detect_s.predict_location(input_data,tag_trainer)
         # === Output Writer Function ===
 
         max_lines = 12 #add settings for
@@ -500,8 +501,27 @@ start_time_printed = start_time.strftime(
     "%Y-%m-%d %H:%M:%S")  # Calculating what it starts at for rest_of_the_script(attributes)
 start_time_ms = f".{start_time.microsecond // 1000:03d}"
 print_verti_list(list_menu)
+
 if __name__ == "__main__":
-    rest_of_the_script()
+    try:
+        rest_of_the_script("None")
+    except Exception as e:
+        print("Error:", e)
+        import traceback
+        traceback.print_exc()
+        input("Press Enter to exit...")
+
+
+def run_via_trainer(tag_trainer):
+    try:
+        rest_of_the_script(tag_trainer)
+    except Exception as e:
+        print("Error:", e)
+        import traceback
+        traceback.print_exc()
+        input("Press Enter to exit...")
+
+
 
 
 def call_file_input():
