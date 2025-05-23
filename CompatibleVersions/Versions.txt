@@ -1,7 +1,8 @@
-Developer Release 1-3-82 is compatible with:
--Developer Release 1-3-82 // with a compatibility score of [10/10]
--Developer Release 1-3-81 // with a compatibility score of [7/10]
--Developer Release 1-3-80 // with a compatibility score of [7/10]
+Developer Release 1-3-83 is compatible with:
+-Developer Release 1-3-83 // with a compatibility score of [10/10]
+-Developer Release 1-3-82 // with a compatibility score of [7/10]
+-Developer Release 1-3-81 // with a compatibility score of [6/10]
+-Developer Release 1-3-80 // with a compatibility score of [6/10]
 -Developer Release 1-3-80-PRLE // with a compatibility score of [5/10]
 
 
