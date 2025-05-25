@@ -1,0 +1,115 @@
+###########Sulfur Output:###########*
+---------------INPUT---------------
+
+Input (text) : ['Hi mother fuckers']
+
+---------------DEVICES---------------
+
+*Predicted using Machine Learning.*
+ Predicted Device : Desktop
+ Predicted Device Accuracy : 86.39092728485657%
+ Main/Mean Devices : MOBILE(OTHER)
+ Average/Mean Accuracy: 73.8619957537155%
+
+---------------PREFERENCES---------------
+###########Basic version limit: 3 preferred words###########
+*Predicted using Hard Values.*
+ User(s) preferred words : mother,fuckers,Hi [Not Summarised]
+ Average preferred words : hows test basic [Not Summarised]
+
+ ###########Nouns###########:
+  User(s): fuckers [To an extent of noun]
+  Average: hows [To an extent of noun]
+
+ ###########Verbs###########:
+  User(s): None_Found [To an extent of verb]
+  Average: test [To an extent of verb]
+
+ ###########Adjectives###########:
+  User(s): None_Found [To an extent of adjective]
+  Average: basic [To an extent of adjective]
+
+ ###########Mood###########:
+  User(s): Neutral [To an extent of emotion]
+  Average: Negative [To an extent of emotion]
+
+  Predicted Mood Accuracy : 99.9% (user), 65.8% (global)
+  Average <User : Mean> Accuracy : 82.85%
+*Predicted using a Neural Network.*
+  Sentence Type : exclamation (96.23115658760071%)
+  Sentence Intent : commanding (82.16080665588379%)
+  Global Type : exclamation (82.20551378446115%)
+  Global Intent : commanding (96.2406015037594%)
+  Overall Accuracy : 89.22305764411027%
+---------------USER INSIGHT---------------
+ ###########Day Changes###########:
+ Changes to your userbase over the past 5 days:
+  Changes from 2025-04-26 to 2025-05-01:
+  Type Changes: exclamation: -38.46%
+  Intent Changes: commanding: 0.00%
+ Average Changes over the past 5 days:
+  
+
+
+ Average Type Change:
+  exclamation: -38.46%
+
+ Average Intent Change:
+  commanding: 0.00%
+ *Only includes changes at least 5 days apart.
+
+ ###########Week Changes###########:
+ Changes to your userbase over the past 5 weeks:
+  Changes from 2025-05-12 to 2025-05-19:
+  Type Changes: exclamation: +4.76%, question: -4.76%
+  Intent Changes: commanding: 0.00%
+ Average Changes over the past 5 weeks:
+  
+
+
+ Average Type Change:
+  question: -10.71%
+  exclamation: +11.90%
+  command: -1.19%
+  statement: -0.26%
+
+ Average Intent Change:
+  commanding: 0.00%
+  expressing: -0.26%
+ *Only includes changes at least 5 weeks apart.
+
+ ###########Month Changes###########:
+ Changes to your userbase over the past 5 months:
+  Changes from 2025-04-01 to 2025-05-01:
+  Type Changes: question: -33.04%, exclamation: +36.90%, command: -4.17%
+  Intent Changes: commanding: -0.30%
+ Average Changes over the past 5 months:
+  
+
+
+ Average Type Change:
+  question: -33.04%
+  exclamation: +36.90%
+  command: -4.17%
+
+ Average Intent Change:
+  commanding: -0.30%
+ *Only includes changes at least 5 months apart.
+
+ ###########Year Changes###########:
+ Changes to your userbase over the past 5 years:
+  None_Found
+ Average Changes over the past 5 years:
+  None_Found
+ *Only includes changes at least 3 years apart.
+
+
+---------------USER INSIGHT\LOCATION---------------
+
+ User(s) predicted location : England 
+ User(s) predicted location accuracy : 62.38802622157983%
+
+---------------RESPONSE---------------
+Response Time : 0h 0m 18s, 246.51300000000083ms
+###########General debugging only.###########
+*Settings can be changed. SulfurAI may make mistakes.*
