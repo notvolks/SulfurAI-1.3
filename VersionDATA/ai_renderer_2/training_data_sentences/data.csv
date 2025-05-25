@@ -1,0 +1,400 @@
+sentence,sentence_type,intent,date
+What is the weather like?,question,asking,
+Please turn off the light.,command,commanding,
+That's a great idea!,statement,informing,
+"Wow, that's amazing!",exclamation,expressing,
+Can you help me with this?,question,asking,
+I'm just telling you a fact.,statement,informing,
+Could you please be quiet?,command,commanding,
+Unbelievable!,exclamation,expressing,
+Why is the sky blue?,question,asking,
+Can you explain this to me?,question,asking,
+The weather is nice today.,statement,informing,
+Please stop!,command,commanding,
+I love this show!,exclamation,expressing,
+ohheyitsworkingcool,question,commanding,
+ohheyitsworkingcool,question,expressing,
+ohheyitsworkingcool,exclamation,commanding,
+ohheyitsworkingcool,command,informing,
+ohheyitsworkingcool,question,commanding,
+ohheyitsworkingcool,exclamation,asking,
+HEYMANYOUGOTTAWORK:(,statement,informing,
+THSIISATESTMESSAFGERAHHHHH,exclamation,commanding,
+THSIISATESTMESSAFGERAHHHHH,question,commanding,
+THSIISATESTMESSAFGERAHHHHH,question,commanding,
+THSIISATESTMESSAFGERAHHHHH,exclamation,commanding,
+THSIISATESTMESSAFGERAHHHHH,question,commanding,
+THSIISATESTMESSAFGERAHHHHH,exclamation,commanding,
+THSIISATESTMESSAFGERAHHHHH,exclamation,commanding,
+THSIISATESTMESSAFGERAHHHHH,question,commanding,
+THSIISATESTMESSAFGERAHHHHH,exclamation,commanding,
+THSIISATESTMESSAFGERAHHHHH,exclamation,commanding,
+THSIISATESTMESSAFGERAHHHHH,exclamation,commanding,
+THSIISATESTMESSAFGERAHHHHH,question,commanding,
+THSIISATESTMESSAFGERAHHHHH,exclamation,commanding,
+THSIISATESTMESSAFGERAHHHHH,question,commanding,
+THSIISATESTMESSAFGERAHHHHH,question,commanding,
+THSIISATESTMESSAFGERAHHHHH,exclamation,commanding,
+THSIISATESTMESSAFGERAHHHHH,question,commanding,
+THSIISATESTMESSAFGERAHHHHH,command,commanding,
+THSIISATESTMESSAFGERAHHHHH,question,commanding,
+THSIISATESTMESSAFGERAHHHHH,exclamation,commanding,
+THSIISATESTMESSAFGERAHHHHH,exclamation,commanding,
+THSIISATESTMESSAFGERAHHHHH,exclamation,commanding,
+THSIISATESTMESSAFGERAHHHHH,question,commanding,22/04/2025 19:47
+testmessagechat,exclamation,commanding,23/04/2025 20:11
+testmessagechat,exclamation,commanding,2025-04-22 20:49:39
+testmessagechat,exclamation,commanding,2025-04-22 20:50:27
+testmessagechat,question,commanding,2025-04-22 20:51:50
+testmessagechat,question,commanding,2025-04-22 20:52:54
+testmessagechat,exclamation,commanding,2025-04-23 19:56:49
+testmessagechat,question,commanding,2025-04-23 20:43:22
+testmessagechat,exclamation,commanding,2025-04-23 20:44:25
+testmessagechat,question,commanding,2025-04-23 20:47:01
+testmessagechat,exclamation,commanding,2025-04-24 20:10:18
+testmessagechat,exclamation,commanding,2025-04-24 20:16:45
+testmessagechat,exclamation,commanding,2025-04-24 20:18:55
+testmessagechat,exclamation,commanding,2025-04-24 20:20:00
+testmessagechat,question,commanding,2025-04-24 20:27:23
+testmessagechat,exclamation,commanding,2025-04-24 20:29:22
+testmessagechat,command,commanding,2025-04-24 20:33:22
+testmessagechat,question,commanding,2025-04-24 20:36:50
+testmessagechat,question,commanding,2025-04-24 20:39:06
+testmessagechat,question,commanding,2025-04-25 19:56:12
+testmessag,exclamation,commanding,2025-04-26 21:10:28
+Productionheartrightnewspapertalkskill.,exclamation,commanding,2025-05-01 19:52:58
+Identifyhairgooftencitydropelection.,question,commanding,2025-05-01 19:56:16
+Beautifulhospitaldinneroneenougheffortstop.,exclamation,commanding,2025-05-01 19:58:27
+Beautifulhospitaldinneroneenougheffortstop.,exclamation,commanding,2025-05-01 20:00:13
+Beautifulhospitaldinneroneenougheffortstop.,exclamation,commanding,2025-05-01 20:00:43
+Wiferesponsibilitybornculturebecome.,exclamation,commanding,2025-05-01 20:04:48
+Decisionleaderfivegreentechnologyregionforwardscho,exclamation,commanding,2025-05-01 20:06:59
+Stuffscientistfalldevelopmentwritewide.,exclamation,commanding,2025-05-01 20:08:29
+Linethrowtowardsomebodypositivepoliticalcameracand,question,commanding,2025-05-01 20:16:34
+Careerexperiencename.,question,commanding,2025-05-01 20:18:45
+Morningwriteruntilbest.,question,commanding,2025-05-01 20:22:19
+Approachagencymillionfocusdecadenatureschool.,exclamation,commanding,2025-05-01 21:07:38
+gahgoofy,command,commanding,2025-05-01 21:08:34
+Tablesometimessizecoldtwoagreementonly.,exclamation,commanding,2025-05-02 19:44:25
+Tablesometimessizecoldtwoagreementonly.,question,commanding,2025-05-02 19:55:39
+Whyaboutamountlegwronggood.,question,commanding,2025-05-02 20:07:52
+Successrequiretreatperhapsclearseniorclaim.,question,commanding,2025-05-02 20:10:15
+Allsceneattorneyfriendhimroomclaim.,exclamation,commanding,2025-05-02 20:12:32
+UpgradableimpactfuldefinitionYeahhoweverhundred.,question,commanding,2025-05-02 20:21:15
+Choicesixsoinvestmentemployeemake.,exclamation,commanding,2025-05-02 20:24:30
+Fully-configurablemulti-taskingemulationLightmemor,exclamation,commanding,2025-05-03 17:09:28
+ErgonomicdidacticcapabilityAroundprofessionaldoorc,question,commanding,2025-05-03 17:11:36
+Public-keymaximizedbudgetarymanagementLikelycharac,command,commanding,2025-05-03 17:13:44
+AutomatedlocalabilityOfficeTVcampaignwill.,question,commanding,2025-05-03 17:15:51
+Right-sizeddisintermediateproductPeoplespeakTV.,exclamation,commanding,2025-05-03 17:17:58
+ProfoundhybridknowledgebasePersoncommunityevenread,exclamation,commanding,2025-05-03 17:20:07
+Pre-emptiveleadingedgeworkforceTrainingreadyprepar,exclamation,commanding,2025-05-03 17:22:15
+Managedcontextually-basedmigrationBillioneverhoure,exclamation,commanding,2025-05-03 17:24:26
+Centralizedmulti-taskingportalEmployeeboywomandriv,statement,commanding,2025-05-03 17:26:33
+Onsundaykristosplaythehackelia.,exclamation,commanding,2025-05-03 20:16:53
+Yesterdaywoodmanrubifythegame.,exclamation,commanding,2025-05-03 20:19:08
+Florencewasdidbytheochotona.,exclamation,commanding,2025-05-03 20:22:41
+Onsundaykarimdidtheathenian.,question,commanding,2025-05-03 20:24:56
+Richardodidthegymnura.,question,commanding,2025-05-03 20:27:12
+Thismorningat15:05marie-jeannewaspanicbythejihadip,question,commanding,2025-05-04 12:45:45
+Alliwasdidbythepill.,question,commanding,2025-05-04 12:47:55
+Thismorningat17:21vinnididtheparesis.,exclamation,commanding,2025-05-04 12:50:08
+Clevelandwasdidbytheoffimmune.,exclamation,commanding,2025-05-04 12:52:22
+Yesterdayteodoricocoexistthehitch.,exclamation,commanding,2025-05-04 14:11:29
+Onwednesdaybrianaclinkerthejodhpur.,exclamation,commanding,2025-05-04 14:13:36
+Cariedetonatethetamarisk.,question,commanding,2025-05-04 14:15:48
+Ontuesdaydinofixatethecreon.,exclamation,commanding,2025-05-04 14:17:57
+Onmondayflorrybreak_inthecutting.,question,commanding,2025-05-04 14:20:05
+Thismorningat01:36modestawaterthedibble.,question,commanding,2025-05-04 14:22:17
+Yesterdaybaryskirtthehee-haw.,exclamation,commanding,2025-05-04 14:24:24
+Thismorningat15:53ellarestrictthelegatee.,exclamation,commanding,2025-05-04 14:26:31
+Yesterdaymadelenepipe_inthedemand.,question,commanding,2025-05-04 14:28:38
+Thismorningat21:49abagaelintrudetheracism.,question,commanding,2025-05-04 14:30:45
+Aubreyoverbeartheskiffle.,exclamation,commanding,2025-05-04 14:32:52
+Laureenimpedetheagamidae.,question,commanding,2025-05-04 14:34:59
+Daisyjagthebattery.,exclamation,commanding,2025-05-04 14:37:06
+Yesterdaykeriannetellthesink.,question,commanding,2025-05-04 14:39:12
+Yesterdaytowneyaugurtheairs.,exclamation,commanding,2025-05-04 14:41:19
+Thismorningat10:03winniedigestthewright.,question,commanding,2025-05-04 14:43:25
+Thismorningat18:09verileicethekea.,question,commanding,2025-05-04 14:45:32
+Thismorningat23:24muiresearchthewarren.,question,commanding,2025-05-04 14:47:39
+Ontuesdaydanifindthemacao.,exclamation,expressing,2025-05-04 14:49:46
+Yesterdayprescottsatirizethepasser.,exclamation,commanding,2025-05-04 14:51:54
+Ontuesdayskipdogfightthepart.,exclamation,commanding,2025-05-04 14:54:02
+Carleenpoop_outthegrebe.,exclamation,commanding,2025-05-04 14:56:09
+Yesterdaymerrycanopytheopacity.,exclamation,commanding,2025-05-04 14:58:16
+Yesterdayjordonlecturethesparrow.,exclamation,commanding,2025-05-04 15:00:24
+Yesterdaychalmerschantthechablis.,exclamation,commanding,2025-05-04 15:02:31
+Onmondaymickyanswertheroller.,exclamation,commanding,2025-05-04 15:04:37
+Lorettamushroomthewright.,exclamation,commanding,2025-05-04 15:06:43
+Onthursdaydavidetithethecourt.,exclamation,commanding,2025-05-04 15:08:50
+Yesterdaylorrindevotetheleapfrog.,exclamation,commanding,2025-05-04 15:10:57
+Thismorningat06:09tannieacquirethenewness.,question,commanding,2025-05-04 15:13:04
+Nettashapethenetscape.,exclamation,commanding,2025-05-04 15:15:10
+Yesterdayraniconvulsethepaliurus.,exclamation,commanding,2025-05-04 15:17:17
+Gallagherscarifythequm.,exclamation,commanding,2025-05-04 15:19:24
+Adalineswallowtheleonotis.,exclamation,commanding,2025-05-04 15:21:30
+Yesterdaydavoudfoalthespavin.,exclamation,commanding,2025-05-04 15:23:36
+Thismorningat07:09woodrowbaby-sittheretronym.,exclamation,commanding,2025-05-04 15:25:43
+Janeneboost_uptheward.,exclamation,commanding,2025-05-04 15:27:50
+Thismorningat05:57kylainhibitthelimpet.,exclamation,commanding,2025-05-04 15:29:57
+Onfridaykoralleskulkthewhitney.,exclamation,commanding,2025-05-04 15:32:03
+Onwednesdaybarnabypittherotarian.,exclamation,commanding,2025-05-04 15:34:10
+Yesterdaywinirope_inthewish.,exclamation,commanding,2025-05-04 15:36:17
+Kimberlibackfirethevajra.,question,commanding,2025-05-04 15:38:25
+Thismorningat01:09monaclogthebdellium.,exclamation,commanding,2025-05-04 15:40:32
+Onmondayvinnysufferthemoot.,exclamation,commanding,2025-05-04 15:42:39
+Thismorningat04:35leifassemblethenazism.,exclamation,commanding,2025-05-04 15:44:47
+Thismorningat17:21petronellastraddlethenoodle.,exclamation,commanding,2025-05-04 15:46:55
+Coralynget_inthetenter.,exclamation,commanding,2025-05-04 15:49:02
+Thismorningat14:51zackcausewaythepardon.,exclamation,commanding,2025-05-04 15:51:08
+Onsaturdayalysiaenforcethenicholas.,exclamation,commanding,2025-05-04 15:53:14
+Inesitaharborthetusker.,exclamation,commanding,2025-05-04 15:55:21
+Murdockpaythebag.,question,commanding,2025-05-04 15:57:27
+Thismorningat07:08meggimewthepayola.,exclamation,commanding,2025-05-04 15:59:34
+Yesterdayfrankyburn_offtheelul.,exclamation,commanding,2025-05-04 16:01:42
+Jacquettasnakethethe_halt.,exclamation,commanding,2025-05-04 16:03:49
+Onmondayaigneismessthegiven.,exclamation,commanding,2025-05-04 16:05:55
+Ramadoptthebeard.,exclamation,commanding,2025-05-04 16:08:09
+Onsaturdayginniabsorbthegambrel.,question,commanding,2025-05-04 16:10:20
+Onsaturdayginniabsorbthegambrel.,exclamation,commanding,2025-05-05 20:12:32
+Onsaturdayginniabsorbthegambrel.,exclamation,commanding,2025-05-06 18:57:17
+Onsaturdayginniabsorbthegambrel.,exclamation,commanding,2025-05-06 18:57:59
+Onsaturdayginniabsorbthegambrel.,exclamation,commanding,2025-05-06 19:19:44
+Charlesdrag_onthecolon.,exclamation,commanding,2025-05-10 17:23:47
+Thismorningat11:28faraelidethedasyurus.,exclamation,commanding,2025-05-10 17:26:05
+Thismorningat14:46woodmanrevengetheabaya.,exclamation,commanding,2025-05-10 17:28:21
+Yesterdaysadellacarrythehosea.,exclamation,commanding,2025-05-10 17:30:33
+Thismorningat21:27modestaliftthereform.,exclamation,commanding,2025-05-10 17:32:49
+Thismorningat18:30ailaunburdenthepost-it.,exclamation,commanding,2025-05-10 17:35:06
+Thismorningat03:29alissabankthemonocle.,question,commanding,2025-05-10 17:37:22
+Onsaturdayarletadrapetheclog.,question,commanding,2025-05-10 17:39:38
+Yesterdayjacquenettablubbertheinquest.,exclamation,commanding,2025-05-10 17:41:56
+Wyedeplanetheguyana.,question,commanding,2025-05-10 17:44:11
+Ontuesdaytommygivethesierra.,exclamation,commanding,2025-05-10 17:46:30
+Yesterdaynessietrashtheflutter.,exclamation,commanding,2025-05-10 17:48:48
+Yesterdayamberlyruletheflyleaf.,exclamation,commanding,2025-05-10 17:51:10
+Rhodiesharethecraps.,exclamation,commanding,2025-05-10 17:53:27
+Yesterdayajayzip_upthesawyer.,exclamation,commanding,2025-05-10 17:55:45
+Onsundaymelodeesurvivethesinner.,exclamation,commanding,2025-05-10 17:58:06
+Onsundayarablesstheshadow.,exclamation,commanding,2025-05-10 18:00:17
+Yesterdayransommakethejezebel.,exclamation,commanding,2025-05-10 18:02:29
+Onsaturdaydonnieresearchtheteacher.,exclamation,commanding,2025-05-10 18:04:41
+Thismorningat04:27philomenakillthebenzoin.,exclamation,commanding,2025-05-10 18:06:52
+Yesterdayheddiecantthebrother.,exclamation,commanding,2025-05-10 18:09:05
+Dennielacethedate.,question,commanding,2025-05-10 18:11:16
+Thismorningat07:31emilinemonetizetheurbanity.,exclamation,commanding,2025-05-10 18:13:29
+Yesterdayberethop_outtheheth.,exclamation,commanding,2025-05-10 20:58:31
+Thismorningat15:00liarhumbathemillwork.,exclamation,commanding,2025-05-14 14:16:36
+Effectstaffcenterrightborn.,exclamation,commanding,2025-05-14 14:19:19
+Budgetcoverpopularitem.,question,commanding,2025-05-14 14:21:33
+Acceptyourselfrespondweighttough.,exclamation,commanding,2025-05-14 19:37:17
+tungtungtungsahurrrratatataballerinacappucina,exclamation,commanding,2025-05-14 19:40:03
+tungtungtungsahurrrratatataballerinacappucina,exclamation,commanding,2025-05-15 20:50:48
+tungtungtungsahurrrratatataballerinacappucina,exclamation,commanding,2025-05-15 20:53:38
+tungtungtungsahurrrratatataballerinacappucina,exclamation,commanding,2025-05-15 20:54:57
+tungtungtungsahurrrratatataballerinacappucina,exclamation,commanding,2025-05-15 20:58:25
+tungtungtungsahurrrratatataballerinacappucina,exclamation,commanding,2025-05-15 21:01:17
+tungtungtungsahurrrratatataballerinacappucina,exclamation,commanding,2025-05-15 21:07:50
+tungtungtungsahurrrratatataballerinacappucina,exclamation,commanding,2025-05-15 21:10:50
+tungtungtungsahurrrratatataballerinacappucina,exclamation,commanding,2025-05-15 21:38:32
+tungtungtungsahurrrratatataballerinacappucina,exclamation,commanding,2025-05-15 21:39:46
+tungtungtungsahurrrratatataballerinacappucina,exclamation,commanding,2025-05-15 21:42:08
+tungtungtungsahurrrratatataballerinacappucina,exclamation,commanding,2025-05-15 21:44:13
+tungtungtungsahurrrratatataballerinacappucina,exclamation,commanding,2025-05-16 20:37:07
+tungtungtungsahurrrratatataballerinacappucina,exclamation,commanding,2025-05-16 20:44:40
+tungtungtungsahurrrratatataballerinacappucina,exclamation,commanding,2025-05-16 20:47:10
+tungtungtungsahurrrratatataballerinacappucina,exclamation,commanding,2025-05-16 20:48:26
+tungtungtungsahurrrratatataballerinacappucina,exclamation,commanding,2025-05-16 20:50:06
+tungtungtungsahurrrratatataballerinacappucina,exclamation,commanding,2025-05-19 20:04:08
+tungtungtungsahurrrratatataballerinacappucina,exclamation,commanding,2025-05-19 20:17:58
+tungtungtungsahurrrratatataballerinacappucina,exclamation,commanding,2025-05-19 20:19:44
+tungtungtungsahurrrratatataballerinacappucina,exclamation,commanding,2025-05-19 20:53:51
+tungtungtungsahurrrratatataballerinacappucina,exclamation,commanding,2025-05-19 20:56:42
+tungtungtungsahurrrratatataballerinacappucina,exclamation,commanding,2025-05-19 20:58:46
+woahthistestisgoingprettyepicness,exclamation,commanding,2025-05-19 21:02:17
+woahthistestisgoingprettyepicness,exclamation,commanding,2025-05-19 21:05:06
+woahthistestisgoingprettyepicness,exclamation,commanding,2025-05-20 21:57:59
+woahthistestisgoingprettyepicness,exclamation,commanding,2025-05-20 21:59:46
+woahthistestisgoingprettyepicness,exclamation,commanding,2025-05-20 22:02:45
+woahthistestisgoingprettyepicness,exclamation,commanding,2025-05-20 22:04:55
+Yesterdaymalaniewasstreambythecurrent.,exclamation,commanding,2025-05-21 17:53:04
+Yesterdayvalentiawasdidbythebeadyhot_seat.,exclamation,commanding,2025-05-21 18:02:35
+Onsundayobadiahwasdidbytheolympianmagazine.,exclamation,commanding,2025-05-21 18:24:31
+Onsundayobadiahwasdidbytheolympianmagazine.,exclamation,commanding,2025-05-21 18:49:06
+Onsundayobadiahwasdidbytheolympianmagazine.,exclamation,commanding,2025-05-21 18:53:22
+Thismorningat16:40anuragdidthehemlock.,exclamation,commanding,2025-05-21 18:58:39
+Thismorningat17:39rinadidtheyawl.,exclamation,commanding,2025-05-21 19:00:55
+Garvywasdidbytheamendedmason.,exclamation,commanding,2025-05-21 19:03:11
+Marcididtheselkup.,exclamation,commanding,2025-05-21 19:05:33
+Onmondaystandfordaimthepurpose.,exclamation,commanding,2025-05-21 19:07:49
+Yesterdaychrysteldidtheraucoussatinet.,exclamation,commanding,2025-05-21 19:10:08
+Onthursdayelaynecharttheeasternchartist.,exclamation,commanding,2025-05-21 19:12:26
+Jenadidthejong.,exclamation,commanding,2025-05-21 19:14:45
+Thismorningat22:39morgandidthegingerpushan.,exclamation,commanding,2025-05-21 19:17:13
+Onfridayluanawasfirebythetheistfire.,exclamation,commanding,2025-05-21 19:19:34
+Yesterdayashlydidthelonglichen.,exclamation,commanding,2025-05-21 19:21:54
+Yesterdaypraneetfwasdidbytheyakut.,exclamation,commanding,2025-05-21 19:24:21
+Institutionlightlosscapitalstrongonce.,exclamation,commanding,2025-05-21 19:29:53
+Addresscitizensomebodyenvironmentalverywhy.,exclamation,commanding,2025-05-21 19:34:45
+Pastpickcoachholdmove.,exclamation,commanding,2025-05-21 19:37:02
+Catchofficelistensixexactlyfederalcatch.,exclamation,commanding,2025-05-21 19:39:23
+Recognizepointfollowpassbuildwith.,exclamation,commanding,2025-05-21 19:41:38
+Fatheronlycoachfieldoperationyettheory.,exclamation,commanding,2025-05-21 19:43:56
+Deewasdidbytheagresticteamwork.,exclamation,commanding,2025-05-21 20:28:53
+Zippyadmixthehooker.,exclamation,commanding,2025-05-21 20:51:51
+Thismorningat23:04scottotalthebloomers.,exclamation,commanding,2025-05-21 20:54:22
+Onfridayshaylascreenthegranicus.,exclamation,commanding,2025-05-21 20:56:49
+Thismorningat15:52floridastockthewall_rue.,exclamation,commanding,2025-05-21 20:59:10
+Yesterdaypatenwash_outthescout.,exclamation,commanding,2025-05-21 21:01:37
+Yesterdayalexibankrolltheline.,exclamation,commanding,2025-05-21 21:03:57
+Jacobspeckletheroommate.,exclamation,commanding,2025-05-21 21:06:15
+Yesterdayfelizabandythenobelium.,exclamation,commanding,2025-05-21 21:08:35
+Onsaturdaymickiespangthepyrites.,exclamation,commanding,2025-05-21 21:10:54
+Thismorningat21:16gailennoblethedairyman.,exclamation,commanding,2025-05-21 21:13:29
+Onmondayshannaissuethewiccan.,exclamation,commanding,2025-05-21 21:15:52
+Yesterdayfredericabegintheptyalin.,exclamation,commanding,2025-05-21 21:18:07
+Thismorningat02:43elwiravetthecramp.,exclamation,commanding,2025-05-21 21:20:24
+Noamsuggestthequince.,exclamation,commanding,2025-05-21 21:22:42
+Yesterdaykerrycrumblethefool.,exclamation,commanding,2025-05-21 21:24:59
+Ontuesdayerenameasurethehellion.,exclamation,commanding,2025-05-21 21:27:17
+Drudeplumetheshallot.,exclamation,commanding,2025-05-21 21:29:35
+Yesterdaycorrenastraitenthemountain.,exclamation,commanding,2025-05-21 21:31:57
+Thismorningat06:05morganicarecastthefagoting.,exclamation,commanding,2025-05-21 21:34:15
+Yesterdaymiqueladerailtheskagit.,exclamation,commanding,2025-05-21 21:36:35
+Charlineinduratethesting.,exclamation,commanding,2025-05-21 21:38:51
+Yesterdaycorrieagreetheguy.,exclamation,commanding,2025-05-21 21:41:19
+Thismorningat14:24greerfumetheprobate.,exclamation,commanding,2025-05-21 21:43:40
+Onfridayguillermodevolvethetaco.,exclamation,commanding,2025-05-21 21:45:57
+Yesterdayaubertaflytheclanger.,exclamation,commanding,2025-05-21 21:48:15
+Ontuesdayeydesinthegig.,exclamation,commanding,2025-05-21 21:50:34
+Onsaturdaychanderjitcontrastthesmoke.,exclamation,commanding,2025-05-21 21:52:59
+Onmondaycliffsignthecup_tie.,exclamation,commanding,2025-05-21 21:55:19
+Thismorningat18:00mauriepointtheedge.,exclamation,commanding,2025-05-21 21:57:38
+Sylvesterstripthetractor.,exclamation,commanding,2025-05-21 21:59:56
+Thismorningat11:27leticiabayonetthecyberart.,exclamation,commanding,2025-05-21 22:02:16
+Beveriegapthehansom.,exclamation,commanding,2025-05-21 22:04:37
+Thismorningat19:06reddisturbtherhexia.,exclamation,commanding,2025-05-21 22:06:55
+Thismorningat22:17kettiecompoundthereel.,exclamation,commanding,2025-05-21 22:09:16
+Thismorningat14:10murdochparlaythewindaus.,exclamation,commanding,2025-05-21 22:11:32
+Yesterdayjosefinastub_outtheblackout.,exclamation,commanding,2025-05-21 22:13:48
+Yesterdaykelseysolarizethetilth.,exclamation,commanding,2025-05-21 22:16:04
+Yesterdayjasperrustlethempeg.,exclamation,commanding,2025-05-21 22:18:28
+Adgerco-optthecult.,exclamation,commanding,2025-05-21 22:20:45
+Onsundaycaitlinweldtheslammer.,exclamation,commanding,2025-05-21 22:23:05
+Yesterdayzandraaffordthestoop.,exclamation,commanding,2025-05-21 22:25:25
+Marleewasdidbytheradicalcedilla.,exclamation,commanding,2025-05-22 21:26:28
+Laryssadidtheporpoise.,exclamation,commanding,2025-05-22 21:29:01
+Yesterdaytiphanyhaulthedraw.,exclamation,commanding,2025-05-22 21:31:26
+Deseruntassumendaullamtemporibusmaioresipsaipsum.,exclamation,commanding,2025-05-22 21:36:03
+Confessareamericanoartecielo.,exclamation,commanding,2025-05-22 21:38:55
+Sedmaximemagni.,exclamation,commanding,2025-05-22 21:41:38
+Modicorporisessearchitectositconsequunturoccaecati,exclamation,commanding,2025-05-22 21:44:15
+资源影响其他工作不是时候.,exclamation,commanding,2025-05-22 21:47:00
+Canlittletablebetween.,exclamation,commanding,2025-05-22 21:49:41
+Mayhouseprogrampossible.,exclamation,commanding,2025-05-22 21:52:23
+Necessitatibusasperioresaperiamnulla.,exclamation,commanding,2025-05-22 21:56:41
+TraurigderFlascheWinter.,exclamation,commanding,2025-05-22 21:59:17
+Molestiasoccaecatialiquidofficiisreprehenderitquis,exclamation,commanding,2025-05-22 22:01:39
+音乐不同他们电话中文有限.,exclamation,commanding,2025-05-22 22:04:03
+Étroitcommentleurcerveau.,exclamation,commanding,2025-05-22 22:06:26
+Totamrationeeosaccusantiumblanditiisisteplaceat.,exclamation,commanding,2025-05-22 22:08:52
+Problemazittoaltounrealeanimoufficiale.,exclamation,commanding,2025-05-22 22:33:56
+Laudantiumautemveritatisvoluptatesvoluptatumdelect,exclamation,commanding,2025-05-22 22:36:13
+这些市场还是深圳.,exclamation,commanding,2025-05-22 22:40:03
+保証金ヘアバス血まみれの虐待ダッシュカラム知覚。,exclamation,commanding,2025-05-22 22:41:52
+Autoritàvuotodimostrarementreopera.,exclamation,commanding,2025-05-22 22:43:41
+Yesterdayjuleeattestthetoda.,exclamation,commanding,2025-05-22 22:49:05
+Lillabakethebottle.,exclamation,commanding,2025-05-22 22:50:54
+Widebookeitherallmessagesuggest.,exclamation,commanding,2025-05-22 22:56:26
+Begincontinuedescribemagazineseveralpartner.,exclamation,commanding,2025-05-22 22:58:17
+Toobetweenappearcoloralonevisitshare.,exclamation,commanding,2025-05-22 23:00:08
+Skinplayerdifferencetherebecause.,exclamation,commanding,2025-05-22 23:01:55
+Happyguyseasonstepfinishdecade.,exclamation,commanding,2025-05-22 23:03:45
+Thismorningat09:18demetriendowthenaphthol.,exclamation,commanding,2025-05-22 23:05:56
+Kylajuddertheoxalate.,exclamation,commanding,2025-05-22 23:07:47
+Kylajuddertheoxalate.,exclamation,commanding,2025-05-22 23:10:40
+hichat,exclamation,commanding,2025-05-22 23:12:22
+hichat,exclamation,commanding,2025-05-22 23:14:27
+runitbackbro,exclamation,commanding,2025-05-23 20:49:56
+whattherandomchancemate,exclamation,commanding,2025-05-23 20:51:40
+Readbloodactwhethersouthsceneknowago.,exclamation,commanding,2025-05-23 21:03:11
+Startacceptteamrichfear.,exclamation,commanding,2025-05-23 21:05:03
+Questionexplainherelittle.,exclamation,commanding,2025-05-23 21:06:52
+Entercurrentmaintainarrivecertainly.,exclamation,commanding,2025-05-23 21:08:44
+Executivebenefittraininglife.,exclamation,commanding,2025-05-23 21:10:33
+Truthshewant.,exclamation,commanding,2025-05-23 21:12:23
+Recentacrosscoverwater.,exclamation,commanding,2025-05-23 21:14:11
+Approachcarrytheymorningnoneabouttime.,exclamation,commanding,2025-05-23 21:16:00
+ChoosecouldknowuponAmerican.,exclamation,commanding,2025-05-23 21:17:48
+Sideapplyreadnewspapergroupsimple.,exclamation,commanding,2025-05-23 21:19:37
+Othersmaymyselffund.,exclamation,commanding,2025-05-23 21:21:27
+Nearlystrategylettercompare.,exclamation,commanding,2025-05-23 21:23:15
+Budgetstreetgoodwhysee.,exclamation,commanding,2025-05-23 21:25:03
+Forgetgrowmeasurechoose.,exclamation,commanding,2025-05-23 21:26:50
+Onlysizetwonorthnightmodernaway.,exclamation,commanding,2025-05-23 21:28:38
+Loseblackaddsimplyavoidpage.,exclamation,commanding,2025-05-23 21:30:26
+Bankchangeradioshakeperformgoodcertain.,exclamation,commanding,2025-05-23 21:32:14
+Adultorstand.,exclamation,commanding,2025-05-23 21:34:02
+Whatevercupboxinstead.,exclamation,commanding,2025-05-23 21:37:42
+Leavetheyspeechlettereyedetailopen.,exclamation,commanding,2025-05-23 21:39:32
+Wrongadmitwriterfamily.,exclamation,commanding,2025-05-23 21:41:20
+Eirenaovertakethefuller.,exclamation,commanding,2025-05-23 21:42:41
+Thismorningat05:43ofiliasuppressthenoodle.,exclamation,commanding,2025-05-23 21:44:33
+Kyrstininputtheexhaust.,exclamation,commanding,2025-05-23 21:46:24
+Thismorningat19:32gabrielnumberthecolon.,exclamation,commanding,2025-05-23 21:51:14
+Thismorningat03:56adrickget_overthehotness.,exclamation,commanding,2025-05-23 21:53:07
+Yesterdaykimberleesellthefiller.,exclamation,commanding,2025-05-23 21:55:02
+Thismorningat07:20chevyaffixthegarland.,exclamation,commanding,2025-05-23 21:57:00
+Yesterdaygodivaset_backthecaption.,exclamation,commanding,2025-05-23 21:58:53
+Yesterdaycorbyrewritetherush.,exclamation,commanding,2025-05-23 22:00:46
+Onmondayossieattracttheantimony.,exclamation,commanding,2025-05-23 22:02:38
+Onsundayfidelitydrumthealopecia.,exclamation,commanding,2025-05-23 22:04:31
+Downtripsomethingofficercutmemoryvalue.,exclamation,commanding,2025-05-23 22:06:36
+Toresourcewarfield.,exclamation,commanding,2025-05-23 22:08:25
+Totamnonsuscipitquamrationenulladistinctiovelit.,exclamation,commanding,2025-05-23 22:10:14
+差別する販売クール。,exclamation,commanding,2025-05-23 22:11:12
+AufwerStadtSommer.,exclamation,commanding,2025-05-23 22:13:04
+Personnagemonterprésentapprochertoutsouvenir.,exclamation,commanding,2025-05-23 22:14:53
+Hobbynaarsecondehoe.,exclamation,commanding,2025-05-25 18:30:14
+Aperiamcupiditatesaepedoloreblanditiisvoluptatemde,exclamation,commanding,2025-05-25 18:32:10
+Parecchiodomenicalatteerba.,exclamation,commanding,2025-05-25 18:34:00
+Davverovalereeconomicovalerecapellomedesimoministr,exclamation,commanding,2025-05-25 18:35:49
+Quamreiciendiseaqueminimaillopraesentiumtempora.,exclamation,commanding,2025-05-25 18:37:38
+Époqueintelligencereconnaîtresacrougeanimal.,exclamation,commanding,2025-05-25 18:39:26
+DamitnochfährtalleinnebenmerkenLehrerin.,exclamation,commanding,2025-05-25 18:41:14
+Voluptatesiustoinincidunt.,exclamation,commanding,2025-05-25 18:43:02
+Facilistotamdistinctionisivoluptatebeataeestoccaec,exclamation,commanding,2025-05-25 18:44:50
+以及一些显示方式.,exclamation,commanding,2025-05-25 18:46:39
+Doloribuseosvoluptatesanostrumvoluptatealiquam.,exclamation,commanding,2025-05-25 18:48:28
+Bonfusilcommencercommander.,exclamation,commanding,2025-05-25 18:50:16
+DaraufrufeninweittrinkenPferdimmer.,exclamation,commanding,2025-05-25 18:52:05
+查看觉得具有不会一次两个.,exclamation,commanding,2025-05-25 18:53:53
+Longetcoccuper.,exclamation,commanding,2025-05-25 18:55:41
+Laufenhörenhartgabgingbekommen.,exclamation,commanding,2025-05-25 18:57:29
+Farfindpayseatbloodtraditionaltreatment.,exclamation,commanding,2025-05-25 19:29:28
+BruderfestdirMilchvielman.,exclamation,commanding,2025-05-25 19:31:17
+Guèresousciabandonnermaisoneh.,exclamation,commanding,2025-05-25 19:33:05
+Culpanatusmagnamnihilvoluptatem.,exclamation,commanding,2025-05-25 19:34:54
+Farkindcollectionprocesschargesuddenly.,exclamation,commanding,2025-05-25 19:36:42
+Consequunturfugitdictadelenitisapienteadipisci.,exclamation,commanding,2025-05-25 19:38:31
+Partagervisibleouijeune.,exclamation,commanding,2025-05-25 19:40:19
+Teneturcupiditatevoluptatibusundeharumvero.,exclamation,commanding,2025-05-25 19:42:08
+一点这种推荐有关.,exclamation,commanding,2025-05-25 19:43:58
+Sixpleinsuiterespectfierpossible.,exclamation,commanding,2025-05-25 19:45:48
+选择觉得为什结果他们安全.,exclamation,commanding,2025-05-25 19:47:37
+部门两个社区朋友今年语言.,exclamation,commanding,2025-05-25 19:49:25
+Правильныймрачносуставзасунутьмонета.,exclamation,commanding,2025-05-25 21:04:44
+Правильныймрачносуставзасунутьмонета.,exclamation,commanding,2025-05-25 21:05:50
+Правильныймрачносуставзасунутьмонета.,exclamation,commanding,2025-05-25 21:07:48
+Правильныймрачносуставзасунутьмонета.,exclamation,commanding,2025-05-25 21:17:41
+Правильныймрачносуставзасунутьмонета.,exclamation,commanding,2025-05-25 21:18:57
+Правильныймрачносуставзасунутьмонета.,exclamation,commanding,2025-05-25 21:26:28
+Правильныймрачносуставзасунутьмонета.,exclamation,commanding,2025-05-25 21:27:27
+Правильныймрачносуставзасунутьмонета.,exclamation,commanding,2025-05-25 21:28:27
+Правильныймрачносуставзасунутьмонета.,exclamation,commanding,2025-05-25 21:30:30
+Правильныймрачносуставзасунутьмонета.,exclamation,commanding,2025-05-25 21:37:16
+Правильныймрачносуставзасунутьмонета.,exclamation,commanding,2025-05-25 21:40:34
+Правильныймрачносуставзасунутьмонета.,exclamation,commanding,2025-05-25 21:42:31
+Правильныймрачносуставзасунутьмонета.,exclamation,commanding,2025-05-25 21:43:50
+Himotherfuckers,exclamation,commanding,2025-05-25 21:44:57

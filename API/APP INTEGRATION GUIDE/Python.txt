@@ -1,0 +1,12 @@
+-----------------------------------PYTHON INTEGRATION-----------------------------------
+
+
+To integrate Sulfur into a python API, drag the Sulfur folder into your root folder. 
+
+Then import sulfur into a script/ your script via:
+
+"import SulfurAI"
+
+-----------------------------------SCRIPTS:
+
+SulfurAI.run_locally("str") - runs sulfur locally. Returns a dictionary that you can explore and use or gain via using your own custom method.
