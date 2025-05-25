@@ -1,13 +1,17 @@
 import os,subprocess,sys,importlib
 from VersionDATA.ai_renderer import error
+import runpy
 import traceback
-TOS = [
-    "By using this application you agree to the Terms of Service listed in the project files.",
-    "If you cannot find it, install a new version."
-]
+
 print_verti_list = error.print_verti_list
 error_print = error.error
-print_verti_list(TOS)
+
+if __name__ == "__main__":
+    TOS = [
+        "By using this application you agree to the Terms of Service listed in the project files.",
+        "If you cannot find it, install a new version."
+    ]
+    print_verti_list(TOS)
 
 def get_call_file_path():
     from VersionFiles.Sulfur.TrainingScript.Build import call_file_path
@@ -76,7 +80,8 @@ def get_installed_packages():
             pass
     return package_map
 
-print("-------Preparing PIP libraries.")
+if __name__ == "__main__":
+    print("-------Preparing PIP libraries.")
 
 def safe_import(module_name, package_name=None, extra_packages=None):
     """
@@ -102,19 +107,23 @@ def safe_import(module_name, package_name=None, extra_packages=None):
         try:
             return importlib.import_module(module_name)
         except ImportError:
-            print(f"------- {pkg} not found. Installing...")
+            if __name__ == "__main__":
+                print(f"------- {pkg} not found. Installing...")
             install([pkg] + (extra_packages or []))
 
             try:
                 return importlib.import_module(module_name)
             except ImportError:
+
                 automatic_restart_failsafe += 1
-                print(f"Error while importing {module_name} after installation. "
-                      f"Attempt {automatic_restart_failsafe}/{automatic_restart_limit}. "
-                      f"Restart Sulfur if this persists.")
+                if __name__ == "__main__":
+                    print(f"Error while importing {module_name} after installation. "
+                          f"Attempt {automatic_restart_failsafe}/{automatic_restart_limit}. "
+                          f"Restart Sulfur if this persists.")
                 if automatic_restart_failsafe >= automatic_restart_limit:
-                    print(f"Failed to import {module_name} after multiple attempts. "
-                          f"This could be a fake error - check previous print statements.")
+                    if __name__ == "__main__":
+                        print(f"Failed to import {module_name} after multiple attempts. "
+                              f"This could be a fake error - check previous print statements.")
                     return None
 
 
@@ -138,8 +147,8 @@ for mod in modules:
     safe_import(*mod)
 
 
-
-print("-------All custom libraries are installed. ")
+if __name__ == "__main__":
+    print("-------All custom libraries are installed. ")
 
 ###########initiates the settings after install
 
@@ -251,7 +260,7 @@ version, file_link, file_link_a, file_link_o, Sulfur_Output_Device_Desktop_Perce
 
 def call_ai_class(class_name):
     if class_name == "CD":
-        from VersionDATA.ai_renderer import Check_device_s  # Delayed import
+        Check_device_s = runpy.run_path("VersionDATA/ai_renderer/Check_device_s.py",init_globals={"__caller__": __name__})
         return Check_device_s
 
 brick_out = error.brick_out
@@ -262,7 +271,9 @@ def finish_script():
     global hours, minutes, seconds, total_time_ms
     finish_time = datetime.datetime.now()
     finish_time_printed = finish_time.strftime("%Y-%m-%d %H:%M:%S") + f".{finish_time.microsecond // 1000:03d}"
-    print(f"-------All tasks completed at {finish_time_printed}. Check output file.")
+
+    if __name__ == "__main__":
+        print(f"-------All tasks completed at {finish_time_printed}. Check output file.")
     total_time = finish_time - start_time
     total_time_ms = total_time.total_seconds() * 1000
     total_seconds = int(total_time.total_seconds())
@@ -273,7 +284,8 @@ def finish_script():
             total_seconds += 1
     hours, remainder = divmod(total_seconds, 3600)
     minutes, seconds = divmod(remainder, 60)
-    print(f"-------Time taken: {hours} hours, {minutes} minutes, {seconds} seconds, {total_time_ms} milliseconds.")
+    if __name__ == "__main__":
+     print(f"-------Time taken: {hours} hours, {minutes} minutes, {seconds} seconds, {total_time_ms} milliseconds.")
     with open(file_path_OutputData_name_Response_Time_MS, "w") as file:
         file.write(f"{hours} hours, {minutes} minutes, {seconds} seconds, {total_time_ms} milliseconds.")
 
@@ -287,11 +299,11 @@ def ui_add_output_data(file_path,changes,changes_summary,average_summary,changes
         file.write(f" *Only includes userbase changes at least {changes_apart} {item_least} apart.\n")
 
 
-def rest_of_the_script(tag_trainer):
+def rest_of_the_script(tag_trainer,return_statements):
     # Write output
     Check_device_s = call_ai_class("CD")
-    instance = Check_device_s.Ai()
-    ai_process_cd_instance = Check_device_s.ai_process_cd()
+    instance = Check_device_s["Ai"]()
+    ai_process_cd_instance = Check_device_s["ai_process_cd"]()
     Device_Result, Device_Accuracy = ai_process_cd_instance.process_script()
 
     global hours, minutes, seconds, total_time_ms
@@ -478,6 +490,41 @@ def rest_of_the_script(tag_trainer):
                         write_userbase_changes(file, "Month", past_m_changes, changes_summary_month, average_change_m, changes_m_apart_at_leastMonth,True)
                         write_userbase_changes(file, "Year", past_y_changes, changes_summary_year, average_change_y, changes_y_apart_at_leastYear,True)
 
+            def return_statements_sulfur():
+                return {
+                    "INPUT_TEXT": input_data,
+                    "INPUT_TOO_LONG": too_long,
+                    "INPUT_HAD_UNACCEPTED_PARTS": re_was_subbed,
+                    "PREDICTED_USER_DEVICE": OutputDevice,
+                    "PREDICTED_USER_DEVICE_ACCURACY": Device_Accuracy,
+                    "DATABASE_AVERAGE_DEVICE": main_devices,
+                    "DATABASE_AVERAGE_DEVICE_ACCURACY": average_accuracy,
+                    "USER_MOOD_PREDICTED": mood_user,
+                    "GLOBAL_MOOD_PREDICTED": mood_global,
+                    "USER_MOOD_PREDICTED_ACCURACY": mood_accuracy_user,
+                    "GLOBAL_MOOD_PREDICTED_ACCURACY": mood_accuracy_global,
+                    "MOOD_AVERAGE_ACCURACY_ALL": average_mood_accuracy,
+                    "USER_SENTENCE_TYPE": stype_user,
+                    "USER_SENTENCE_INTENT": sintent_user,
+                    "USER_SENTENCE_TYPE_ACCURACY": acc_sent_user,
+                    "USER_SENTENCE_INTENT_ACCURACY": acc_intent_user,
+                    "GLOBAL_SENTENCE_TYPE": avg_sent_types,
+                    "GLOBAL_SENTENCE_INTENT": avg_intent_types,
+                    "GLOBAL_SENTENCE_TYPE_ACCURACY": acc_sent_global,
+                    "GLOBAL_SENTENCE_INTENT_ACCURACY": acc_intent_global,
+                    "GLOBAL_OVERALL_ACCURACY": avg_accuracy_global,
+                    "PREDICTED_USER_LOCATION_COUNTRY": country,
+                    "PREDICTED_USER_LOCATION_CONFIDENCE": confidence,
+                    "RESPONSE_TOTAL_TIME": {
+                        "HOURS": hours,
+                        "MINUTES": minutes,
+                        "SECONDS": seconds,
+                        "TOTAL_TIME_MS": total_time_ms
+                    }
+                }
+
+            if return_statements == True: return return_statements_sulfur()
+
 
 
         except IOError as e:
@@ -491,38 +538,28 @@ def rest_of_the_script(tag_trainer):
 
 
 # Menu & Variables
-list_menu = [
-    f"#####Sulfur AI {version}#####",
-    "####A VolksHub production####",
-    "....Booting Nodes...."
-]  # Menu
 start_time = datetime.datetime.now()
 start_time_printed = start_time.strftime(
     "%Y-%m-%d %H:%M:%S")  # Calculating what it starts at for rest_of_the_script(attributes)
 start_time_ms = f".{start_time.microsecond // 1000:03d}"
-print_verti_list(list_menu)
 
 if __name__ == "__main__":
+
+    list_menu = [
+        f"#####Sulfur AI {version}#####",
+        "####A VolksHub production####",
+        "....Booting Nodes...."
+    ]  # Menu
+    print_verti_list(list_menu)
+
+
     try:
-        rest_of_the_script("None")
+        rest_of_the_script("None",False)
     except Exception as e:
         print("Error:", e)
         import traceback
         traceback.print_exc()
-        input("Press Enter to exit...")
-
-
-def run_via_trainer(tag_trainer):
-    try:
-        rest_of_the_script(tag_trainer)
-    except Exception as e:
-        print("Error:", e)
-        import traceback
-        traceback.print_exc()
-        input("Press Enter to exit...")
-
-
-
+    input("Press Enter to exit...")
 
 def call_file_input():
     global file_link
@@ -551,6 +588,95 @@ else:
                 error_print("er2", "Verification", "INSTALL NEW VER",1)
                 brick_out(1000)
 
-# Check for input, attributes, and output files
+#####################------------------------------------------------MODULE IMPORT SCRIPTS------------------------------------------------
+
+def run_via_trainer(tag_trainer):
+    try:
+        rest_of_the_script(tag_trainer,False)
+    except Exception as e:
+        print("Error:", e)
+        import traceback
+        traceback.print_exc()
+        input("Press Enter to exit...")
+
+def run_locally(input_string):
+    #############Runs Sulfur Locally by overwriting the input
+    """
+    Runs SulfurAI Locally by overwriting the input.txt file.
+
+    Args:
+      input_string: Sulfur takes this and processes it
+
+
+    Returns:
+        "INPUT_TEXT": Returns input_string in [str] format.
+        "INPUT_TOO_LONG": Returns whether the input was stripped according to the cap. Boolean format.
+        "INPUT_HAD_UNACCEPTED_PARTS": Returns whether the input was stripped according to unsupported characters. Boolean format.
+        "PREDICTED_USER_DEVICE": Returns the predicted device of the user. String format.
+        "PREDICTED_USER_DEVICE_ACCURACY": Returns the predicted device accuracy of the user. String format.
+        "DATABASE_AVERAGE_DEVICE": Returns the predicted device of the database. String format.
+        "DATABASE_AVERAGE_DEVICE_ACCURACY": Returns the predicted device accuracy of the database. String format.
+        "USER_MOOD_PREDICTED": Returns the predicted mood of the user. String format.
+        "GLOBAL_MOOD_PREDICTED": Returns the predicted mood of the database. String format.
+        "USER_MOOD_PREDICTED_ACCURACY": Returns the predicted mood accuracy of the user. String format.
+        "GLOBAL_MOOD_PREDICTED_ACCURACY": Returns the predicted mood accuracy of the database. String format.
+        "MOOD_AVERAGE_ACCURACY_ALL": Returns the predicted mood accuracy of the database + user as a mean (average). String format.
+        "USER_SENTENCE_TYPE": Returns the predicted sentence type of the user. String format.
+        "USER_SENTENCE_INTENT":  Returns the predicted sentence intent of the user. String format.
+        "USER_SENTENCE_TYPE_ACCURACY": Returns the predicted sentence type accuracy of the user. String format.
+        "USER_SENTENCE_INTENT_ACCURACY": Returns the predicted sentence intent accuracy of the user. String format.
+        "GLOBAL_SENTENCE_TYPE": Returns the predicted database sentence types. String format.
+        "GLOBAL_SENTENCE_INTENT": Returns the predicted database sentence intents. String format.
+        "GLOBAL_SENTENCE_TYPE_ACCURACY": Returns the predicted database sentence type accuracy. String format.
+        "GLOBAL_SENTENCE_INTENT_ACCURACY": Returns the predicted database sentence intent accuracy. String format.
+        "GLOBAL_OVERALL_ACCURACY": Returns the predicted database overall sentence accuracy. String format.
+        "PREDICTED_USER_LOCATION_COUNTRY": Returns the predicted country of a user. String format.
+        "PREDICTED_USER_LOCATION_CONFIDENCE": Returns the predicted country accuracy of a user. String format.
+        "RESPONSE_TOTAL_TIME": Returns the Sulfur's response time. String format.
+            "HOURS": Returns the Sulfur's response time [hours] . String format.
+            "MINUTES": Returns the Sulfur's response time [minutes] . String format.
+            "SECONDS": Returns the Sulfur's response time [seconds] . String format.
+            "TOTAL_TIME_MS": Returns the Sulfur's response time [total time in ms] . String format.
+    """
+    try:
+     current_dir_i_mod = os.path.abspath(os.path.join(os.path.dirname(__file__),))
+     folder_path_input_mod = os.path.join(current_dir_i_mod, 'DATA')
+     file_name_input_mod = 'Input.txt'  # Debugger variables
+     file_path_input_mod = os.path.join(folder_path_input_mod, file_name_input_mod)
+
+     with open(file_path_input_mod, "w", encoding="utf-8", errors="ignore") as file_mod:
+         file_mod.write(input_string)
+    except TypeError:
+        raise TypeError("SULFUR EXCEPTION (____.run_locally): Input_string must be a *string*!")
+
+    try:
+        start_time = datetime.datetime.now()
+        start_time_printed = start_time.strftime("%Y-%m-%d %H:%M:%S")
+        start_time_ms = f".{start_time.microsecond // 1000:03d}"
+        return rest_of_the_script("None",True)
+    except (NameError, TypeError, FileNotFoundError, IOError, ValueError, AttributeError) as e:
+        exc_type_name = type(e).__name__
+
+        if exc_type_name == "NameError":
+            raise NameError(
+                "SULFUR EXCEPTION (____.run_locally): Previous variables were not defined. This is most-likely a Sulfur-Side issue.") from e
+        elif exc_type_name == "TypeError":
+            raise TypeError("SULFUR EXCEPTION (____.run_locally): Input_string must be a *string*!") from e
+        elif exc_type_name == "FileNotFoundError":
+            raise FileNotFoundError(
+                "SULFUR EXCEPTION (____.run_locally): A file (input_data.txt ,etc 'Usually located in DATA') was not found. Was it deleted?") from e
+        elif exc_type_name == "IOError":
+            raise IOError(
+                "SULFUR EXCEPTION (____.run_locally): A file (input_data.txt ,etc 'Usually located in DATA') was not found or could not be run. Was it deleted?") from e
+        elif exc_type_name == "ValueError":
+            raise ValueError(
+                "SULFUR EXCEPTION (____.run_locally): Sulfur could not convert a string to integer or vice versa. This is most-likely a Sulfur-Side issue.") from e
+        elif exc_type_name == "AttributeError":
+            raise AttributeError(
+                "SULFUR EXCEPTION (____.run_locally): A Sulfur call function failed while processing. This is most-likely a Sulfur-Side issue.") from e
+        else:
+            raise
+
+
 
 
