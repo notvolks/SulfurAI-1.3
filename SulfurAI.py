@@ -26,39 +26,61 @@ import importlib
 import importlib.metadata
 
 def upgrade_pip_tools():
-    """
-    Upgrade pip, setuptools, and wheel to latest versions to improve build success rate.
-    """
     try:
-        print("Upgrading pip, setuptools, and wheel...")
-        subprocess.check_call([sys.executable, "-m", "pip", "install", "--upgrade", "pip", "setuptools", "wheel"])
-        print("Upgrade complete.")
+        if __name__ == "__main__":
+            print("Upgrading pip, setuptools, and wheel...")
+
+        # Decide where to send output:
+        stdout_dest = None if __name__ == "__main__" else subprocess.DEVNULL
+        stderr_dest = None if __name__ == "__main__" else subprocess.DEVNULL
+
+        subprocess.check_call(
+            [sys.executable, "-m", "pip", "install", "--upgrade", "pip", "setuptools", "wheel"],
+            stdout=stdout_dest,
+            stderr=stderr_dest,
+        )
+
+        if __name__ == "__main__":
+            print("Upgrade complete.")
     except subprocess.CalledProcessError as error:
-        print(f"Warning: Failed to upgrade pip tools: {error}")
+        if __name__ == "__main__":
+            print(f"Warning: Failed to upgrade pip tools: {error}")
+
 
 def install(packages):
-    """
-    Custom install function for handling package installation with special cases like pygame-ce.
-    Upgrades pip/setuptools/wheel first to reduce build failures.
-    """
     if isinstance(packages, str):
         packages = [packages]
 
-    # Upgrade pip/tools once before installing any package
     upgrade_pip_tools()
 
     for pkg in packages:
         try:
+            stdout_dest = None if __name__ == "__main__" else subprocess.DEVNULL
+            stderr_dest = None if __name__ == "__main__" else subprocess.DEVNULL
+
             if pkg == "pygame-ce":
-                subprocess.check_call([sys.executable, "-m", "pip", "install", "pygame-ce", "--upgrade"])
-                print("pygame-ce installed successfully!")
+                subprocess.check_call(
+                    [sys.executable, "-m", "pip", "install", "pygame-ce", "--upgrade"],
+                    stdout=stdout_dest,
+                    stderr=stderr_dest,
+                )
+                if __name__ == "__main__":
+                    print("pygame-ce installed successfully!")
             else:
-                subprocess.check_call([sys.executable, "-m", "pip", "install", pkg])
-                print(f"{pkg} installed successfully!")
+                subprocess.check_call(
+                    [sys.executable, "-m", "pip", "install", pkg],
+                    stdout=stdout_dest,
+                    stderr=stderr_dest,
+                )
+                if __name__ == "__main__":
+                    print(f"{pkg} installed successfully!")
+
         except (ModuleNotFoundError, PermissionError, TimeoutError, MemoryError) as error:
-            print(f"An error occurred while installing {pkg}: {error}")
+            if __name__ == "__main__":
+                print(f"An error occurred while installing {pkg}: {error}")
         except subprocess.CalledProcessError as error:
-            print(f"Failed to install {pkg}. Error: {error}")
+            if __name__ == "__main__":
+                print(f"Failed to install {pkg}. Error: {error}")
 
 def get_installed_packages():
     """
@@ -590,6 +612,61 @@ else:
 
 #####################------------------------------------------------MODULE IMPORT SCRIPTS------------------------------------------------
 
+def setup_local(directory=None):
+    """
+    Sets up SulfurAI locally by adding the given directory to the PYTHONPATH.
+    If no directory is provided, uses the current working directory.
+    """
+
+
+    directory = os.path.abspath(directory or os.getcwd())
+
+    # -- Cache writing --
+    try:
+        file_path_cache_LocalHost = call.cache_LocalScriptHost()
+        os.makedirs(os.path.dirname(file_path_cache_LocalHost), exist_ok=True)
+        with open(file_path_cache_LocalHost, "w", encoding="utf-8", errors="ignore") as file:
+            file.write(f"LL{directory}\n")
+        print(f"✅ Wrote cache: {file_path_cache_LocalHost}")
+    except Exception as e:
+        print(f"❌ Failed to write cache: {e}")
+        return
+
+    # -- Set up persistent PYTHONPATH (for new terminals) --
+    if os.name == 'nt':
+        profile_file = os.path.expanduser('~\\Documents\\WindowsPowerShell\\profile.ps1')
+        line_to_add = f'$env:PYTHONPATH = "{directory};$env:PYTHONPATH"\n'
+    else:
+        profile_file = os.path.expanduser('~/.bashrc')
+        line_to_add = f'export PYTHONPATH="$PYTHONPATH:{directory}"\n'
+
+    try:
+        os.makedirs(os.path.dirname(profile_file), exist_ok=True)
+        if not os.path.exists(profile_file):
+            with open(profile_file, 'w', encoding='utf-8') as f:
+                f.write("# Created by SulfurAI setup_local\n")
+
+        with open(profile_file, 'r', encoding='utf-8') as f:
+            lines = f.readlines()
+
+        if not any(line.strip() == line_to_add.strip() for line in lines):
+            with open(profile_file, 'a', encoding='utf-8') as f:
+                f.write(line_to_add)
+            print(f"✅ Added to {profile_file}")
+        else:
+            print("ℹ️ Already added to profile.")
+    except Exception as e:
+        print(f"❌ Failed to modify profile file: {e}")
+
+    # -- Make it effective immediately in current Python process --
+    if directory not in sys.path:
+        sys.path.insert(0, directory)
+        os.environ["PYTHONPATH"] = f"{directory};" + os.environ.get("PYTHONPATH", "")
+        print(f"🔄 Added {directory} to sys.path for this session.")
+    print("⚠️SulfurAI has now been setup. You can safely delete this line of code: '______.setup_local()'")
+
+#------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
 def run_via_trainer(tag_trainer):
     try:
         rest_of_the_script(tag_trainer,False)
@@ -598,6 +675,8 @@ def run_via_trainer(tag_trainer):
         import traceback
         traceback.print_exc()
         input("Press Enter to exit...")
+
+#------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 def run_locally(input_string):
     #############Runs Sulfur Locally by overwriting the input
@@ -638,44 +717,83 @@ def run_locally(input_string):
             "SECONDS": Returns the Sulfur's response time [seconds] . String format.
             "TOTAL_TIME_MS": Returns the Sulfur's response time [total time in ms] . String format.
     """
-    try:
-     current_dir_i_mod = os.path.abspath(os.path.join(os.path.dirname(__file__),))
-     folder_path_input_mod = os.path.join(current_dir_i_mod, 'DATA')
-     file_name_input_mod = 'Input.txt'  # Debugger variables
-     file_path_input_mod = os.path.join(folder_path_input_mod, file_name_input_mod)
+    current_dir_i_mod = os.path.abspath(os.path.join(os.path.dirname(__file__), ))
+    folder_path_input_mod = os.path.join(current_dir_i_mod, 'DATA')
+    file_name_input_mod = 'Input.txt'  # Debugger variables
+    file_path_input_mod = os.path.join(folder_path_input_mod, file_name_input_mod)
 
-     with open(file_path_input_mod, "w", encoding="utf-8", errors="ignore") as file_mod:
-         file_mod.write(input_string)
+    try:
+        with open(file_path_input_mod, "w", encoding="utf-8", errors="ignore") as file_mod:
+            file_mod.write(input_string)
     except TypeError:
-        raise TypeError("SULFUR EXCEPTION (____.run_locally): Input_string must be a *string*!")
+        raise TypeError("SULFUR EXCEPTION (run_locally): Input_string must be a *string*!")
 
+    old_cwd = os.getcwd()
     try:
+        os.chdir(current_dir_i_mod)  # Switch working directory to SulfurAI root
+
         start_time = datetime.datetime.now()
         start_time_printed = start_time.strftime("%Y-%m-%d %H:%M:%S")
         start_time_ms = f".{start_time.microsecond // 1000:03d}"
-        return rest_of_the_script("None",True)
+
+        return rest_of_the_script("None", True)
+
     except (NameError, TypeError, FileNotFoundError, IOError, ValueError, AttributeError) as e:
         exc_type_name = type(e).__name__
 
         if exc_type_name == "NameError":
             raise NameError(
-                "SULFUR EXCEPTION (____.run_locally): Previous variables were not defined. This is most-likely a Sulfur-Side issue.") from e
+                "SULFUR SETUP EXCEPTION (run_locally): Previous variables were not defined. This is most-likely a Sulfur-Side issue."
+            ) from e
+
         elif exc_type_name == "TypeError":
-            raise TypeError("SULFUR EXCEPTION (____.run_locally): Input_string must be a *string*!") from e
+            raise TypeError("SULFUR EXCEPTION (run_locally): Input_string must be a *string*!") from e
+
         elif exc_type_name == "FileNotFoundError":
+            file_path_cache_LocalHost = call.cache_LocalScriptHost()
+            try:
+                with open(file_path_cache_LocalHost, "r", encoding="utf-8", errors="ignore") as file:
+                    cached_local_check = file.read()
+                # Instead of os.getcwd(), check for cached base path:
+                if not cached_local_check.startswith("LL"):
+                    raise FileNotFoundError("SulfurAI cache file is corrupted or invalid.")
+                base_path = cached_local_check[2:].strip()
+                if base_path not in cached_local_check:
+                    raise FileNotFoundError(
+                        "SULFUR EXCEPTION (run_locally): You did not set up SulfurAI via the method SulfurAI.setup_local(). "
+                        "DEBUG FIX: Run SulfurAI.setup_local() once and then delete it."
+                    ) from e
+            except FileNotFoundError:
+                # Cache file itself missing
+                raise FileNotFoundError(
+                    "SULFUR EXCEPTION (run_locally): You did not set up SulfurAI via the method SulfurAI.setup_local(). "
+                    "DEBUG FIX: Run SulfurAI.setup_local() once and then delete it."
+                ) from e
+
             raise FileNotFoundError(
-                "SULFUR EXCEPTION (____.run_locally): A file (input_data.txt ,etc 'Usually located in DATA') was not found. Was it deleted?") from e
+                "SULFUR EXCEPTION (run_locally): A file (input_data.txt, etc. usually located in DATA) was not found. Was it deleted?"
+            ) from e
+
         elif exc_type_name == "IOError":
             raise IOError(
-                "SULFUR EXCEPTION (____.run_locally): A file (input_data.txt ,etc 'Usually located in DATA') was not found or could not be run. Was it deleted?") from e
+                "SULFUR EXCEPTION (run_locally): A file (input_data.txt, etc. usually located in DATA) was not found or could not be run. Was it deleted?"
+            ) from e
+
         elif exc_type_name == "ValueError":
             raise ValueError(
-                "SULFUR EXCEPTION (____.run_locally): Sulfur could not convert a string to integer or vice versa. This is most-likely a Sulfur-Side issue.") from e
+                "SULFUR EXCEPTION (run_locally): Sulfur could not convert a string to integer or vice versa. This is most-likely a Sulfur-Side issue."
+            ) from e
+
         elif exc_type_name == "AttributeError":
             raise AttributeError(
-                "SULFUR EXCEPTION (____.run_locally): A Sulfur call function failed while processing. This is most-likely a Sulfur-Side issue.") from e
+                "SULFUR EXCEPTION (run_locally): A Sulfur call function failed while processing. This is most-likely a Sulfur-Side issue."
+            ) from e
+
         else:
             raise
+
+    finally:
+        os.chdir(old_cwd)  # Restore the original working directory
 
 
 
