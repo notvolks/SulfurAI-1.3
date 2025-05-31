@@ -1,7 +1,28 @@
+#--------------------------------------------------------------------------------------------
+################ Welcome to SulfurAI!
+### Functions here should be modified with proper intent.
+### This python script was written in the Holly format. To find out how it works go into VersionDATA/HollyFormat/ReadMe.txt
+### This python script is designed to host all SulfurAI API functions for python and run via the __main__ tag.
+
+### LAYOUT:
+# ---------------GOING DOWN!
+##### -Importing base level items, including TOS notice.
+##### -PIP install, installing all dependancies.
+##### -Importing external level items, including file paths,
+##### -Runs the architecture, ensuring it runs cleanly and does not return an error.
+##### -Hosts the sulfur scripts, runs secondary modules and processes with machine learning + neural networking
+##### -Writes to the output and API files.
+##### -Hosts the module (API) files.
+
+
+
+
+#####################------------------------------------------------INBUILT FUNCTIONS------------------------------------------------
 import os,subprocess,sys,importlib
 from VersionDATA.ai_renderer import error
 import runpy
 import traceback
+import inspect
 
 print_verti_list = error.print_verti_list
 error_print = error.error
@@ -13,19 +34,23 @@ if __name__ == "__main__":
     ]
     print_verti_list(TOS)
 
-def get_call_file_path():
+# DELETING THE TOS NOTICE SCRIPT RESULTS IN INSTANT TERMINATION OF SULFUR WARRANTY AND CANCELS YOUR CONTRACT. IT IS *IN VIOLATION* OF THE TOS.
+# YOU MAY BE INDEFINITELY BANNED FROM SULFUR SERVICES IF YOU REMOVE THIS TOS NOTICE SCRIPT WITHOUT PRIOR WRITTEN CONSENT BY VOLKSHUB GROUP.
+
+def _get_call_file_path():
     from VersionFiles.Sulfur.TrainingScript.Build import call_file_path
     return call_file_path.Call()
 
 # Call file paths
-call = get_call_file_path()
+call = _get_call_file_path()
 
 import sys
 import subprocess
 import importlib
 import importlib.metadata
 
-def upgrade_pip_tools():
+#------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+def _upgrade_pip_tools():
     try:
         if __name__ == "__main__":
             print("Upgrading pip, setuptools, and wheel...")
@@ -46,12 +71,12 @@ def upgrade_pip_tools():
         if __name__ == "__main__":
             print(f"Warning: Failed to upgrade pip tools: {error}")
 
-
-def install(packages):
+#------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+def _install(packages):
     if isinstance(packages, str):
         packages = [packages]
 
-    upgrade_pip_tools()
+    _upgrade_pip_tools()
 
     for pkg in packages:
         try:
@@ -82,7 +107,8 @@ def install(packages):
             if __name__ == "__main__":
                 print(f"Failed to install {pkg}. Error: {error}")
 
-def get_installed_packages():
+#------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+def _get_installed_packages():
     """
     Retrieve all installed packages and their top-level modules.
     Dynamically creates a module-to-package mapping.
@@ -102,10 +128,12 @@ def get_installed_packages():
             pass
     return package_map
 
+#------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 if __name__ == "__main__":
     print("-------Preparing PIP libraries.")
 
-def safe_import(module_name, package_name=None, extra_packages=None):
+#------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+def _safe_import(module_name, package_name=None, extra_packages=None):
     """
     Tries to import a module, and if it fails, attempts to install the corresponding package
     (with optional extras), then import again, retrying up to a configured limit.
@@ -131,7 +159,7 @@ def safe_import(module_name, package_name=None, extra_packages=None):
         except ImportError:
             if __name__ == "__main__":
                 print(f"------- {pkg} not found. Installing...")
-            install([pkg] + (extra_packages or []))
+            _install([pkg] + (extra_packages or []))
 
             try:
                 return importlib.import_module(module_name)
@@ -148,7 +176,7 @@ def safe_import(module_name, package_name=None, extra_packages=None):
                               f"This could be a fake error - check previous print statements.")
                     return None
 
-
+#------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 modules = [
     ("sklearn", "scikit-learn"),
     ("pygame", "pygame-ce"),
@@ -166,15 +194,17 @@ modules = [
 ]
 
 for mod in modules:
-    safe_import(*mod)
+    _safe_import(*mod)
 
 
 if __name__ == "__main__":
     print("-------All custom libraries are installed. ")
 
-###########initiates the settings after install
+#------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 
+
+#####################------------------------------------------------MODULES------------------------------------------------
 import os
 import sys
 import subprocess
@@ -228,6 +258,9 @@ file_path_OutputData_name_Device = call.device()  # Assume this returns a single
 (folder_path_output, folder_path_output_name, file_path_output) = call.output()
 (folder_path_training_data_sk, folder_path_training_data_name_sk, file_path_training_data_sk) = call.training_data_sk()
 
+
+
+#####################------------------------------------------------ARCHITECTURE VERIFICATION------------------------------------------------
 ####################Architechture:
 ARCH_IS_VALID = 0
 file_path_arch = call.arch_runner()
@@ -265,8 +298,8 @@ else:
         error.brick_out(2)
 
 
-
-def variable_call():
+#####################------------------------------------------------SULFUR------------------------------------------------
+def _variable_call():
     version = "[DRL]"
     file_link = ""
     file_link_a = ""
@@ -275,20 +308,20 @@ def variable_call():
     Sulfur_Output_DeviceMobileORother_Percent = 0
     return version, file_link, file_link_a, file_link_o, Sulfur_Output_Device_Desktop_Percent, Sulfur_Output_DeviceMobileORother_Percent
 
-version, file_link, file_link_a, file_link_o, Sulfur_Output_Device_Desktop_Percent, Sulfur_Output_DeviceMobileORother_Percent = variable_call()
+version, file_link, file_link_a, file_link_o, Sulfur_Output_Device_Desktop_Percent, Sulfur_Output_DeviceMobileORother_Percent = _variable_call()
 
 
+#------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-
-def call_ai_class(class_name):
+def _call_ai_class(class_name):
     if class_name == "CD":
         Check_device_s = runpy.run_path("VersionDATA/ai_renderer/Check_device_s.py",init_globals={"__caller__": __name__})
         return Check_device_s
 
 brick_out = error.brick_out
+#------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-
-def finish_script():
+def _finish_script():
     global start_time, file_path_OutputData_name_Response_Time_MS
     global hours, minutes, seconds, total_time_ms
     finish_time = datetime.datetime.now()
@@ -311,7 +344,8 @@ def finish_script():
     with open(file_path_OutputData_name_Response_Time_MS, "w") as file:
         file.write(f"{hours} hours, {minutes} minutes, {seconds} seconds, {total_time_ms} milliseconds.")
 
-def ui_add_output_data(file_path,changes,changes_summary,average_summary,changes_apart,item,item_least):
+#------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+def _ui_add_output_data(file_path,changes,changes_summary,average_summary,changes_apart,item,item_least):
     with open(file_path, "w", encoding="utf-8", errors="ignore") as file:
         file.write(f" ###########{item} Changes###########:\n")
         file.write(f" Changes to your userbase over the past {changes} {item_least}:\n")
@@ -320,17 +354,17 @@ def ui_add_output_data(file_path,changes,changes_summary,average_summary,changes
         file.write("  " + f"{average_summary}\n" if average_summary else "  " + f"None_Found\n")
         file.write(f" *Only includes userbase changes at least {changes_apart} {item_least} apart.\n")
 
-
-def rest_of_the_script(tag_trainer,return_statements):
+#------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+def _rest_of_the_script(tag_trainer,return_statements):
     # Write output
-    Check_device_s = call_ai_class("CD")
+    Check_device_s = _call_ai_class("CD")
     instance = Check_device_s["Ai"]()
     ai_process_cd_instance = Check_device_s["ai_process_cd"]()
     Device_Result, Device_Accuracy = ai_process_cd_instance.process_script()
 
     global hours, minutes, seconds, total_time_ms
 
-    finish_script()
+    _finish_script()
     try:
         # === Load Input and Preferences ===
         preferences_input = []
@@ -394,10 +428,10 @@ def rest_of_the_script(tag_trainer,return_statements):
         changes_summary_year, average_change_y = sentence_detectAndCompare_s.run_model(past_y_changes, changes_y_apart_at_leastYear, "year")
 
         # === UI Output Data ===
-        ui_add_output_data(call.ui_day_changes(), past_d_changes, changes_summary_day, average_change_d, changes_d_apart_at_leastDays, "Day", "days")
-        ui_add_output_data(call.ui_week_changes(), past_w_changes, changes_summary_week, average_change_w, changes_w_apart_at_leastWeek, "Week", "weeks")
-        ui_add_output_data(call.ui_month_changes(), past_m_changes, changes_summary_month, average_change_m, changes_m_apart_at_leastMonth, "Month", "months")
-        ui_add_output_data(call.ui_year_changes(), past_y_changes, changes_summary_year, average_change_y, changes_y_apart_at_leastYear, "Year", "years")
+        _ui_add_output_data(call.ui_day_changes(), past_d_changes, changes_summary_day, average_change_d, changes_d_apart_at_leastDays, "Day", "days")
+        _ui_add_output_data(call.ui_week_changes(), past_w_changes, changes_summary_week, average_change_w, changes_w_apart_at_leastWeek, "Week", "weeks")
+        _ui_add_output_data(call.ui_month_changes(), past_m_changes, changes_summary_month, average_change_m, changes_m_apart_at_leastMonth, "Month", "months")
+        _ui_add_output_data(call.ui_year_changes(), past_y_changes, changes_summary_year, average_change_y, changes_y_apart_at_leastYear, "Year", "years")
 
         # === AI Device and Input Verification ===
         OutputDevice = instance.summarise_device()
@@ -411,6 +445,7 @@ def rest_of_the_script(tag_trainer,return_statements):
 
         max_lines = 12 #add settings for
 
+# ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
         def write_userbase_changes(file, label, past_range, summary, avg, apart_unit, bypass_limit):
             def truncate_lines(text):
                 if not text:
@@ -512,7 +547,9 @@ def rest_of_the_script(tag_trainer,return_statements):
                         write_userbase_changes(file, "Month", past_m_changes, changes_summary_month, average_change_m, changes_m_apart_at_leastMonth,True)
                         write_userbase_changes(file, "Year", past_y_changes, changes_summary_year, average_change_y, changes_y_apart_at_leastYear,True)
 
-            def return_statements_sulfur():
+ # ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+            #####################------------------------------------------------API RETURNS-----------------------------------------------
+            def _return_statements_sulfur():
                 return {
                     "INPUT_TEXT": input_data,
                     "INPUT_TOO_LONG": too_long,
@@ -545,7 +582,7 @@ def rest_of_the_script(tag_trainer,return_statements):
                     }
                 }
 
-            if return_statements == True: return return_statements_sulfur()
+            if return_statements == True: return _return_statements_sulfur()
 
 
 
@@ -558,7 +595,7 @@ def rest_of_the_script(tag_trainer,return_statements):
         print(f"Unhandled exception during script run: {e}")
 
 
-
+#####################------------------------------------------------__MAIN__ FUNCTIONS-----------------------------------------------
 # Menu & Variables
 start_time = datetime.datetime.now()
 start_time_printed = start_time.strftime(
@@ -576,26 +613,26 @@ if __name__ == "__main__":
 
 
     try:
-        rest_of_the_script("None",False)
+        _rest_of_the_script("None",False)
     except Exception as e:
         print("Error:", e)
         import traceback
         traceback.print_exc()
     input("Press Enter to exit...")
 
-def call_file_input():
+def _call_file_input():
     global file_link
     file_link = file_path_input
 
-def call_file_attributes():
+def _call_file_attributes():
     global file_link_a
     file_link_a = file_path_attributes
 
-def call_file_output():
+def _call_file_output():
     global file_link_o
     file_link_o = file_path_output
 
-def broadcast_verify(file):
+def _broadcast_verify(file):
     return os.path.exists(file)
 
 # Debugger
@@ -610,7 +647,7 @@ else:
                 error_print("er2", "Verification", "INSTALL NEW VER",1)
                 brick_out(1000)
 
-#####################------------------------------------------------MODULE IMPORT SCRIPTS------------------------------------------------
+#####################------------------------------------------------MODULE IMPORT SCRIPTS (API)------------------------------------------------
 
 def setup_local(directory=None):
     """
@@ -669,7 +706,7 @@ def setup_local(directory=None):
 
 def run_via_trainer(tag_trainer):
     try:
-        rest_of_the_script(tag_trainer,False)
+        _rest_of_the_script(tag_trainer,False)
     except Exception as e:
         print("Error:", e)
         import traceback
@@ -736,7 +773,7 @@ def run_locally(input_string):
         start_time_printed = start_time.strftime("%Y-%m-%d %H:%M:%S")
         start_time_ms = f".{start_time.microsecond // 1000:03d}"
 
-        return rest_of_the_script("None", True)
+        return _rest_of_the_script("None", True)
 
     except (NameError, TypeError, FileNotFoundError, IOError, ValueError, AttributeError) as e:
         exc_type_name = type(e).__name__
