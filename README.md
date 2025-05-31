@@ -1,5 +1,5 @@
-# SulfurAI-DRL-001-03-85-PREV1
-# Developer Release 1-03-85-PREV1
+# SulfurAI-DRL-001-03-85-PREV2
+# Developer Release 1-03-85-PREV2
 > ## _Later releases may be in other repositories or in branches._
  
 ## WARNING:
@@ -12,11 +12,30 @@
 
 ## How do i use SulfurAI?
 
+> > ### _Simple python running._
 > First, add your input to data/input.txt
-> ,Then run :
+> 
+> Then run :
  `Run SulfurAI.bat`
-
+> 
 > _Note: there is a 50 character limit and special characters will be removed._
+
+>  _--------------API--------------_
+
+> > ### _Python: Local._
+> First, create a new script in the root SulfurAI folder.
+> 
+> This will be your init script. Then add these lines of code :
+> 
+ `import SulfurAI`
+>
+ `SulfurAI.setup_local()`
+ 
+> Afterwards, run the script and then add any script from the documentation as a return.
+> Create your own script or use an existing one in any directory and import this init script, with your required returns.
+>
+>  _Note: It may install pip dependancies automatically or print statements. To stop this add a quiet loop around it._
+
 
 ## How is Sulfur trained?
 
