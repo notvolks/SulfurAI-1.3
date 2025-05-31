@@ -1,0 +1,13 @@
+VolksHub Is an indie production team composed of 5~ people! (as of 3/5/2025) We hope you enjoy the items that we produce and spend a long time on!
+
+Our Terms of Services as of 31/05/2025:
+
+-If we do not enforce any rules, do NOT consider it a waiver.
+
+-VolksHub will NOT be held accountable for any changes made to the ORIGINAL game code and files before sharing online, VolksHub DO NOT CONSENT to the sharing of modified game files or scripts/code without permission. You are at risk and held liable when downloading a modified VolksHub file. VolksHub will accept ZERO liability for this purpose. Only download files from the trusted website / owner.
+
+-The TOS of the project file also applies. It is usually called "Terms of service.".txt and is located in the root folder. Make sure to check it before running the project.
+
+-We provide our services on an "AS-IS" and "AS-AVAILABLE" basis.
+
+-We reserve the right to terminate your access from our services at any time for any reason.
