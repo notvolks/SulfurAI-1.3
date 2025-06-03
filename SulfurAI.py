@@ -648,6 +648,8 @@ else:
                 brick_out(1000)
 
 #####################------------------------------------------------MODULE IMPORT SCRIPTS (API)------------------------------------------------
+from VersionDATA.exceptions import except_host
+
 
 def setup_local(directory=None):
     """
@@ -720,39 +722,69 @@ def run_locally(input_string):
     """
     Runs SulfurAI Locally by overwriting the input.txt file.
 
+    All returns are in a dictionary and are strings.
+
     Args:
       input_string: Sulfur takes this and processes it
 
 
     Returns:
-        "INPUT_TEXT": Returns input_string in [str] format.
-        "INPUT_TOO_LONG": Returns whether the input was stripped according to the cap. Boolean format.
-        "INPUT_HAD_UNACCEPTED_PARTS": Returns whether the input was stripped according to unsupported characters. Boolean format.
-        "PREDICTED_USER_DEVICE": Returns the predicted device of the user. String format.
-        "PREDICTED_USER_DEVICE_ACCURACY": Returns the predicted device accuracy of the user. String format.
-        "DATABASE_AVERAGE_DEVICE": Returns the predicted device of the database. String format.
-        "DATABASE_AVERAGE_DEVICE_ACCURACY": Returns the predicted device accuracy of the database. String format.
-        "USER_MOOD_PREDICTED": Returns the predicted mood of the user. String format.
-        "GLOBAL_MOOD_PREDICTED": Returns the predicted mood of the database. String format.
-        "USER_MOOD_PREDICTED_ACCURACY": Returns the predicted mood accuracy of the user. String format.
-        "GLOBAL_MOOD_PREDICTED_ACCURACY": Returns the predicted mood accuracy of the database. String format.
-        "MOOD_AVERAGE_ACCURACY_ALL": Returns the predicted mood accuracy of the database + user as a mean (average). String format.
-        "USER_SENTENCE_TYPE": Returns the predicted sentence type of the user. String format.
-        "USER_SENTENCE_INTENT":  Returns the predicted sentence intent of the user. String format.
-        "USER_SENTENCE_TYPE_ACCURACY": Returns the predicted sentence type accuracy of the user. String format.
-        "USER_SENTENCE_INTENT_ACCURACY": Returns the predicted sentence intent accuracy of the user. String format.
-        "GLOBAL_SENTENCE_TYPE": Returns the predicted database sentence types. String format.
-        "GLOBAL_SENTENCE_INTENT": Returns the predicted database sentence intents. String format.
-        "GLOBAL_SENTENCE_TYPE_ACCURACY": Returns the predicted database sentence type accuracy. String format.
-        "GLOBAL_SENTENCE_INTENT_ACCURACY": Returns the predicted database sentence intent accuracy. String format.
-        "GLOBAL_OVERALL_ACCURACY": Returns the predicted database overall sentence accuracy. String format.
-        "PREDICTED_USER_LOCATION_COUNTRY": Returns the predicted country of a user. String format.
-        "PREDICTED_USER_LOCATION_CONFIDENCE": Returns the predicted country accuracy of a user. String format.
-        "RESPONSE_TOTAL_TIME": Returns the Sulfur's response time. String format.
-            "HOURS": Returns the Sulfur's response time [hours] . String format.
-            "MINUTES": Returns the Sulfur's response time [minutes] . String format.
-            "SECONDS": Returns the Sulfur's response time [seconds] . String format.
-            "TOTAL_TIME_MS": Returns the Sulfur's response time [total time in ms] . String format.
+        "INPUT_TEXT": Returns input_string.
+
+        "INPUT_TOO_LONG": Returns whether the input was stripped according to the cap.
+
+        "INPUT_HAD_UNACCEPTED_PARTS": Returns whether the input was stripped according to unsupported characters.
+
+        "PREDICTED_USER_DEVICE": Returns the predicted device of the user.
+
+        "PREDICTED_USER_DEVICE_ACCURACY": Returns the predicted device accuracy of the user.
+
+        "DATABASE_AVERAGE_DEVICE": Returns the predicted device of the database.
+
+        "DATABASE_AVERAGE_DEVICE_ACCURACY": Returns the predicted device accuracy of the database.
+
+        "USER_MOOD_PREDICTED": Returns the predicted mood of the user.
+
+        "GLOBAL_MOOD_PREDICTED": Returns the predicted mood of the database.
+
+        "USER_MOOD_PREDICTED_ACCURACY": Returns the predicted mood accuracy of the user.
+
+        "GLOBAL_MOOD_PREDICTED_ACCURACY": Returns the predicted mood accuracy of the database.
+
+        "MOOD_AVERAGE_ACCURACY_ALL": Returns the predicted mood accuracy of the database + user as a mean (average).
+
+        "USER_SENTENCE_TYPE": Returns the predicted sentence type of the user.
+
+        "USER_SENTENCE_INTENT":  Returns the predicted sentence intent of the user.
+
+        "USER_SENTENCE_TYPE_ACCURACY": Returns the predicted sentence type accuracy of the user.
+
+        "USER_SENTENCE_INTENT_ACCURACY": Returns the predicted sentence intent accuracy of the user.
+
+        "GLOBAL_SENTENCE_TYPE": Returns the predicted database sentence types.
+
+        "GLOBAL_SENTENCE_INTENT": Returns the predicted database sentence intents.
+
+        "GLOBAL_SENTENCE_TYPE_ACCURACY": Returns the predicted database sentence type accuracy.
+
+        "GLOBAL_SENTENCE_INTENT_ACCURACY": Returns the predicted database sentence intent accuracy.
+
+        "GLOBAL_OVERALL_ACCURACY": Returns the predicted database overall sentence accuracy.
+
+        "PREDICTED_USER_LOCATION_COUNTRY": Returns the predicted country of a user.
+
+        "PREDICTED_USER_LOCATION_CONFIDENCE": Returns the predicted country accuracy of a user.
+
+        "RESPONSE_TOTAL_TIME": Returns the Sulfur's response time.
+
+            "HOURS": Returns the Sulfur's response time [hours] .
+
+            "MINUTES": Returns the Sulfur's response time [minutes] .
+
+            "SECONDS": Returns the Sulfur's response time [seconds] .
+
+            "TOTAL_TIME_MS": Returns the Sulfur's response time [total time in ms] .
+
     """
     current_dir_i_mod = os.path.abspath(os.path.join(os.path.dirname(__file__), ))
     folder_path_input_mod = os.path.join(current_dir_i_mod, 'DATA')
@@ -776,61 +808,58 @@ def run_locally(input_string):
         return _rest_of_the_script("None", True)
 
     except (NameError, TypeError, FileNotFoundError, IOError, ValueError, AttributeError) as e:
-        exc_type_name = type(e).__name__
-
-        if exc_type_name == "NameError":
-            raise NameError(
-                "SULFUR SETUP EXCEPTION (run_locally): Previous variables were not defined. This is most-likely a Sulfur-Side issue."
-            ) from e
-
-        elif exc_type_name == "TypeError":
-            raise TypeError("SULFUR EXCEPTION (run_locally): Input_string must be a *string*!") from e
-
-        elif exc_type_name == "FileNotFoundError":
-            file_path_cache_LocalHost = call.cache_LocalScriptHost()
-            try:
-                with open(file_path_cache_LocalHost, "r", encoding="utf-8", errors="ignore") as file:
-                    cached_local_check = file.read()
-                # Instead of os.getcwd(), check for cached base path:
-                if not cached_local_check.startswith("LL"):
-                    raise FileNotFoundError("SulfurAI cache file is corrupted or invalid.")
-                base_path = cached_local_check[2:].strip()
-                if base_path not in cached_local_check:
-                    raise FileNotFoundError(
-                        "SULFUR EXCEPTION (run_locally): You did not set up SulfurAI via the method SulfurAI.setup_local(). "
-                        "DEBUG FIX: Run SulfurAI.setup_local() once and then delete it."
-                    ) from e
-            except FileNotFoundError:
-                # Cache file itself missing
-                raise FileNotFoundError(
-                    "SULFUR EXCEPTION (run_locally): You did not set up SulfurAI via the method SulfurAI.setup_local(). "
-                    "DEBUG FIX: Run SulfurAI.setup_local() once and then delete it."
-                ) from e
-
-            raise FileNotFoundError(
-                "SULFUR EXCEPTION (run_locally): A file (input_data.txt, etc. usually located in DATA) was not found. Was it deleted?"
-            ) from e
-
-        elif exc_type_name == "IOError":
-            raise IOError(
-                "SULFUR EXCEPTION (run_locally): A file (input_data.txt, etc. usually located in DATA) was not found or could not be run. Was it deleted?"
-            ) from e
-
-        elif exc_type_name == "ValueError":
-            raise ValueError(
-                "SULFUR EXCEPTION (run_locally): Sulfur could not convert a string to integer or vice versa. This is most-likely a Sulfur-Side issue."
-            ) from e
-
-        elif exc_type_name == "AttributeError":
-            raise AttributeError(
-                "SULFUR EXCEPTION (run_locally): A Sulfur call function failed while processing. This is most-likely a Sulfur-Side issue."
-            ) from e
-
-        else:
-            raise
+        except_host.handle_sulfur_exception(e, call)
 
     finally:
-        os.chdir(old_cwd)  # Restore the original working directory
+        os.chdir(old_cwd)
+
+#------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+def get_output_data(strip_newline_marker=False):
+    """
+    Returns the output.txt content as a list.
+    Useful to save code and efficiency.
+
+    """
+    old_cwd = os.getcwd()
+    try:
+        file_path_output = call.Output_Data()
+        if not strip_newline_marker:
+            with open(file_path_output, "r", encoding="utf-8", errors="ignore") as file: lines = [line.strip() for line in file.readlines()]
+        else:
+            with open(file_path_output, "r", encoding="utf-8", errors="ignore") as file: lines = file.readlines()
+
+        return lines
+    except (NameError, TypeError, FileNotFoundError, IOError, ValueError, AttributeError) as e:
+        except_host.handle_sulfur_exception(e, call)
+
+    finally:
+        os.chdir(old_cwd)
+
+
+def get_output_data_ui(strip_newline_marker=False):
+    """
+    Returns the output_userinsight.txt content as a list.
+    Useful to save code and efficiency.
+
+    """
+    old_cwd = os.getcwd()
+    try:
+        file_path_ui = call.Output_UserInsight()
+        if not strip_newline_marker:
+            with open(file_path_ui, "r", encoding="utf-8", errors="ignore") as file:
+                lines = [line.strip() for line in file.readlines()]
+        else:
+            with open(file_path_ui, "r", encoding="utf-8", errors="ignore") as file:
+                lines = file.readlines()
+        return lines
+    except (NameError, TypeError, FileNotFoundError, IOError, ValueError, AttributeError) as e:
+        except_host.handle_sulfur_exception(e, call)
+
+    finally:
+        os.chdir(old_cwd)
+
+
 
 
 
