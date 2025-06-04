@@ -1,4 +1,4 @@
-#--------------------------------------------------------------------------------------------
+
 ################ Welcome to SulfurAI!
 ### Functions here should be modified with proper intent.
 ### This python script was written in the Holly format. To find out how it works go into VersionDATA/HollyFormat/ReadMe.txt
@@ -355,12 +355,12 @@ def _ui_add_output_data(file_path,changes,changes_summary,average_summary,change
         file.write(f" *Only includes userbase changes at least {changes_apart} {item_least} apart.\n")
 
 #------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-def _rest_of_the_script(tag_trainer,return_statements):
+def _rest_of_the_script(tag_trainer,return_statements,add_to_training_data=True):
     # Write output
     Check_device_s = _call_ai_class("CD")
     instance = Check_device_s["Ai"]()
     ai_process_cd_instance = Check_device_s["ai_process_cd"]()
-    Device_Result, Device_Accuracy = ai_process_cd_instance.process_script()
+    Device_Result, Device_Accuracy = ai_process_cd_instance.process_script(add_to_training_data)
 
     global hours, minutes, seconds, total_time_ms
 
@@ -389,7 +389,7 @@ def _rest_of_the_script(tag_trainer,return_statements):
         (
             stype_user, sintent_user, acc_sent_user, acc_intent_user,
             avg_sent_types, avg_intent_types, acc_sent_global, acc_intent_global, avg_accuracy_global
-        ) = sentence_detectAndInfer_s.sentence_intent_and_infer()
+        ) = sentence_detectAndInfer_s.sentence_intent_and_infer(add_to_training_data)
 
         # === Read Time-Based Change Settings ===
         file_path_settings_name_ui_days_ago = call.settings_ui_days_ago()
@@ -422,10 +422,10 @@ def _rest_of_the_script(tag_trainer,return_statements):
             changes_y_apart_at_leastYear = int(f.readline())
 
         # === Detect Changes ===
-        changes_summary_day, average_change_d = sentence_detectAndCompare_s.run_model(past_d_changes, changes_d_apart_at_leastDays, "day")
-        changes_summary_week, average_change_w = sentence_detectAndCompare_s.run_model(past_w_changes, changes_w_apart_at_leastWeek, "week")
-        changes_summary_month, average_change_m = sentence_detectAndCompare_s.run_model(past_m_changes, changes_m_apart_at_leastMonth, "month")
-        changes_summary_year, average_change_y = sentence_detectAndCompare_s.run_model(past_y_changes, changes_y_apart_at_leastYear, "year")
+        changes_summary_day, average_change_d = sentence_detectAndCompare_s.run_model(past_d_changes, changes_d_apart_at_leastDays, "day",)
+        changes_summary_week, average_change_w = sentence_detectAndCompare_s.run_model(past_w_changes, changes_w_apart_at_leastWeek, "week",)
+        changes_summary_month, average_change_m = sentence_detectAndCompare_s.run_model(past_m_changes, changes_m_apart_at_leastMonth, "month",)
+        changes_summary_year, average_change_y = sentence_detectAndCompare_s.run_model(past_y_changes, changes_y_apart_at_leastYear, "year",)
 
         # === UI Output Data ===
         _ui_add_output_data(call.ui_day_changes(), past_d_changes, changes_summary_day, average_change_d, changes_d_apart_at_leastDays, "Day", "days")
@@ -440,7 +440,7 @@ def _rest_of_the_script(tag_trainer,return_statements):
         input_data, too_long, re_was_subbed = txt_data.verify_input("list")
 
         # === UI predicted location ===
-        country, confidence = location_detect_s.predict_location(input_data,tag_trainer)
+        country, confidence = location_detect_s.predict_location(input_data,tag_trainer,add_to_training_data)
         # === Output Writer Function ===
 
         max_lines = 12 #add settings for
@@ -708,7 +708,7 @@ def setup_local(directory=None):
 
 def run_via_trainer(tag_trainer):
     try:
-        _rest_of_the_script(tag_trainer,False)
+        _rest_of_the_script(tag_trainer,False,True)
     except Exception as e:
         print("Error:", e)
         import traceback
@@ -717,15 +717,27 @@ def run_via_trainer(tag_trainer):
 
 #------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-def run_locally(input_string):
+def run_locally(input_string,add_to_training_data=True):
     #############Runs Sulfur Locally by overwriting the input
     """
     Runs SulfurAI Locally by overwriting the input.txt file.
 
     All returns are in a dictionary and are strings.
 
-    Args:
-      input_string: Sulfur takes this and processes it
+    -------------------------------
+
+    Main arguments:
+      input_string = string
+     - Sulfur takes this and processes it
+
+    -------------------------------
+
+    Extra arguments:
+        add_to_training_data = True/False [DEFAULT: True]
+     - decides whether to add this input to the SulfurAI training data
+
+
+    -------------------------------
 
 
     Returns:
@@ -805,7 +817,7 @@ def run_locally(input_string):
         start_time_printed = start_time.strftime("%Y-%m-%d %H:%M:%S")
         start_time_ms = f".{start_time.microsecond // 1000:03d}"
 
-        return _rest_of_the_script("None", True)
+        return _rest_of_the_script("None", True,add_to_training_data)
 
     except (NameError, TypeError, FileNotFoundError, IOError, ValueError, AttributeError) as e:
         except_host.handle_sulfur_exception(e, call)
@@ -842,6 +854,12 @@ def get_output_data_ui(strip_newline_marker=False):
     Returns the output_userinsight.txt content as a list.
     Useful to save code and efficiency.
 
+    Extra arguments:
+
+     strip_newline_marker = False/True [DEFAULT: False]
+
+     -Adds whether to include the '\n' tag to each item in the return statement.
+
     """
     old_cwd = os.getcwd()
     try:
@@ -858,6 +876,29 @@ def get_output_data_ui(strip_newline_marker=False):
 
     finally:
         os.chdir(old_cwd)
+
+
+
+
+
+
+
+    try:
+        file_path_output = call.Output_Data()
+        if not strip_newline_marker:
+            with open(file_path_output, "r", encoding="utf-8", errors="ignore") as file: lines = [line.strip() for line in file.readlines()]
+        else:
+            with open(file_path_output, "r", encoding="utf-8", errors="ignore") as file: lines = file.readlines()
+
+        return lines
+    except (NameError, TypeError, FileNotFoundError, IOError, ValueError, AttributeError) as e:
+        except_host.handle_sulfur_exception(e, call)
+
+    finally:
+        os.chdir(old_cwd)
+
+
+
 
 
 
