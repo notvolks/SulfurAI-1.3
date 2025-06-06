@@ -1,0 +1,36 @@
+-----------------------------------PYTHON INTEGRATION-----------------------------------
+
+
+To integrate Sulfur into a python API, drag the Sulfur folder into your root folder. 
+
+Then import sulfur into a script/ your script via:
+
+"import SulfurAI"
+
+OR read the ReadMe.md file for easier integration.
+
+-----------------------------------SCRIPTS:
+
+*For some functions the information is only in the python documentation, to see this use an IDE such as vscode or PyCharm*
+
+---------------------------'SulfurAI':
+
+SulfurAI.run_locally("str") - runs sulfur locally. Returns a dictionary that you can explore and use or gain via using your own custom method.
+
+SulfurAI.get_output_data
+
+SulfurAI.get_output_data_ui
+
+
+---------------------------'SulfurConsole':
+
+*The recommended way to setup the console is below:
+	import SulfurConsole
+	sulfur_console = SulfurConsole.console()
+	
+	*Then add whatever code you want, e.g:
+	 print_api_debug = sulfur_console.check_api_debug_print(print_status=False)
+
+_____._____.set_api_debug_print(value,print_status=True) - Sets the SulfurAI debug. If set to "True", Sulfur API modules will print debug statements.
+
+_____._____.check_api_debug_print - Checks the status of the API debug print cache. For more info use _____._____.set_api_debug_print()
