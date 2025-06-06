@@ -183,6 +183,7 @@ modules = [
     ("pygame_gui",),
     ("language_tool_python",),
     ("langdetect",),
+    ("langcodes",),
     ("tqdm",),
     ("numpy",),
     ("nltk",),
@@ -650,6 +651,12 @@ else:
 #####################------------------------------------------------MODULE IMPORT SCRIPTS (API)------------------------------------------------
 from VersionDATA.exceptions import except_host
 
+#------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+import SulfurConsole
+sulfur_console = SulfurConsole.console()
+print_api_debug = sulfur_console.check_api_debug_print(print_status=False)
+#------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
 
 def setup_local(directory=None):
     """
@@ -702,7 +709,7 @@ def setup_local(directory=None):
         sys.path.insert(0, directory)
         os.environ["PYTHONPATH"] = f"{directory};" + os.environ.get("PYTHONPATH", "")
         print(f"🔄 Added {directory} to sys.path for this session.")
-    print("⚠️SulfurAI has now been setup. You can safely delete this line of code: '______.setup_local()'")
+    if print_api_debug: print("⚠️SulfurAI has now been setup. You can safely delete this line of code: '______.setup_local()'")
 
 #------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
