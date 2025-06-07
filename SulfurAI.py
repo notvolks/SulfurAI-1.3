@@ -152,29 +152,33 @@ def _safe_import(module_name, package_name=None, extra_packages=None):
         automatic_restart_limit = int(file.readline().strip())
 
     pkg = package_name or MODULE_TO_PACKAGE_MAP.get(module_name, module_name)
+    file_path_cache_localHost_pip_debug = call.cache_LocalpipCacheDebug()
+    with open(file_path_cache_localHost_pip_debug, "r", encoding="utf-8", errors="ignore") as file: cache_stored_pip_debug = file.readlines()
 
-    while automatic_restart_failsafe < automatic_restart_limit:
-        try:
-            return importlib.import_module(module_name)
-        except ImportError:
-            if __name__ == "__main__":
-                print(f"------- {pkg} not found. Installing...")
-            _install([pkg] + (extra_packages or []))
-
+    if module_name not in [line.strip() for line in cache_stored_pip_debug]:
+        while automatic_restart_failsafe < automatic_restart_limit:
             try:
                 return importlib.import_module(module_name)
             except ImportError:
-
-                automatic_restart_failsafe += 1
                 if __name__ == "__main__":
-                    print(f"Error while importing {module_name} after installation. "
-                          f"Attempt {automatic_restart_failsafe}/{automatic_restart_limit}. "
-                          f"Restart Sulfur if this persists.")
-                if automatic_restart_failsafe >= automatic_restart_limit:
+                    print(f"------- {pkg} not found. Installing...")
+                _install([pkg] + (extra_packages or []))
+
+                try:
+                    return importlib.import_module(module_name)
+                except ImportError:
+
+                    automatic_restart_failsafe += 1
                     if __name__ == "__main__":
-                        print(f"Failed to import {module_name} after multiple attempts. "
-                              f"This could be a fake error - check previous print statements.")
-                    return None
+                        print(f"Error while importing {module_name} after installation. "
+                              f"Attempt {automatic_restart_failsafe}/{automatic_restart_limit}. "
+                              f"Restart Sulfur if this persists.")
+                    if automatic_restart_failsafe >= automatic_restart_limit:
+                        if __name__ == "__main__":
+                            print(f"Failed to import {module_name} after multiple attempts. "
+                                  f"This could be a fake error - check previous print statements.")
+                            with open(file_path_cache_localHost_pip_debug, "a", encoding="utf-8", errors="ignore") as file: file.write(f"{module_name}\n")
+                        return None
 
 #------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 modules = [
@@ -671,9 +675,9 @@ def setup_local(directory=None):
     try:
         file_path_cache_LocalHost = call.cache_LocalScriptHost()
         os.makedirs(os.path.dirname(file_path_cache_LocalHost), exist_ok=True)
-        with open(file_path_cache_LocalHost, "w", encoding="utf-8", errors="ignore") as file:
+        with open(file_path_cache_LocalHost, "a", encoding="utf-8", errors="ignore") as file:
             file.write(f"LL{directory}\n")
-        print(f"✅ Wrote cache: {file_path_cache_LocalHost}")
+        if print_api_debug: print(f"✅ Wrote cache: {file_path_cache_LocalHost}")
     except Exception as e:
         print(f"❌ Failed to write cache: {e}")
         return
@@ -698,9 +702,9 @@ def setup_local(directory=None):
         if not any(line.strip() == line_to_add.strip() for line in lines):
             with open(profile_file, 'a', encoding='utf-8') as f:
                 f.write(line_to_add)
-            print(f"✅ Added to {profile_file}")
+            if print_api_debug: print(f"✅ Added to {profile_file}")
         else:
-            print("ℹ️ Already added to profile.")
+            if print_api_debug: print("ℹ️ Already added to profile.")
     except Exception as e:
         print(f"❌ Failed to modify profile file: {e}")
 
@@ -709,6 +713,7 @@ def setup_local(directory=None):
         sys.path.insert(0, directory)
         os.environ["PYTHONPATH"] = f"{directory};" + os.environ.get("PYTHONPATH", "")
         print(f"🔄 Added {directory} to sys.path for this session.")
+
     if print_api_debug: print("⚠️SulfurAI has now been setup. You can safely delete this line of code: '______.setup_local()'")
 
 #------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
