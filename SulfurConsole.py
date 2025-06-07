@@ -41,7 +41,8 @@ class console():
 
         """
 
-        if not value == "True" or not value == "False": raise ValueError("SULFUR EXCEPTION (Console.set_api_debug_print): value must be a string of 'True' or 'False'!")
+        if value == "True" or value == "False": pass
+        else: raise ValueError("SULFUR EXCEPTION (Console.set_api_debug_print): value must be a string of 'True' or 'False'!")
         file_path_localhost_debug_print = call.cache_LocalScriptDebugBool()
 
         try:
@@ -81,7 +82,7 @@ class console():
             with open(file_path_localhost_debug_print, "r", encoding="utf-8", errors="ignore") as file:
                 txt = file.readlines()
                 if print_status: print(f"✅ Console successfully read value as a return.")
-                return bool(txt)
+                return any(line.strip() == "True" for line in txt)
 
         except (NameError, TypeError, FileNotFoundError, IOError, ValueError, AttributeError) as e:
             except_host.handle_sulfur_exception(e, call)
