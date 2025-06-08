@@ -39,11 +39,11 @@ Developer Release 1-03-54(c)
 > 
  `Run SulfurAI.bat`
 
-> _Note: there is a 50 character limit and special characters will be removed._
+> _Note: there is a character limit and special characters will be removed. Change this in the settings._
 
 ## 🔨 How is Sulfur trained 🔨 
 
-> _The current model uses the sulfax architecture, splitting data across 2 sets and further dividing the data with an 80/20 ratio._
+> _The current model uses the sulfax architecture, splitting data across 4 sets and further dividing the data with an 80/20 [labelled/un-labelled] ratio._
 ```
 Data is labelled with 3 parameters:
  <input,accuracy,predicted device>
@@ -52,7 +52,7 @@ Data is labelled with 3 parameters:
 ```
 ## SulfurAI's purpose.
 
-> _To find the preferences of a user base and average ratios efficiently, providing companies or regular users with insights on how to improve reach._
+> _To find the preferences of a user base and average ratios efficiently, providing companies or regular users with insights on how to improve reach and retention._
 
 
 ## Dependancies:
