@@ -7,6 +7,8 @@
 Developer Release 1-03-54(c)
 
   <br />
+
+![image alt](https://github.com/notvolks/SulfurAI-1.3/blob/main/GitHub/images/sulfurai_desc.png?raw=true)
   
 ---------------------------------------------------------------------------------
 > #### ⚠️ The main branch will soon be updating to DRL-001-3-85.
