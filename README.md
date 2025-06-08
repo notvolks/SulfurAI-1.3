@@ -34,8 +34,9 @@ Developer Release 1-03-54(c)
 
 ## 🤔 How do i use SulfurAI 🤔
 
-> First, add your input to data/input.txt
-> ,Then run :
+> First, add your input to DATA/input.txt
+>, then open the file:
+> 
  `Run SulfurAI.bat`
 
 > _Note: there is a 50 character limit and special characters will be removed._
@@ -99,6 +100,7 @@ We cannot ensure Sulfur will run if it is not the correct version.
 -CUDA-
 While not necessary as of this version, Nvidia CUDA support will be needed for later releases.
 ```
+We are committed to making open source an enjoyable and respectful experience for our community. See <a href="https://github.com/notvolks/SulfurAI-1.3/blob/7659173774ff6fc09db1a1a957fa08d0f45bfea8/CODE_OF_CONDUCT.md"><code>CODE_OF_CONDUCT</code></a> for more information.
 
 ## 💫 Contributors
 
