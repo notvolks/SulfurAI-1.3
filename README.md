@@ -1,48 +1,77 @@
-> # ⚠️ Preview versions are not stable. They are _not_ tested.
-# SulfurAI-DRL-001-03-85-PREV6
-# Developer Release 1-03-85-PREV6
-> ## _Later releases may be in other repositories or in branches._
+<div align="center">
+
+![image alt](https://github.com/notvolks/SulfurAI-1.3/blob/main/GitHub/images/sulfurai_txt.png?raw=true)
+
+`SulfurAI - your fully modifiable analytical agent.`
+
+Developer Release 1-03-54(c)
+
+  <br />
+
+
+<a href="https://github.com/topoteretes/cognee">
+  <img src="https://github.com/notvolks/SulfurAI-1.3/blob/main/GitHub/images/sulfurai_desc.png?raw=true" alt="Cognee Logo" height="500">
+</a>
+  
+---------------------------------------------------------------------------------
+> #### ⚠️ The main branch will soon be updating to DRL-001-3-85.
+
+---------------------------------------------------------------------------------
+> ### _Later releases may be in other repositories or in branches (see below)_ 
+
+---------------------------------------------------------------------------------
+> ####  Latest version (branch):  SulfurAI-DRL-001-03-85-PREV6
+> ####  Latest tested version (branch):  SulfurAI-DRL-001-03-84
+---------------------------------------------------------------------------------
  
 ## WARNING:
 > ### _This model is WORK IN PROGRESS, please report any NON-SECURITY issues to the said issues tab._
 
 
-## What is SulfurAI?
+## ❓ What is SulfurAI ❓
 
 > _SulfurAI is a Local Analytical Model that anylyses text input to find user preference & info from a small dataset , designed to run in the background of an application or website._
 
-## How do i use SulfurAI?
+## 🤔 How do i use SulfurAI 🤔
 
-> > ### _Simple python running._
-> First, add your input to data/input.txt
+### _----------------------------Simple python running----------------------------_
+> First, add your input to DATA/input.txt
+>, then open the file:
 > 
-> Then run :
  `Run SulfurAI.bat`
-> 
-> _Note: there is a 50 character limit and special characters will be removed._
 
->  _--------------API--------------_
+> **Note:** There is a character limit, and special characters will be removed. You can change these settings in the configuration.
 
-> > ### _Python: Local._
-> First, create a new script in the root SulfurAI folder.
-> 
-> This will be your init script. Then add these lines of code :
-> 
- `import SulfurAI`
->
- `SulfurAI.setup_local()`
- 
-> Afterwards, run the script and then add any script from the documentation as a return.
-> Create your own script or use an existing one in any directory and import this init script, with your required returns.
->
->  _Note: It may install pip dependancies automatically or print statements. To stop this add a quiet loop around it._
->
->  _Note: For more in-depth information see the API folder._
+---
 
+### _---------------------------- Using the API ----------------------------_
 
-## How is Sulfur trained?
+---
 
-> _The current model uses the sulfax architecture, splitting data across 2 sets and further dividing the data with an 80/20 ratio._
+### _🐍 Python: Local 🐍_
+
+1. **Create a new script** in the root SulfurAI folder. This will be your initialization script.
+
+2. Add the following lines of code:
+
+    ```python
+    import SulfurAI
+    SulfurAI.setup_local()
+    ```
+
+3. Run the script and then add any code from the documentation as a return.
+
+4. You can create your own script or use an existing one in any directory, importing this initialization script with your required returns.
+
+---
+
+> For more in-depth information, see the API folder.
+
+---
+
+## 🔨 How is Sulfur trained 🔨 
+
+> _The current model uses the sulfax architecture, splitting data across 4 sets and further dividing the data with an 80/20 [labelled/un-labelled] ratio._
 ```
 Data is labelled with 3 parameters:
  <input,accuracy,predicted device>
@@ -51,7 +80,7 @@ Data is labelled with 3 parameters:
 ```
 ## SulfurAI's purpose.
 
-> _To find the preferences of a user base and average ratios efficiently, providing companies or regular users with insights on how to improve reach._
+> _To find the preferences of a user base and average ratios efficiently, providing companies or regular users with insights on how to improve reach and retention._
 
 
 ## Dependancies:
@@ -110,7 +139,14 @@ We cannot ensure Sulfur will run if it is not the correct version.
 -CUDA-
 While not necessary as of this version, Nvidia CUDA support will be needed for later releases.
 ```
-## Thats all. Enjoy!
+
+We are committed to making open source an enjoyable and respectful experience for our community. See <a href="https://github.com/notvolks/SulfurAI-1.3/blob/7659173774ff6fc09db1a1a957fa08d0f45bfea8/CODE_OF_CONDUCT.md"><code>CODE_OF_CONDUCT</code></a> for more information.
+
+## 💫 Contributors
+
+<a href="https://github.com/notvolks/SulfurAI-1.3/graphs/contributors">
+  <img src="https://contrib.rocks/image?repo=notvolks/SulfurAI-1.3" />
+</a>
   
   
 
