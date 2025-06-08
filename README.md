@@ -101,6 +101,9 @@ We cannot ensure Sulfur will run if it is not the correct version.
   --Python Pycountry--
   Provides Location insight.
 
+  --Python Langcodes--
+  Provides Location conversion.
+
 
 
 
