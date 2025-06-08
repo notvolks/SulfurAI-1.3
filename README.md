@@ -1,10 +1,18 @@
-> # ⚠️ The main branch will soon be updating to DRL-001-3-85.
+<div align="center">
 
-# SulfurAI-DRL-001-03-54 
-# Developer Release 1-03-54(c)
+![image alt](https://github.com/notvolks/SulfurAI-1.3/blob/main/GitHub/images/sulfurai_txt.png?raw=true)
+
+`SulfurAI - your fully modifiable analytical agent.`
+
+Developer Release 1-03-54(c)
+
+  <br />
+  
+---------------------------------------------------------------------------------
+> #### ⚠️ The main branch will soon be updating to DRL-001-3-85.
 
 ---------------------------------------------------------------------------------
-> ### _Later releases may be in other repositories or in branches (see below)_
+> ### _Later releases may be in other repositories or in branches (see below)_ 
 
 ---------------------------------------------------------------------------------
 > ####  Latest version (branch):  SulfurAI-DRL-001-03-85-PREV6
@@ -15,11 +23,11 @@
 > ### _This model is WORK IN PROGRESS, please report any NON-SECURITY issues to the said issues tab._
 
 
-## What is SulfurAI?
+## ❓ What is SulfurAI ❓
 
 > _SulfurAI is a Local Analytical Model that anylyses text input to find user preference & info from a small dataset , designed to run in the background of an application or website._
 
-## How do i use SulfurAI?
+## 🤔 How do i use SulfurAI 🤔
 
 > First, add your input to data/input.txt
 > ,Then run :
@@ -27,7 +35,7 @@
 
 > _Note: there is a 50 character limit and special characters will be removed._
 
-## How is Sulfur trained?
+## 🔨 How is Sulfur trained 🔨 
 
 > _The current model uses the sulfax architecture, splitting data across 2 sets and further dividing the data with an 80/20 ratio._
 ```
@@ -86,7 +94,12 @@ We cannot ensure Sulfur will run if it is not the correct version.
 -CUDA-
 While not necessary as of this version, Nvidia CUDA support will be needed for later releases.
 ```
-## Thats all. Enjoy!
+
+## 💫 Contributors
+
+<a href="https://github.com/notvolks/SulfurAI-1.3/graphs/contributors">
+  <img src="https://contrib.rocks/image?repo=notvolks/SulfurAI-1.3" />
+</a>
   
   
 
