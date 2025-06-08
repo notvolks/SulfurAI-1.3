@@ -4,7 +4,7 @@
 
 `SulfurAI - your fully modifiable analytical agent.`
 
-Developer Release 1-03-54(c)
+Developer Release 1-03-85-PREVIEW6
 
   <br />
 
@@ -13,16 +13,6 @@ Developer Release 1-03-54(c)
   <img src="https://github.com/notvolks/SulfurAI-1.3/blob/main/GitHub/images/sulfurai_desc.png?raw=true" alt="Cognee Logo" height="500">
 </a>
   
----------------------------------------------------------------------------------
-> #### ⚠️ The main branch will soon be updating to DRL-001-3-85.
-
----------------------------------------------------------------------------------
-> ### _Later releases may be in other repositories or in branches (see below)_ 
-
----------------------------------------------------------------------------------
-> ####  Latest version (branch):  SulfurAI-DRL-001-03-85-PREV6
-> ####  Latest tested version (branch):  SulfurAI-DRL-001-03-84
----------------------------------------------------------------------------------
  
 ## WARNING:
 > ### _This model is WORK IN PROGRESS, please report any NON-SECURITY issues to the said issues tab._
@@ -34,7 +24,12 @@ Developer Release 1-03-54(c)
 
 ## 🤔 How do i use SulfurAI 🤔
 
+
+  
 ### _----------------------------Simple python running----------------------------_
+
+<div align="left">
+  
 > First, add your input to DATA/input.txt
 >, then open the file:
 > 
@@ -44,9 +39,13 @@ Developer Release 1-03-54(c)
 
 ---
 
-### _---------------------------- Using the API ----------------------------_
+<div align="centre">
 
----
+### _------------------------------------------------------- Using the API ------------------------------------------------------_
+
+<div align="left">
+  
+
 
 ### _🐍 Python: Local 🐍_
 
@@ -62,6 +61,8 @@ Developer Release 1-03-54(c)
 3. Run the script and then add any code from the documentation as a return.
 
 4. You can create your own script or use an existing one in any directory, importing this initialization script with your required returns.
+
+<div align="center">
 
 ---
 
