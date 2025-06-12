@@ -1,15 +1,15 @@
 --------------USER INSIGHT---------------
  ###########Day Changes###########:
  Changes to your userbase over the past 5 days:
-  Changes from 2025-04-26 to 2025-05-01:
-  Type Changes: exclamation: -38.46%
+  Changes from 2025-06-07 to 2025-06-12:
+  Type Changes: exclamation: 0.00%
   Intent Changes: commanding: 0.00%
  Average Changes over the past 5 days:
   
 
 
  Average Type Change:
-  exclamation: -38.46%
+  exclamation: -19.23%
 
  Average Intent Change:
   commanding: 0.00%
@@ -17,7 +17,7 @@
 
  ###########Week Changes###########:
  Changes to your userbase over the past 5 weeks:
-  Changes from 2025-05-26 to 2025-06-02:
+  Changes from 2025-06-02 to 2025-06-09:
   Type Changes: exclamation: 0.00%
   Intent Changes: commanding: 0.00%
  Average Changes over the past 5 weeks:
@@ -25,14 +25,14 @@
 
 
  Average Type Change:
-  question: -7.14%
-  exclamation: +7.94%
-  command: -0.79%
-  statement: -0.18%
+  question: -6.12%
+  exclamation: +6.80%
+  command: -0.68%
+  statement: -0.15%
 
  Average Intent Change:
   commanding: 0.00%
-  expressing: -0.18%
+  expressing: -0.15%
  *Only includes changes at least 5 weeks apart.
 
  ###########Month Changes###########:

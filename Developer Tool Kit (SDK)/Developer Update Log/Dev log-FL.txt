@@ -1773,7 +1773,33 @@ to do (future):
 -add feature to create own ai functions
 #comment: grammar may cause efficiency issues down the line, check with compiling first
 
+13/6/2025:
+-started basic dashboard to visualise sulfur ai output with html
+-added clean ui and revamped items, fixed bugs
 
+
+to do tmrw:
+
+-make the graph smaller + functions to create more
+-add a title
+-add the ability to change the type of graph
+
+-add global location insight
+-add user insight trends based on locations
+
+-fix the accuracy for them both (verbs + nouns) for preferences*
+
+
+
+-improve code efficiency by only reading with keywords [business version]
+-remove duplicates from training data and add [1]+ counters instead [business version]
+
+
+
+to do (future):
+-add machine learning grammar [business version]
+-add feature to create own ai functions
+#comment: grammar may cause efficiency issues down the line, check with compiling first
 
 
 

@@ -9,7 +9,7 @@ Input (text) : ['GAMARAM FUNK']
  Predicted Device : Mobile (Other)
  Predicted Device Accuracy : 87.8048780487805%
  Main/Mean Devices : MOBILE(OTHER)
- Average/Mean Accuracy: 73.6625641025641%
+ Average/Mean Accuracy: 73.83640081799591%
 
 ---------------PREFERENCES---------------
 ###########Basic version limit: 3 preferred words###########
@@ -36,23 +36,23 @@ Input (text) : ['GAMARAM FUNK']
   Predicted Mood Accuracy : 99.9% (user), 66.2% (global)
   Average <User : Mean> Accuracy : 83.05%
 *Predicted using a Neural Network.*
-  Sentence Type : exclamation (96.5197205543518%)
-  Sentence Intent : commanding (83.52668285369873%)
-  Global Type : exclamation (83.56481481481481%)
-  Global Intent : commanding (96.52777777777779%)
-  Overall Accuracy : 90.0462962962963%
+  Sentence Type : exclamation (96.52777910232544%)
+  Sentence Intent : commanding (84.02777910232544%)
+  Global Type : exclamation (84.06466512702079%)
+  Global Intent : commanding (96.53579676674366%)
+  Overall Accuracy : 90.30023094688222%
 ---------------USER INSIGHT---------------
  ###########Day Changes###########:
  Changes to your userbase over the past 5 days:
-  Changes from 2025-04-26 to 2025-05-01:
-  Type Changes: exclamation: -38.46%
+  Changes from 2025-06-07 to 2025-06-12:
+  Type Changes: exclamation: 0.00%
   Intent Changes: commanding: 0.00%
  Average Changes over the past 5 days:
   
 
 
  Average Type Change:
-  exclamation: -38.46%
+  exclamation: -19.23%
 
  Average Intent Change:
   commanding: 0.00%
@@ -60,7 +60,7 @@ Input (text) : ['GAMARAM FUNK']
 
  ###########Week Changes###########:
  Changes to your userbase over the past 5 weeks:
-  Changes from 2025-05-26 to 2025-06-02:
+  Changes from 2025-06-02 to 2025-06-09:
   Type Changes: exclamation: 0.00%
   Intent Changes: commanding: 0.00%
  Average Changes over the past 5 weeks:
@@ -68,14 +68,14 @@ Input (text) : ['GAMARAM FUNK']
 
 
  Average Type Change:
-  question: -7.14%
-  exclamation: +7.94%
-  command: -0.79%
-  statement: -0.18%
+  question: -6.12%
+  exclamation: +6.80%
+  command: -0.68%
+  statement: -0.15%
 
  Average Intent Change:
   commanding: 0.00%
-  expressing: -0.18%
+  expressing: -0.15%
  *Only includes changes at least 5 weeks apart.
 
  ###########Month Changes###########:
@@ -109,9 +109,9 @@ Input (text) : ['GAMARAM FUNK']
 ---------------USER INSIGHT\LOCATION---------------
 
  User(s) predicted location : England 
- User(s) predicted location accuracy : 30.852472162242844%
+ User(s) predicted location accuracy : 30.8524721622447%
 
 ---------------RESPONSE---------------
-Response Time : 0h 0m 18s, 54.509000000000015ms
+Response Time : 0h 2m 54s, 519.775999999998ms
 ###########General debugging only.###########
 *Settings can be changed. SulfurAI may make mistakes.*

@@ -1,11 +1,6 @@
 ## What's new in this release?
 
-_Fixed module import errors._
-_Added cache for the pip installs so the same error message doesn't pop up again._
-_Added cache clearer in the cache directory._
-_Fixed console not writing to cache._
-_Fixed console not checking cache properly (Boolean errors)._
+_Started basic dashboard to visualise sulfur ai output with html._
+_Added clean ui and revamped items, fixed bugs._
 
-
-
-# That's all! 
+# That's all!

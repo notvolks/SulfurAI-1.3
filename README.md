@@ -4,10 +4,9 @@
 
 `SulfurAI - your fully modifiable analytical agent.`
 
-Developer Release 1-03-85-PREVIEW6
+Developer Release 1-03-85-PREVIEW7
 
   <br />
-
 
 <a href="https://github.com/topoteretes/cognee">
   <img src="https://github.com/notvolks/SulfurAI-1.3/blob/main/GitHub/images/sulfurai_desc.png?raw=true" alt="Cognee Logo" height="500">
@@ -17,15 +16,12 @@ Developer Release 1-03-85-PREVIEW6
 ## WARNING:
 > ### _This model is WORK IN PROGRESS, please report any NON-SECURITY issues to the said issues tab._
 
-
 ## ❓ What is SulfurAI ❓
 
 > _SulfurAI is a Local Analytical Model that anylyses text input to find user preference & info from a small dataset , designed to run in the background of an application or website._
 
 ## 🤔 How do i use SulfurAI 🤔
 
-
-  
 ### _----------------------------Simple python running----------------------------_
 
 <div align="left">
@@ -46,7 +42,6 @@ Developer Release 1-03-85-PREVIEW6
 </div>
 
 <div align="left">
-  
 
 
 ### _🐍 Python: Local 🐍_
@@ -55,10 +50,10 @@ Developer Release 1-03-85-PREVIEW6
 
 2. Add the following lines of code:
 
-    ```python
-    import SulfurAI
-    SulfurAI.setup_local()
-    ```
+   ```python
+   import SulfurAI
+   SulfurAI.setup_local()
+   ```
 
 3. Run the script and then add any code from the documentation as a return.
 
@@ -72,21 +67,23 @@ Developer Release 1-03-85-PREVIEW6
 
 ---
 
-## 🔨 How is Sulfur trained 🔨 
+## 🔨 How is Sulfur trained 🔨
 
 > _The current model uses the sulfax architecture, splitting data across 4 sets and further dividing the data with an 80/20 [labelled/un-labelled] ratio._
+
 ```
 Data is labelled with 3 parameters:
  <input,accuracy,predicted device>
 
  This provides the model with a minimum 50% accuracy, which is planned to be scaled to 70% by 2026.
 ```
+
 ## SulfurAI's purpose.
 
 > _To find the preferences of a user base and average ratios efficiently, providing companies or regular users with insights on how to improve reach and retention._
 
-
 ## Dependancies:
+
 ```
 -Python with version 3.11-
 We cannot ensure Sulfur will run if it is not the correct version.
@@ -150,6 +147,3 @@ We are committed to making open source an enjoyable and respectful experience fo
 <a href="https://github.com/notvolks/SulfurAI-1.3/graphs/contributors">
   <img src="https://contrib.rocks/image?repo=notvolks/SulfurAI-1.3" />
 </a>
-  
-  
-
