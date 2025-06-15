@@ -14,11 +14,14 @@
 ##### -Writes to the output and API files.
 ##### -Hosts the module (API) files.
 
+#------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
+def _get_call_file_path():
+    from VersionFiles.Sulfur.TrainingScript.Build import call_file_path
+    return call_file_path.Call()
+call = _get_call_file_path()
 
-
-#####################------------------------------------------------INBUILT FUNCTIONS------------------------------------------------
-import os,subprocess,sys,importlib
+#------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 from VersionDATA.ai_renderer import error
 import runpy
 import traceback
@@ -29,8 +32,11 @@ error_print = error.error
 
 if __name__ == "__main__":
     TOS = [
+        "--------------------------------------------------------------------------------------------------",
         "By using this application you agree to the Terms of Service listed in the project files.",
-        "If you cannot find it, install a new version."
+        "If you do not consent, stop using our services.",
+        "If you cannot find it, install a new version OR look in the root folder for 'Terms of Service.txt' .",
+        "--------------------------------------------------------------------------------------------------",
     ]
     print_verti_list(TOS)
 
