@@ -154,6 +154,32 @@ While not necessary as of this version, Nvidia CUDA support will be needed for l
 
 We are committed to making open source an enjoyable and respectful experience for our community. See <a href="https://github.com/notvolks/SulfurAI-1.3/blob/7659173774ff6fc09db1a1a957fa08d0f45bfea8/CODE_OF_CONDUCT.md"><code>CODE_OF_CONDUCT</code></a> for more information.
 
+## 💬 Other FAQ 💬
+
+---
+
+> _Do I need to restart my system after Sulfur installs?_
+> 
+> _Answer: No, sulfur does *not* require a system restart after installation, although it may require a manual restart._
+
+---
+
+> _Does Sulfur encrypt my cache/training data?_
+> 
+> _Answer: No, Sulfur does *not* encrypt cache/training_data as it is designed to run locally. Server support and encryption will be available on the business version._
+
+---
+
+> _Can I create my own model with Sulfur?_
+> 
+> _Answer: Yes, you can modify every Sulfur script to make your own model, full support for this will come in later updates with user friendly UI._
+
+---
+
+`Send more questions to: nb.volkshub.inquiries@gmail.com`
+
+---
+
 ## 💫 Contributors
 
 <a href="https://github.com/notvolks/SulfurAI-1.3/graphs/contributors">
