@@ -354,12 +354,60 @@ def render_glowing_section(title, dataframes, graph_names):
     </script>
     """
 
-    components.html(full_html, height=550 + 220 * ((len(dataframes) - 1) // 4))
+    components.html(full_html, height=600 + 220 * ((len(dataframes) - 1) // 4))
 
 
 def run_dashboard():
     st.set_page_config(page_title="SulfurAI Dashboard", layout="wide")
-    st.title("SulfurAI Dashboard")
+    st.markdown("""
+        <style>
+        /* 🌞 Golden Gradient Title */
+        .custom-title {
+            font-size: 64px;
+            font-weight: 900;
+            background: linear-gradient(90deg, #FFA500, #FFD700, #FFA500);
+            background-size: 300% 300%;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+
+            /* ✨ Glowy Outline (gradient untouched) */
+            text-shadow:
+                0 0 5px rgba(255, 215, 0, 0.7),
+                0 0 10px rgba(255, 215, 0, 0.6),
+                0 0 20px rgba(255, 165, 0, 0.5),
+                0 0 30px rgba(255, 165, 0, 0.4);
+            /* optional sharper edge glow */
+            -webkit-text-stroke: 1px rgba(255, 215, 0, 0.6);
+
+            animation: glowMove 5s ease-in-out infinite;
+            text-align: center;
+            margin-top: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        /* 🔁 Sunset Shine Animation */
+        @keyframes glowMove {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+        </style>
+
+        <!-- ☀️ Title -->
+        <div class="custom-title">SulfurAI Dashboard</div>
+
+        <!-- 🌟 Glow Orb -->
+        <div id="glow-orb"></div>
+
+        <!-- 🧠 Mouse Tracker -->
+        <script>
+        document.addEventListener("mousemove", function(e) {
+            const orb = document.getElementById("glow-orb");
+            orb.style.left = e.pageX + "px";
+            orb.style.top = e.pageY + "px";
+        });
+        </script>
+    """, unsafe_allow_html=True)
 
     # Load first dataset: intents from CSV
     intent_csv_path = "VersionDATA/ai_renderer_2/training_data_sentences/data.csv"
@@ -395,7 +443,7 @@ def run_dashboard():
         }
     }
 
-    selected = st.radio("Select Section", list(sections.keys()), horizontal=True)
+    selected = list(sections.keys())[0]
 
     dataframes = sections[selected]["dataframes"]
     graph_names = sections[selected]["graph_names"]
