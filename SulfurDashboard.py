@@ -121,6 +121,9 @@ def load_training_data_txt(filepath):
         print(f"Failed to load .txt data: {e}")
         return None
 
+
+
+
 def render_glowing_section(title, dataframes, graph_names):
     import pandas as pd
     import plotly.express as px
@@ -133,13 +136,30 @@ def render_glowing_section(title, dataframes, graph_names):
         if df is None or df.empty:
             continue
 
-        # Adapt columns based on data available
-        if 'intent' in df.columns:
-            col = 'intent'
-        elif 'location' in df.columns:
-            col = 'location'
+        is_device_data = graph_names[idx].get("type") == "device"  # match exactly "device"
+
+        if is_device_data:
+            # Map last digit of last column to device type
+            def map_device_type(row):
+                val = str(row.iloc[-1]).strip()
+                if val == "2":
+                    return "mobile"
+                elif val == "1":
+                    return "desktop"
+                else:
+                    return None
+
+            df['device_type'] = df.apply(map_device_type, axis=1)
+            df = df[df['device_type'].notna()]
+            col = 'device_type'
+
         else:
-            col = df.columns[0]  # fallback
+            if 'intent' in df.columns:
+                col = 'intent'
+            elif 'location' in df.columns:
+                col = 'location'
+            else:
+                col = df.columns[0]
 
         intent_counts = df[col].value_counts(normalize=True) * 100
 
@@ -162,8 +182,6 @@ def render_glowing_section(title, dataframes, graph_names):
         else:
             width, height = 300, 300
 
-
-
         pie_html = pie_fig.to_html(include_plotlyjs="cdn", full_html=False)
         bar_html = bar_fig.to_html(include_plotlyjs=False, full_html=False)
         line_html = line_fig.to_html(include_plotlyjs=False, full_html=False)
@@ -171,15 +189,18 @@ def render_glowing_section(title, dataframes, graph_names):
         chart_id = f"{title.lower().replace(' ', '')}-{idx}"
         chart_ids.append(chart_id)
 
+        # Slider default: 1 if device (bar), else 0 (pie)
+        slider_default_value = 1 if is_device_data else 0
+
         chart_html = f"""
          <div class="glowing-chart" id="chart-{chart_id}" style="background-color:{bg};">
            <div class="chart-ring"></div>
            <div class="slider-wrapper">
                <div class="slider-ring"></div>
-               <input id="slider-{chart_id}" type="range" min="0" max="2" value="0" style="width:100%; margin-bottom:5px;">
+               <input id="slider-{chart_id}" type="range" min="0" max="2" value="{slider_default_value}" style="width:100%; margin-bottom:5px;">
           </div>
-           <div id="pie-{chart_id}">{pie_html}</div>
-           <div id="bar-{chart_id}" style="display:none">{bar_html}</div>
+           <div id="pie-{chart_id}" style="display:{'none' if slider_default_value == 1 else 'block'}">{pie_html}</div>
+           <div id="bar-{chart_id}" style="display:{'block' if slider_default_value == 1 else 'none'}">{bar_html}</div>
            <div id="line-{chart_id}" style="display:none">{line_html}</div>
          </div>
          """
@@ -411,11 +432,36 @@ def run_dashboard():
 
     # Load first dataset: intents from CSV
     intent_csv_path = "VersionDATA/ai_renderer_2/training_data_sentences/data.csv"
+    user_devices = "DATA\\ai_renderer\\training_data\\data_train_sk\\data.txt"
     try:
         intent_df = pd.read_csv(intent_csv_path)
     except Exception as e:
         st.error(f"Failed to load intent CSV data: {e}")
+        print(f"Failed to load intent CSV data: {e}")
         intent_df = None
+
+    from io import StringIO
+
+    try:
+        expected_commas = 2
+        clean_lines = []
+
+        with open(user_devices, "r", encoding="utf-8") as f:
+            header = f.readline().strip()
+            clean_lines.append(header)
+            for line in f:
+                if line.count(",") == expected_commas:
+                    clean_lines.append(line.strip())
+                else:
+                    # Skip lines with unexpected number of commas
+                    pass
+
+        clean_data = "\n".join(clean_lines)
+        devices = pd.read_csv(StringIO(clean_data), sep=",")
+    except Exception as e:
+        st.error(f"Failed to load user CSV data: {e}")
+        print(f"Failed to load user CSV data: {e}")
+        devices = None
 
     # Load second dataset: try txt first, fallback to CSV
     #location_txt_path = r"VersionDATA\ai_renderer\sentence_location_build\training_data_sentences\data.txt"
@@ -436,19 +482,37 @@ def run_dashboard():
                 {
                     "pie": "User Intents Pie",
                     "bar": "User Intents Bar",
-                    "line": "User Intents Line"
+                    "line": "User Intents Line",
+                    "type": "insight"
                 },
-
             ],
-        }
+            "x": 0,  # 0 = left, 1 = center, 2 = right
+            "y": 1,  # 0 = top, higher = lower down
+        },
+
+        "User Average Devices": {
+            "dataframes": [devices],
+            "graph_names": [
+                {
+
+                    "bar": "User Devices Bar",
+                    "pie": "User Devices Pie",
+                    "line": "User Devices Line",
+                    "type": "device"
+
+                },
+            ],
+            "x": 1,
+            "y": 3,
+        },
     }
 
-    selected = list(sections.keys())[0]
+    for section_title, section_config in sections.items():
+        dataframes = section_config["dataframes"]
+        graph_names = section_config["graph_names"]
 
-    dataframes = sections[selected]["dataframes"]
-    graph_names = sections[selected]["graph_names"]
 
-    render_glowing_section(title=selected, dataframes=dataframes, graph_names=graph_names)
+        render_glowing_section(title=section_title, dataframes=dataframes, graph_names=graph_names)
 def launch_self():
     port = 8501
     script = Path(__file__).resolve()
