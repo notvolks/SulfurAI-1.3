@@ -7,12 +7,13 @@
 # ---------------GOING DOWN!
 #####-TOS reminder
 #####-Imports call_file_path (important dependency)
-#####-Installing all pip files
+#####-Ensures required packages are installed
 #####-Importing all files
 #####-Running all creative files + dependancies
 #####-Running the server/ webapp
 
 #------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
 from VersionDATA.ai_renderer import error
 import time
 print_verti_list = error.print_verti_list
@@ -21,12 +22,19 @@ print_verti_list = error.print_verti_list
 if __name__ == "__main__":
     TOS = [
         "--------------------------------------------------------------------------------------------------",
+        "⚠️ This application is external to SulfurAI and is maintained by different sources. Therefore project works may be different.",
+        "--------------------------------------------------------------------------------------------------",
         "By using this application you agree to the Terms of Service listed in the project files.",
         "If you do not consent, stop using our services.",
         "If you cannot find it, install a new version OR look in the root folder for 'Terms of Service.txt'.",
         "--------------------------------------------------------------------------------------------------",
+
     ]
     print_verti_list(TOS)
+
+
+# DELETING THE TOS NOTICE SCRIPT RESULTS IN INSTANT TERMINATION OF SULFUR WARRANTY AND CANCELS YOUR CONTRACT. IT IS *IN VIOLATION* OF THE TOS.
+# YOU MAY BE INDEFINITELY BANNED FROM SULFUR SERVICES IF YOU REMOVE THIS TOS NOTICE SCRIPT WITHOUT PRIOR WRITTEN CONSENT BY VOLKSHUB GROUP.
 
 #------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 import os
@@ -43,59 +51,31 @@ def _get_call_file_path():
 # Call file paths
 call = _get_call_file_path()
 
-# Upgrade pip tools
-def _upgrade_pip_tools():
-    try:
-        subprocess.check_call(
-            [sys.executable, "-m", "pip", "install", "--upgrade", "pip", "setuptools", "wheel"],
-            stdout=subprocess.DEVNULL,
-            stderr=subprocess.DEVNULL,
-        )
-    except subprocess.CalledProcessError:
-        print("Warning: Failed to upgrade pip tools.")
 
-# Install Python packages
-def _install(packages):
-    if isinstance(packages, str):
-        packages = [packages]
-    _upgrade_pip_tools()
-    for pkg in packages:
-        try:
-            subprocess.check_call(
-                [sys.executable, "-m", "pip", "install", pkg],
-                stdout=subprocess.DEVNULL,
-                stderr=subprocess.DEVNULL,
-            )
-        except subprocess.CalledProcessError:
-            print(f"Failed to install {pkg}.")
-
-# Safe import with install retry
-def _safe_import(module_name, package_name=None):
-    pkg = package_name or module_name
-    try:
-        return importlib.import_module(module_name)
-    except ImportError:
-        print(f"{pkg} not found. Installing...")
-        _install(pkg)
-        time.sleep(2)
-        try:
-            return importlib.import_module(module_name)
-        except ImportError:
-            print(f"Failed to import {pkg} even after installation.")
-            return None
 
 # Ensure required packages
 modules = ["streamlit", "dash", "pandas", "plotly","pywebview"]
 for mod in modules:
-    _safe_import(mod)
+    try:  __import__(mod)
+    except ImportError:
+        file_path_cache_localHost_pip_debug = call.cache_LocalpipCacheDebug()
+        with open(file_path_cache_localHost_pip_debug, "r", encoding="utf-8", errors="ignore") as file:  cache_stored_pip_debug = file.readlines()
+        if mod not in [line.strip() for line in cache_stored_pip_debug]: print(f"The dependancies for SulfurAI Dashboard are not installed. Please install them using the installer in INSTALLER/INSTALL SULFURAI-DASHBOARD/Run Installer.bat")
+
+
+
 
 #------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+from streamlit.runtime.scriptrunner import get_script_run_ctx
 from pathlib import Path
 import webbrowser
 import streamlit as st
 import pandas as pd
 import plotly.express as px
 import streamlit.components.v1 as components
+
+all_sections_html = ""
+
 
 def load_training_data_txt(filepath):
     import pandas as pd
@@ -124,10 +104,24 @@ def load_training_data_txt(filepath):
 
 
 
-def render_glowing_section(title, dataframes, graph_names):
+#---------------------------paths---------------------------
+
+
+css_path = os.path.join("SulfurDashboardAssets\styling", "style.css")
+with open(css_path, "r") as f:
+    css = f.read()
+
+js_path = os.path.join("SulfurDashboardAssets\styling", "script.js")
+with open(js_path, "r") as f:
+    js = f.read()
+
+
+
+
+
+def render_glowing_section(title, dataframes, graph_names, section_id="section-container", custom_style=""):
     import pandas as pd
     import plotly.express as px
-    import streamlit.components.v1 as components
 
     inner_charts_html = []
     chart_ids = []
@@ -136,10 +130,9 @@ def render_glowing_section(title, dataframes, graph_names):
         if df is None or df.empty:
             continue
 
-        is_device_data = graph_names[idx].get("type") == "device"  # match exactly "device"
+        is_device_data = graph_names[idx].get("type") == "device"
 
         if is_device_data:
-            # Map last digit of last column to device type
             def map_device_type(row):
                 val = str(row.iloc[-1]).strip()
                 if val == "2":
@@ -152,7 +145,6 @@ def render_glowing_section(title, dataframes, graph_names):
             df['device_type'] = df.apply(map_device_type, axis=1)
             df = df[df['device_type'].notna()]
             col = 'device_type'
-
         else:
             if 'intent' in df.columns:
                 col = 'intent'
@@ -166,34 +158,26 @@ def render_glowing_section(title, dataframes, graph_names):
         pie_fig = px.pie(names=intent_counts.index, values=intent_counts.values,
                          title=graph_names[idx]["pie"], template="plotly_dark")
         bar_fig = px.bar(x=intent_counts.index, y=intent_counts.values,
-                         title=graph_names[idx]["bar"],
-                         labels={"x": col.capitalize(), "y": "%"},
+                         title=graph_names[idx]["bar"], labels={"x": col.capitalize(), "y": "%"},
                          template="plotly_dark")
         line_fig = px.line(x=intent_counts.index, y=intent_counts.values,
-                           title=graph_names[idx]["line"],
-                           labels={"x": col.capitalize(), "y": "%"},
+                           title=graph_names[idx]["line"], labels={"x": col.capitalize(), "y": "%"},
                            template="plotly_dark")
 
         for fig in (pie_fig, bar_fig, line_fig):
             fig.update_layout(width=200, height=200, margin=dict(l=5, r=5, t=25, b=5))
 
-        if col == "location":
-            width, height = 400, 400
-        else:
-            width, height = 300, 300
-
-        pie_html = pie_fig.to_html(include_plotlyjs="cdn", full_html=False)
-        bar_html = bar_fig.to_html(include_plotlyjs=False, full_html=False)
-        line_html = line_fig.to_html(include_plotlyjs=False, full_html=False)
-        bg = '#111111'
         chart_id = f"{title.lower().replace(' ', '')}-{idx}"
         chart_ids.append(chart_id)
 
-        # Slider default: 1 if device (bar), else 0 (pie)
+        pie_html = pie_fig.to_html(include_plotlyjs=False, full_html=False)
+        bar_html = bar_fig.to_html(include_plotlyjs=False, full_html=False)
+        line_html = line_fig.to_html(include_plotlyjs=False, full_html=False)
+
         slider_default_value = 1 if is_device_data else 0
 
         chart_html = f"""
-         <div class="glowing-chart" id="chart-{chart_id}" style="background-color:{bg};">
+         <div class="glowing-chart" id="chart-{chart_id}" style="background-color:#111;">
            <div class="chart-ring"></div>
            <div class="slider-wrapper">
                <div class="slider-ring"></div>
@@ -203,10 +187,9 @@ def render_glowing_section(title, dataframes, graph_names):
            <div id="bar-{chart_id}" style="display:{'block' if slider_default_value == 1 else 'none'}">{bar_html}</div>
            <div id="line-{chart_id}" style="display:none">{line_html}</div>
          </div>
-         """
+        """
         inner_charts_html.append(chart_html)
 
-    # JS to handle chart type switching
     chart_scripts = ""
     for cid in chart_ids:
         chart_scripts += f"""
@@ -217,168 +200,22 @@ def render_glowing_section(title, dataframes, graph_names):
         }});
         """
 
-    full_html = f"""
-    <style>
-      .glowing-section {{
-          position: relative;
-          border: 3px solid #FFA500;
-          border-radius: 20px;
-          background-color: #222222;
-          padding: 20px;
-          margin: 20px auto 40px auto;
-          box-shadow: 0 8px 30px rgba(255,165,0,0.5);
-          color: white;
-          max-width: 950px;
-          display: flex;
-          gap: 20px;
-          flex-wrap: wrap;
-          justify-content: center;
-          transition: transform 0.2s ease;
-          cursor: pointer;
-      }}
-      .glowing-section-title {{
-          font-family: 'Roboto', sans-serif;
-          font-size: 2rem;
-          font-weight: 700;
-          color: #FFA500;
-          text-align: center;
-          text-shadow: 0 0 8px rgba(255,165,0,0.9);
-          margin-bottom: 15px;
-          width: 100%;
-      }}
-      #ring {{
-          pointer-events: none;
-          position: absolute;
-          top: -8px; left: -8px; right: -8px; bottom: -8px;
-          border-radius: 24px;
-          border: 5px solid transparent;
-          border-image: conic-gradient(from var(--angle, 0deg), rgba(255,255,255,0.8) 0deg 20deg, rgba(255,255,255,0) 20deg 360deg) 1;
-          z-index: 1;
-          transition: box-shadow 0.2s ease;
-      }}
-      .glowing-chart {{
-          position: relative;
-          border-radius: 12px;
-          width: 220px;
-          padding: 10px;
-          box-shadow: 0 4px 12px rgba(255,165,0,0.3);
-          flex-shrink: 0;
-          transition: transform 0.2s ease;
-          cursor: pointer;
-          overflow: visible;
-      }}
-      .glowing-chart .chart-ring {{
-          pointer-events: none;
-          position: absolute;
-          top: -5px; left: -5px; right: -5px; bottom: -5px;
-          border-radius: 18px;
-          border: 3px solid transparent;
-          border-image: conic-gradient(from var(--angle, 0deg), rgba(255,255,255,0.8) 0deg 20deg, rgba(255,255,255,0) 20deg 360deg) 1;
-          z-index: 2;
-          transition: box-shadow 0.2s ease;
-      }}
-      .slider-wrapper {{
-          position: relative;
-          width: 100%;
-          padding: 4px;
-          border-radius: 12px;
-          margin-bottom: 10px;
-          box-shadow: 0 2px 8px rgba(255,165,0,0.25);
-          transition: transform 0.2s ease;
-          overflow: visible;
-          cursor: pointer;
-      }}
-      .slider-ring {{
-          pointer-events: none;
-          position: absolute;
-          top: -4px; left: -4px; right: -4px; bottom: -4px;
-          border-radius: 14px;
-          border: 2px solid transparent;
-          border-image: conic-gradient(from var(--angle, 0deg), rgba(255,255,255,0.8) 0deg 20deg, rgba(255,255,255,0) 20deg 360deg) 1;
-          z-index: 1;
-          transition: box-shadow 0.2s ease;
-      }}
-    </style>
+    section_html = f"""
+            <div class="glowing-section" id="{section_id}" style="{custom_style}">
+                <div class="section-ring" id="ring-{section_id}"></div>
+                <div class="glowing-section-title">{title}</div>
+                <div class="charts-container">
+                    {"".join(inner_charts_html)}
+                </div>
+            </div>
+            """
 
-    <div class="glowing-section" id="section-container">
-      <div id="ring"></div>
-      <div class="glowing-section-title">{title}</div>
-      {"".join(inner_charts_html)}
-    </div>
+    return section_html
 
-    <script>
-      // Section glow
-      const section = document.getElementById('section-container');
-      const ring = document.getElementById('ring');
-      function center() {{
-          const b = section.getBoundingClientRect();
-          return {{ x: b.width / 2, y: b.height / 2, r: Math.min(b.width, b.height) / 2 }};
-      }}
-      section.addEventListener('mousemove', e => {{
-          const rect = section.getBoundingClientRect();
-          const mx = e.clientX - rect.left, my = e.clientY - rect.top;
-          const m = center();
-          const ang = (Math.atan2(my - m.y, mx - m.x) * 180 / Math.PI + 360) % 360;
-          ring.style.setProperty('--angle', ang + 'deg');
-          section.style.transform = `translate(${{(mx - m.x) / m.r * 8}}px, ${{(my - m.y) / m.r * 8}}px)`;
-      }});
-      section.addEventListener('mouseenter', () => {{
-          ring.style.boxShadow = '0 0 25px 12px rgba(255,165,0,0.6)';
-      }});
-      section.addEventListener('mouseleave', () => {{
-          ring.style.boxShadow = 'none';
-          section.style.transform = 'translate(0,0)';
-      }});
-
-      // Chart glow
-      document.querySelectorAll('.glowing-chart').forEach(chart => {{
-          const ring = chart.querySelector('.chart-ring');
-          chart.addEventListener('mousemove', e => {{
-              const rect = chart.getBoundingClientRect();
-              const mx = e.clientX - rect.left, my = e.clientY - rect.top;
-              const cx = rect.width / 2, cy = rect.height / 2;
-              const ang = (Math.atan2(my - cy, mx - cx) * 180 / Math.PI + 360) % 360;
-              ring.style.setProperty('--angle', ang + 'deg');
-              chart.style.transform = `translate(${{(mx - cx) / cx * 4}}px, ${{(my - cy) / cy * 4}}px)`;
-          }});
-          chart.addEventListener('mouseenter', () => {{
-              ring.style.boxShadow = '0 0 20px 8px rgba(255,165,0,0.7)';
-          }});
-          chart.addEventListener('mouseleave', () => {{
-              ring.style.boxShadow = 'none';
-              chart.style.transform = 'translate(0,0)';
-          }});
-      }});
-
-      // Slider glow
-      document.querySelectorAll('.slider-wrapper').forEach(wrapper => {{
-          const ring = wrapper.querySelector('.slider-ring');
-          wrapper.addEventListener('mousemove', e => {{
-              const rect = wrapper.getBoundingClientRect();
-              const mx = e.clientX - rect.left, my = e.clientY - rect.top;
-              const cx = rect.width / 2, cy = rect.height / 2;
-              const ang = (Math.atan2(my - cy, mx - cx) * 180 / Math.PI + 360) % 360;
-              ring.style.setProperty('--angle', ang + 'deg');
-              wrapper.style.transform = `translate(${{(mx - cx) / cx * 4}}px, ${{(my - cy) / cy * 4}}px)`;
-          }});
-          wrapper.addEventListener('mouseenter', () => {{
-              ring.style.boxShadow = '0 0 16px 6px rgba(255,165,0,0.6)';
-          }});
-          wrapper.addEventListener('mouseleave', () => {{
-              ring.style.boxShadow = 'none';
-              wrapper.style.transform = 'translate(0,0)';
-          }});
-      }});
-
-      // Chart switching logic
-      {chart_scripts}
-    </script>
-    """
-
-    components.html(full_html, height=600 + 220 * ((len(dataframes) - 1) // 4))
 
 
 def run_dashboard():
+
     st.set_page_config(page_title="SulfurAI Dashboard", layout="wide")
     st.markdown("""
         <style>
@@ -432,7 +269,7 @@ def run_dashboard():
 
     # Load first dataset: intents from CSV
     intent_csv_path = "VersionDATA/ai_renderer_2/training_data_sentences/data.csv"
-    user_devices = "DATA\\ai_renderer\\training_data\\data_train_sk\\data.txt"
+    user_devices = r"DATA\ai_renderer\training_data\data_train_sk\data.txt"
     try:
         intent_df = pd.read_csv(intent_csv_path)
     except Exception as e:
@@ -486,37 +323,112 @@ def run_dashboard():
                     "type": "insight"
                 },
             ],
-            "x": 0,  # 0 = left, 1 = center, 2 = right
-            "y": 1,  # 0 = top, higher = lower down
+            "position": {
+                "left": "5%",    # CSS percentage or pixel value
+                "top": "20px",   # CSS pixel value
+                "width": "45%"   # CSS percentage or pixel value
+            }
         },
 
         "User Average Devices": {
             "dataframes": [devices],
             "graph_names": [
                 {
-
                     "bar": "User Devices Bar",
                     "pie": "User Devices Pie",
                     "line": "User Devices Line",
                     "type": "device"
-
                 },
             ],
-            "x": 1,
-            "y": 3,
+            "position": {
+                "left": "52%",
+                "top": "20px",
+                "width": "45%"
+            }
         },
     }
 
+    all_sections_html = ""
     for section_title, section_config in sections.items():
         dataframes = section_config["dataframes"]
         graph_names = section_config["graph_names"]
+        position = section_config["position"]
+
+        custom_style = f"""
+            position: absolute;
+            top: {position['top']};
+            left: {position['left']};
+            width: {position['width']};
+        """
+
+        section_id = section_title.lower().replace(" ", "-") + "-section"
+
+        section_html = render_glowing_section(
+            title=section_title,
+            dataframes=dataframes,
+            graph_names=graph_names,
+            section_id=section_id,
+            custom_style=custom_style
+        )
+
+        all_sections_html += section_html
+
+    final_html = f"""
+    <!DOCTYPE html>
+    <html>
+    <head>
+        <style>
+            {css}
+        </style>
+        <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+    </head>
+    <body>
+        <div id="section-container" class="glowing-dashboard-container">
+            {all_sections_html}
+        </div>
+        <script>{js}</script>
+    </body>
+    </html>
+    """
 
 
-        render_glowing_section(title=section_title, dataframes=dataframes, graph_names=graph_names)
+
+    import threading
+    from http.server import HTTPServer, SimpleHTTPRequestHandler
+
+    file_path = call.EXTERNALAPP_dashboard_renderer()  # This returns path to your HTML file
+    with open(file_path, "w", encoding="utf-8") as f:
+        f.write(final_html)
+
+
+
+    # Step 2: Start a simple HTTP server in the directory of the HTML file
+    directory = os.path.dirname(file_path)
+    os.chdir(directory)
+
+    # Serve on localhost:8000 or any free port
+    PORT = 8000
+
+    def start_server():
+        httpd = HTTPServer(("localhost", PORT), SimpleHTTPRequestHandler)
+        httpd.serve_forever()
+
+    server_thread = threading.Thread(target=start_server, daemon=True)
+    server_thread.start()
+
+    # Step 3: Build URL to the dashboard HTML file
+    dashboard_url = f"http://localhost:{PORT}/{os.path.basename(file_path)}"
+
+    # Step 4: Embed with iframe pointing to HTTP URL (works better than local file path)
+    components.iframe(dashboard_url, height=1000, scrolling=True)
+
+
 def launch_self():
-    port = 8501
+
+    port = 8502
     script = Path(__file__).resolve()
 
+    # Kill any existing process on that port
     try:
         import psutil
         for conn in psutil.net_connections(kind='inet'):
@@ -525,17 +437,22 @@ def launch_self():
     except Exception:
         pass
 
+    # Set up and launch Streamlit
     os.environ['STREAMLIT_SERVER_HEADLESS'] = 'true'
-    subprocess.Popen([sys.executable, '-m', 'streamlit', 'run', str(script), f'--server.port={port}'])
+    subprocess.Popen([
+        sys.executable, '-m', 'streamlit', 'run', str(script), f'--server.port={port}'
+    ])
 
-    for _ in range(15):
+    # Wait for Streamlit to start
+    for _ in range(30):
         try:
             import socket
             socket.create_connection(('localhost', port), 1).close()
             break
         except:
-            time.sleep(1)
+            time.sleep(0.2)
 
+    # Try to open in PyWebView, fallback to browser
     try:
         import webview
         webview.create_window("SulfurAI Dashboard", f"http://localhost:{port}")
@@ -545,12 +462,18 @@ def launch_self():
         webbrowser.open(f"http://localhost:{port}")
 
 
-# --- Main entry ---
-try:
-    from streamlit.runtime.scriptrunner import get_script_run_ctx
-    if get_script_run_ctx():
-        run_dashboard()
-    else:
+# --- Main entrypoint ---
+if __name__ == "__main__":
+    try:
+        ctx = get_script_run_ctx()
+        if ctx:
+            # ✅ Inside Streamlit — only run dashboard once
+            if "dashboard_ran" not in st.session_state:
+                st.session_state.dashboard_ran = True
+                run_dashboard()
+        else:
+            # 🚀 Not inside Streamlit — relaunch self
+            launch_self()
+    except:
+        # 🛡️ Fallback if anything goes wrong
         launch_self()
-except:
-    launch_self()
