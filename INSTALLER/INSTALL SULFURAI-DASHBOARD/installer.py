@@ -22,18 +22,33 @@ except ModuleNotFoundError: print("Module importlib not found. Due to the condit
 
 
 #------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+import importlib.util
+import os
+
+current_dir = os.path.abspath(os.path.join(
+    os.path.dirname(__file__),
+    os.pardir,
+    os.pardir,
+
+))
 
 
-def _get_call_file_path():
-    from VersionFiles.Sulfur.TrainingScript.Build import call_file_path
-    return call_file_path.Call()
+module_path = os.path.join(current_dir, 'VersionFiles', 'Sulfur', 'TrainingScript', 'Build', 'call_file_path.py')
+module_name = "call_file_path"
+
+spec = importlib.util.spec_from_file_location(module_name, module_path)
+call_file_path = importlib.util.module_from_spec(spec)
+spec.loader.exec_module(call_file_path)
+
+
+call = call_file_path.Call()
 
 
 
 #------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 
-call = _get_call_file_path()
+
 
 
 def _upgrade_pip_tools():
@@ -109,10 +124,20 @@ def _safe_import(module_name, package_name=None, extra_packages=None):
                             with open(file_path_cache_localHost_pip_debug, "a", encoding="utf-8", errors="ignore") as file: file.write(f"{module_name}\n")
                         return None
 
-# Ensure required packages
+
+
+#####REQUIRED TEXT FOR EXTERNAL APPLICATIONS
+print("Installing required modules for SulfurAI dashboard...")
+print("⚠️ This application is external to SulfurAI and is maintained by different sources. Therefore project works may be different.")
+print("⚠️ This application is external to SulfurAI. Do you trust it? Ensure it comes from a trusted source before proceeding.")
+
+
 modules = ["streamlit", "dash", "pandas", "plotly","pywebview"]
 for mod in modules:
     _safe_import(mod)
+
+print("All required modules installed successfully!")
+print("SULFURAI APP: DASHBOARD has been installed successfully!")
 
 
 time.sleep(100)
