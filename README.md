@@ -102,6 +102,7 @@ While not necessary as of this version, Nvidia CUDA support will be needed for l
 ```
 We are committed to making open source an enjoyable and respectful experience for our community. See <a href="https://github.com/notvolks/SulfurAI-1.3/blob/7659173774ff6fc09db1a1a957fa08d0f45bfea8/CODE_OF_CONDUCT.md"><code>CODE_OF_CONDUCT</code></a> for more information.
 
+
 ## 💬 Other FAQ 💬
 
 ---
@@ -121,6 +122,14 @@ We are committed to making open source an enjoyable and respectful experience fo
 > _Can I create my own model with Sulfur?_
 > 
 > _Answer: Yes, you can modify every Sulfur script to make your own model, full support for this will come in later updates with user friendly UI._
+
+
+---
+
+> _I am getting a "path too long" error while extracting, how to fix?_
+> 
+> _Answer: This means you are extracting Sulfur as a Zip file. Windows has a 100 path limit on zip files so you should either convert the file to .7z or download the provided .7z versions from the releases tab._
+
 
 ---
 
