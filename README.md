@@ -180,6 +180,14 @@ We are committed to making open source an enjoyable and respectful experience fo
 > 
 > _Answer: Yes, you can modify every Sulfur script to make your own model, full support for this will come in later updates with user friendly UI._
 
+
+---
+
+> _I am getting a "path too long" error while extracting, how to fix?_
+> 
+> _Answer: This means you are extracting Sulfur as a Zip file. Windows has a 100 path limit on zip files so you should either convert the file to .7z or download the provided .7z versions from the releases tab._
+
+
 ---
 
 `Send more questions to: nb.volkshub.inquiries@gmail.com`
