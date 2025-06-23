@@ -28,6 +28,13 @@ if __name__ == "__main__":
         "If you do not consent, stop using our services.",
         "If you cannot find it, install a new version OR look in the root folder for 'Terms of Service.txt'.",
         "--------------------------------------------------------------------------------------------------",
+        "",
+        "                                       🔃 Loading... 🔃                                                    ",
+        "                           App powered by the SulfurAI Sulfax UI engine.                                                             ",
+        "",
+        "--------------------------------------------------------------------------------------------------",
+        "⚠️ App freezing? Restart the app and wait. Cacheing may take a while.",
+        "--------------------------------------------------------------------------------------------------",
 
     ]
     print_verti_list(TOS)
@@ -44,12 +51,16 @@ import importlib
 
 #####################------------------------------------------------INBUILT FUNCTIONS------------------------------------------------
 
+
+
 def _get_call_file_path():
     from VersionFiles.Sulfur.TrainingScript.Build import call_file_path
     return call_file_path.Call()
 
 # Call file paths
 call = _get_call_file_path()
+
+
 
 
 
