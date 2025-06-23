@@ -30,7 +30,7 @@ Developer Release 1-03-54(c)
 
 ## ❓ What is SulfurAI ❓
 
-> _SulfurAI is a Local Analytical Model that anylyses text input to find user preference & info from a small dataset , designed to run in the background of an application or website._
+> _SulfurAI is a Local Analytical Model that analyses text input to find user preference & info from a small dataset , designed to run in the background of an application or website._
 
 ## 🤔 How do i use SulfurAI 🤔
 
