@@ -140,6 +140,12 @@ def render_glowing_section(title, dataframes, graph_names, section_id="section-c
     for idx, df in enumerate(dataframes):
         if df is None or df.empty:
             continue
+        try:
+            pos = graph_names[idx]["positions"][idx]
+            left = pos.get("left", "0px")
+            top = pos.get("top", "0px")
+        except:
+           left, top = "0px", "0px"
 
         is_device_data = graph_names[idx].get("type") == "device"
 
@@ -187,39 +193,74 @@ def render_glowing_section(title, dataframes, graph_names, section_id="section-c
 
         slider_default_value = 1 if is_device_data else 0
 
+        try:
+            pos = graph_names[idx]["positions"][idx]
+            left = pos.get("left", "0px")
+            top = pos.get("top", "0px")
+        except (KeyError, IndexError):
+            left, top = "0px", "0px"
+
         chart_html = f"""
-         <div class="glowing-chart" id="chart-{chart_id}" style="background-color:#111;">
+         <div class="glowing-chart"
+              id="chart-{chart_id}"
+              style="position:absolute;
+                     left:{left};
+                     top:{top};
+                     background-color:#111;">
            <div class="chart-ring"></div>
            <div class="slider-wrapper">
                <div class="slider-ring"></div>
-               <input id="slider-{chart_id}" type="range" min="0" max="2" value="{slider_default_value}" style="width:100%; margin-bottom:5px;">
+               <input id="slider-{chart_id}"
+                      type="range"
+                      min="0" max="2"
+                      value="{slider_default_value}"
+                      style="width:100%; margin-bottom:5px;">
           </div>
-           <div id="pie-{chart_id}" style="display:{'none' if slider_default_value == 1 else 'block'}">{pie_html}</div>
-           <div id="bar-{chart_id}" style="display:{'block' if slider_default_value == 1 else 'none'}">{bar_html}</div>
-           <div id="line-{chart_id}" style="display:none">{line_html}</div>
+           <div id="pie-{chart_id}"
+                style="display:{'none' if slider_default_value == 1 else 'block'}">
+             {pie_html}
+           </div>
+           <div id="bar-{chart_id}"
+                style="display:{'block' if slider_default_value == 1 else 'none'}">
+             {bar_html}
+           </div>
+           <div id="line-{chart_id}" style="display:none">
+             {line_html}
+           </div>
          </div>
         """
         inner_charts_html.append(chart_html)
 
-    chart_scripts = ""
+    chart_scripts = """
+        <script>
+        document.addEventListener('DOMContentLoaded', function() {
+        """
+
     for cid in chart_ids:
         chart_scripts += f"""
-        document.getElementById('slider-{cid}').addEventListener('input', e => {{
-            document.getElementById('pie-{cid}').style.display = e.target.value === '0' ? 'block' : 'none';
-            document.getElementById('bar-{cid}').style.display = e.target.value === '1' ? 'block' : 'none';
-            document.getElementById('line-{cid}').style.display = e.target.value === '2' ? 'block' : 'none';
-        }});
+            document.getElementById('slider-{cid}').addEventListener('input', function(e) {{
+                const value = e.target.value;
+                document.getElementById('pie-{cid}').style.display = value === '0' ? 'block' : 'none';
+                document.getElementById('bar-{cid}').style.display = value === '1' ? 'block' : 'none';
+                document.getElementById('line-{cid}').style.display = value === '2' ? 'block' : 'none';
+            }});
+            """
+
+    chart_scripts += """
+        });
+        </script>
         """
 
     section_html = f"""
-            <div class="glowing-section" id="{section_id}" style="{custom_style}">
-                <div class="section-ring" id="ring-{section_id}"></div>
-                <div class="glowing-section-title">{title}</div>
-                <div class="charts-container">
-                    {"".join(inner_charts_html)}
+                <div class="glowing-section" id="{section_id}" style="{custom_style}">
+                    <div class="section-ring" id="ring-{section_id}"></div>
+                    <div class="glowing-section-title">{title}</div>
+                    <div class="charts-container">
+                        {"".join(inner_charts_html)}
+                    </div>
+                    {chart_scripts}
                 </div>
-            </div>
-            """
+                """
 
     return section_html
 
@@ -331,7 +372,12 @@ def run_dashboard():
                     "pie": "User Intents Pie",
                     "bar": "User Intents Bar",
                     "line": "User Intents Line",
-                    "type": "insight"
+                    "type": "insight",
+
+                    "positions": [
+                        {"left": "40%", "top": "150px"}, #right + bottom
+                        {"left": "0%", "top": "0px"}, #left + top
+                ]
                 },
             ],
             "position": {
@@ -348,7 +394,12 @@ def run_dashboard():
                     "bar": "User Devices Bar",
                     "pie": "User Devices Pie",
                     "line": "User Devices Line",
-                    "type": "device"
+                    "type": "device",
+
+                    "positions": [
+                    {"left": "40%", "top": "150px"}, #right + bottom
+                    {"left": "0%", "top": "0px"}, #left + top
+                ]
                 },
             ],
             "position": {
