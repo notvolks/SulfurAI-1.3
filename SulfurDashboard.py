@@ -410,30 +410,35 @@ def run_dashboard():
         },
     }
 
-    all_sections_html = ""
-    for section_title, section_config in sections.items():
-        dataframes = section_config["dataframes"]
-        graph_names = section_config["graph_names"]
-        position = section_config["position"]
+    all_sections_html = (
+            render_glowing_section(
+                title="User Insight",
+                dataframes=sections["User Insight"]["dataframes"],
+                graph_names=sections["User Insight"]["graph_names"],
+                section_id="user-insight-section",
+                custom_style=f"""
+                position: absolute;
+                top: {sections["User Insight"]["position"]["top"]};
+                left: {sections["User Insight"]["position"]["left"]};
+                width: {sections["User Insight"]["position"]["width"]};
+            """
+            ) +
+            '<div class="gradient-divider" style="top: -20px;"></div>' +
+            '<div class="gradient-divider" style="top: 500px;"></div>' +  #adding gradient borders
 
-        custom_style = f"""
-            position: absolute;
-            top: {position['top']};
-            left: {position['left']};
-            width: {position['width']};
-        """
-
-        section_id = section_title.lower().replace(" ", "-") + "-section"
-
-        section_html = render_glowing_section(
-            title=section_title,
-            dataframes=dataframes,
-            graph_names=graph_names,
-            section_id=section_id,
-            custom_style=custom_style
-        )
-
-        all_sections_html += section_html
+            render_glowing_section(
+                title="User Average Devices",
+                dataframes=sections["User Average Devices"]["dataframes"],
+                graph_names=sections["User Average Devices"]["graph_names"],
+                section_id="user-devices-section",
+                custom_style=f"""
+                position: absolute;
+                top: {sections["User Average Devices"]["position"]["top"]};
+                left: {sections["User Average Devices"]["position"]["left"]};
+                width: {sections["User Average Devices"]["position"]["width"]};
+            """
+            )
+    )
 
     final_html = f"""
     <!DOCTYPE html>
