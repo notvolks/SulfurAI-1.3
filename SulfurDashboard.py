@@ -9,8 +9,15 @@
 #####-Imports call_file_path (important dependency)
 #####-Ensures required packages are installed
 #####-Importing all files
+#####-Running all functions to import the dash (Sulfax UI engine).
 #####-Running all creative files + dependancies
 #####-Running the server/ webapp
+
+
+### FOR DEVS (CREATING NEW UI):
+    #-add the sections in the sections dictionary
+    #-change the custom css and js in SulfurDashboardAssets/styling
+    #-add section dividers in the all_sections_html dictionary
 
 #------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
@@ -128,7 +135,7 @@ with open(js_path, "r") as f:
 
 
 
-
+#------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 def render_glowing_section(title, dataframes, graph_names, section_id="section-container", custom_style=""):
     import pandas as pd
@@ -264,7 +271,7 @@ def render_glowing_section(title, dataframes, graph_names, section_id="section-c
 
     return section_html
 
-
+#------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 def run_dashboard():
 
@@ -490,6 +497,8 @@ def run_dashboard():
     components.iframe(dashboard_url, height=1000, scrolling=True)
 
 
+#------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
 def launch_self():
 
     port = 8502
@@ -527,6 +536,9 @@ def launch_self():
     except:
         import webbrowser
         webbrowser.open(f"http://localhost:{port}")
+
+
+#------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 
 # --- Main entrypoint ---
