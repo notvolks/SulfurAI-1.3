@@ -18,6 +18,7 @@
     #-add the sections in the sections dictionary
     #-change the custom css and js in SulfurDashboardAssets/styling
     #-add section dividers in the all_sections_html dictionary
+    #-add a custom title in the run_dashboard() function under the st.markdown() function (adjust css)
 
 #------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
@@ -276,54 +277,110 @@ def render_glowing_section(title, dataframes, graph_names, section_id="section-c
 def run_dashboard():
 
     st.set_page_config(page_title="SulfurAI Dashboard", layout="wide")
-    st.markdown("""
-        <style>
-        /* 🌞 Golden Gradient Title */
-        .custom-title {
-            font-size: 64px;
-            font-weight: 900;
-            background: linear-gradient(90deg, #FFA500, #FFD700, #FFA500);
-            background-size: 300% 300%;
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
 
-            /* ✨ Glowy Outline (gradient untouched) */
-            text-shadow:
-                0 0 5px rgba(255, 215, 0, 0.7),
-                0 0 10px rgba(255, 215, 0, 0.6),
-                0 0 20px rgba(255, 165, 0, 0.5),
-                0 0 30px rgba(255, 165, 0, 0.4);
-            /* optional sharper edge glow */
-            -webkit-text-stroke: 1px rgba(255, 215, 0, 0.6);
 
-            animation: glowMove 5s ease-in-out infinite;
-            text-align: center;
-            margin-top: 2rem;
-            margin-bottom: 2rem;
-        }
+    try:
+        file_path_logo = call.EXTERNALAPP_dashboard_sulfurLogo64()
+        with open(file_path_logo, "r") as f:
+            b64logo = f.read()
+    except Exception as e:
+        print(f"Error loading logo: {e}")
+        b64logo = ""
 
-        /* 🔁 Sunset Shine Animation */
-        @keyframes glowMove {
-            0% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-            100% { background-position: 0% 50%; }
-        }
-        </style>
+    default_pattern = "iVBORw0KGgoAAAANSUhEUgAAAAQAAAAECAYAAACp8Z5+AAAAEElEQVR42mP8z8DwD:wAAIAAAAKODoJAAAACkJREFUeNpj/Pz/AwMDAAAAaAP//wC8AAAAPgABiwAAAI0AAAAASUVORK5CYII="
 
-        <!-- ☀️ Title -->
-        <div class="custom-title">SulfurAI Dashboard</div>
+    st.markdown(f"""
+    <style>
+    /* Reset default styles */
+    body, html {{
+        margin: 0;
+        padding: 0;
+        height: 100%;
+        overflow: hidden; /* Prevent scrollbars that might interfere with fixed backgrounds */
+    }}
 
-        <!-- 🌟 Glow Orb -->
-        <div id="glow-orb"></div>
+    .stApp {{
+        background: transparent !important; /* Set background to black */
+    }}
 
-        <!-- 🧠 Mouse Tracker -->
-        <script>
-        document.addEventListener("mousemove", function(e) {
-            const orb = document.getElementById("glow-orb");
-            orb.style.left = e.pageX + "px";
-            orb.style.top = e.pageY + "px";
-        });
-        </script>
+    [data-testid="stAppViewContainer"] {{
+        background: transparent !important; /* Set background to black */
+    }}
+
+    /* Moving background */
+    body::before {{
+        content: '';
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: #000000; /* Set background to black */
+        z-index: -2;
+    }}
+
+    /* Pattern overlay */
+    body::after {{
+        content: '';
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-image: url('data:image/png;base64,{b64logo if b64logo else default_pattern}');
+        background-repeat: repeat;
+        opacity: 0.3; /* Increased opacity */
+        z-index: -1;
+        animation: patternMove 20s linear infinite;
+    }}
+
+    /* Animations */
+    @keyframes gradientMove {{
+        0% {{ background-position: 0% 50%; }}
+        50% {{ background-position: 100% 50%; }}
+        100% {{ background-position: 0% 50%; }}
+    }}
+
+    @keyframes patternMove {{
+        from {{ background-position: 0 0; }}
+        to {{ background-position: 100px 100px; }}
+    }}
+
+    /* Title and subtitle styles */
+    .custom-title {{
+        font-size: 64px;
+        font-weight: 900;
+        background: linear-gradient(90deg, #FFA500, #FFD700, #FFA500);
+        background-size: 300% 300%;
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        text-shadow: 0 0 5px rgba(255, 215, 0, 0.7);
+        text-align: center;
+        margin-top: 2rem;
+        margin-bottom: 1rem;
+        position: relative;
+        z-index: 1;
+        animation: titleGlow 5s ease-in-out infinite;
+    }}
+
+    .custom-subtitle {{
+        font-size: 24px;
+        color: #FFD700;
+        text-align: center;
+        margin-bottom: 2rem;
+        text-shadow: 0 0 10px rgba(255, 215, 0, 0.5);
+        position: relative;
+        z-index: 1;
+    }}
+
+    @keyframes titleGlow {{
+        0%, 100% {{ text-shadow: 0 0 5px rgba(255, 215, 0, 0.7); }}
+        50% {{ text-shadow: 0 0 20px rgba(255, 215, 0, 0.9); }}
+    }}
+    </style>
+
+    <div class="custom-title">SulfurAI Dashboard</div>
+    <div class="custom-subtitle">Real-time AI Analytics & Insights</div>
     """, unsafe_allow_html=True)
 
     # Load first dataset: intents from CSV
@@ -358,18 +415,6 @@ def run_dashboard():
         st.error(f"Failed to load user CSV data: {e}")
         print(f"Failed to load user CSV data: {e}")
         devices = None
-
-    # Load second dataset: try txt first, fallback to CSV
-    #location_txt_path = r"VersionDATA\ai_renderer\sentence_location_build\training_data_sentences\data.txt"
-    #location_csv_path = r"VersionDATA/ai_renderer/sentence_location_build/training_data_sentences/data.txt"
-
-    #location_df = load_training_data_txt(location_txt_path)
-    #if location_df is None:
-        #try:
-           # location_df = pd.read_csv(location_csv_path)
-       # except Exception as e:
-            #st.error(f"Failed to load location CSV data: {e}")
-            #location_df = None
 
     sections = {
         "User Insight": {
